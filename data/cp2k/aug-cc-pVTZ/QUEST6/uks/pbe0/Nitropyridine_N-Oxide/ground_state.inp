@@ -1,0 +1,95 @@
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    BASIS_SET_FILE_NAME EMSL_BASIS_SETS
+    POTENTIAL_FILE_NAME POTENTIAL
+    AUTO_BASIS RI_HFX MEDIUM
+    WFN_RESTART_FILE_NAME ../../pbe/Nitropyridine_N-Oxide/Nitropyridine_N-Oxide_PBE_GS-RESTART.wfn
+    &MGRID
+      CUTOFF 400
+      REL_CUTOFF 50
+    &END MGRID
+    &PRINT
+      &MO
+        EIGENVALUES
+        MO_RANGE 1 41
+      &END MO
+    &END PRINT
+    &QS
+      METHOD GAPW
+    &END QS
+    &POISSON
+      PERIODIC NONE
+      PSOLVER MT
+    &END
+    &SCF
+      EPS_SCF 1.0E-5
+      SCF_GUESS RESTART
+      MAX_SCF 500
+    &END SCF
+    &XC
+      &HF
+        &SCREENING
+          EPS_SCHWARZ 1.0E-10
+        &END SCREENING
+        &MEMORY
+          MAX_MEMORY 2000
+        &END MEMORY
+        &RI T
+          ! Diffuse (aug) functions make the RI basis ill-conditioned for the
+          ! default Cholesky decomposition.
+          2C_MATRIX_FUNCTIONS DIAG
+        &END RI
+      &END HF
+      &XC_FUNCTIONAL PBE0
+      &END XC_FUNCTIONAL
+    &END XC
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC 15.0 15.0 15.0
+      PERIODIC NONE
+    &END CELL
+    &COORD
+      C  0.00000000 0.00000000 -0.64421083
+      C  1.20030756 0.00000000 0.04782708
+      C  -1.20030756 0.00000000 0.04782708
+      C  1.18000314 0.00000000 1.42139690
+      C  -1.18000314 0.00000000 1.42139690
+      N  0.00000000 0.00000000 -2.09927042
+      N  0.00000000 0.00000000 2.11989049
+      O  0.00000000 0.00000000 3.38124092
+      O  -1.08692023 0.00000000 -2.65878999
+      O  1.08692023 0.00000000 -2.65878999
+      H  2.13518725 0.00000000 -0.48122988
+      H  -2.13518725 0.00000000 -0.48122988
+      H  2.05466020 0.00000000 2.04498743
+      H  -2.05466020 0.00000000 2.04498743
+    &END COORD
+    &TOPOLOGY
+      &CENTER_COORDINATES
+      &END
+    &END TOPOLOGY
+    &KIND C
+      BASIS_SET aug-cc-pVTZ
+      POTENTIAL ALL
+    &END KIND
+    &KIND H
+      BASIS_SET aug-cc-pVTZ
+      POTENTIAL ALL
+    &END KIND
+    &KIND N
+      BASIS_SET aug-cc-pVTZ
+      POTENTIAL ALL
+    &END KIND
+    &KIND O
+      BASIS_SET aug-cc-pVTZ
+      POTENTIAL ALL
+    &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
+&GLOBAL
+  RUN_TYPE     ENERGY
+  PROJECT      Nitropyridine_N-Oxide_PBE0_GS
+  PRINT_LEVEL  MEDIUM
+&END GLOBAL

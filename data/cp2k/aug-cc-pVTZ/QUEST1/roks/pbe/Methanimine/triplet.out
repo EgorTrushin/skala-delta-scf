@@ -1,0 +1,2324 @@
+ DBCSR| CPU Multiplication driver                                           XSMM (U)
+ DBCSR| Multrec recursion limit                                              512 (U)
+ DBCSR| Multiplication stack size                                           1000 (D)
+ DBCSR| Maximum elements for images                                    UNLIMITED (U)
+ DBCSR| Multiplicative factor virtual images                                   1 (U)
+ DBCSR| Use multiplication densification                                       T (D)
+ DBCSR| Multiplication size stacks                                             3 (U)
+ DBCSR| Use memory pool for CPU allocation                                     F (U)
+ DBCSR| Number of 3D layers                                               SINGLE (U)
+ DBCSR| Use MPI memory allocation                                              F (U)
+ DBCSR| Use RMA algorithm                                                      F (U)
+ DBCSR| Use Communication thread                                               T (U)
+ DBCSR| Communication thread load                                             87 (D)
+ DBCSR| MPI: My process id                                                     0
+ DBCSR| MPI: Number of processes                                              32
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2026-11-08 16:33:08.731
+ ***** ** ***  *** **   PROGRAM STARTED ON                                cro005
+ **    ****   ******    PROGRAM STARTED BY                              trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               3641388
+  **** **  *******  **  PROGRAM STARTED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVTZ/QUEST1
+                                           /roks/pbe/Methanimine
+
+ CP2K| version string:                 CP2K version 2026.2 (Development Version)
+ CP2K| source code revision number:                                   d1d1a05c28
+ CP2K| cp2kflags: omp libint fftw3 libxc libxc_gpu gauxc gauxc_mpi gauxc_onedft 
+ CP2K|            gauxc_onedft_gradients gauxc_host skala parallel scalapack mpi
+ CP2K|            i_f08 libxs libxsmm spglib openblas libtorch libwignernj
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                                   2026-11-08 13:59:08
+ CP2K| Program compiled on                                                csk007
+ CP2K| Program compiled with                                  GCC version 14.3.0
+ CP2K| Program compiled for                                               x86_64
+ CP2K| Program compiled in     /data/home2/trushi79/software/src/cp2k/main/build
+ CP2K| Program executable       /data/home2/trushi79/opt/cp2k/main/bin/cp2k.psmp
+ CP2K| Data directory path    /data/home2/trushi79/opt/cp2k/main/bin/../share/cp
+ CP2K|                        2k/data
+ CP2K| Input file name                                               triplet.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                     EMSL_BASIS_SETS
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                               Methanimine_PBE_ROKS_TRIPLET
+ GLOBAL| Run type                                                         ENERGY
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                       ScaLAPACK
+ GLOBAL| Cholesky decomposition library                                ScaLAPACK
+ GLOBAL| DGEMM library                                                      BLAS
+ GLOBAL| Direct generalized diagonalization requested                          F
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                               MEDIUM
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                            32
+ GLOBAL| Number of distributed systems (nodes)                                 1
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| OpenMP stack size per thread (OMP_STACKSIZE)                    default
+ GLOBAL| CPU model name                          AMD EPYC 7702 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+ GLOBAL| Compiled for CPUID                                                    0
+
+ *** HINT in environment.F:1020 :: The compiler target (generic) used to ***
+ *** build this binary does not enable all instruction-set extensions    ***
+ *** available on this CPU (x86_avx2). Consider reconfiguring and        ***
+ *** rebuilding CP2K for this target system to enable them.              ***
+
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            528174880     528174880     528174880     528174880
+ MEMORY| MemFree             470292904     470292904     470297440     470297046
+ MEMORY| Buffers                     0             0             0             0
+ MEMORY| Cached                8613104       8613104       8613104       8613104
+ MEMORY| Slab                  1751476       1751476       1751476       1751476
+ MEMORY| SReclaimable           469300        469300        469300        469300
+ MEMORY| MemLikelyFree       468871232     468871232     468875768     468874555
+
+
+ *** Fundamental physical constants (SI units) ***
+
+ *** Literature: B. J. Mohr and B. N. Taylor,
+ ***             CODATA recommended values of the fundamental physical
+ ***             constants: 2006, Web Version 5.1
+ ***             http://physics.nist.gov/constants
+
+ Speed of light in vacuum [m/s]                             2.99792458000000E+08
+ Magnetic constant or permeability of vacuum [N/A**2]       1.25663706143592E-06
+ Electric constant or permittivity of vacuum [F/m]          8.85418781762039E-12
+ Planck constant (h) [J*s]                                  6.62606896000000E-34
+ Planck constant (h-bar) [J*s]                              1.05457162825177E-34
+ Elementary charge [C]                                      1.60217648700000E-19
+ Electron mass [kg]                                         9.10938215000000E-31
+ Electron g factor [ ]                                     -2.00231930436220E+00
+ Proton mass [kg]                                           1.67262163700000E-27
+ Fine-structure constant                                    7.29735253760000E-03
+ Rydberg constant [1/m]                                     1.09737315685270E+07
+ Avogadro constant [1/mol]                                  6.02214179000000E+23
+ Boltzmann constant [J/K]                                   1.38065040000000E-23
+ Atomic mass unit [kg]                                      1.66053878200000E-27
+ Bohr radius [m]                                            5.29177208590000E-11
+
+ *** Conversion factors ***
+
+ [u] -> [a.u.]                                              1.82288848426455E+03
+ [Angstrom] -> [Bohr] = [a.u.]                              1.88972613288564E+00
+ [a.u.] = [Bohr] -> [Angstrom]                              5.29177208590000E-01
+ [a.u.] -> [s]                                              2.41888432650478E-17
+ [a.u.] -> [fs]                                             2.41888432650478E-02
+ [a.u.] -> [J]                                              4.35974393937059E-18
+ [a.u.] -> [N]                                              8.23872205491840E-08
+ [a.u.] -> [K]                                              3.15774647902944E+05
+ [a.u.] -> [kJ/mol]                                         2.62549961709828E+03
+ [a.u.] -> [kcal/mol]                                       6.27509468713739E+02
+ [a.u.] -> [Pa]                                             2.94210107994716E+13
+ [a.u.] -> [bar]                                            2.94210107994716E+08
+ [a.u.] -> [atm]                                            2.90362800883016E+08
+ [a.u.] -> [eV]                                             2.72113838565563E+01
+ [a.u.] -> [Hz]                                             6.57968392072181E+15
+ [a.u.] -> [1/cm] (wave numbers)                            2.19474631370540E+05
+ [a.u./Bohr**2] -> [1/cm]                                   5.14048714338585E+03
+ 
+
+ CELL| Volume [angstrom^3]:                                          3375.000000
+ CELL| Vector a [angstrom]:      15.000     0.000     0.000   |a| =    15.000000
+ CELL| Vector b [angstrom]:       0.000    15.000     0.000   |b| =    15.000000
+ CELL| Vector c [angstrom]:       0.000     0.000    15.000   |c| =    15.000000
+ CELL| Angle (b,c), alpha [degree]:                                    90.000000
+ CELL| Angle (a,c), beta  [degree]:                                    90.000000
+ CELL| Angle (a,b), gamma [degree]:                                    90.000000
+ CELL| Numerically orthorhombic:                                             YES
+ CELL| Periodicity                                                          NONE
+
+ CELL_REF| Volume [angstrom^3]:                                      3375.000000
+ CELL_REF| Vector a [angstrom    15.000     0.000     0.000   |a| =    15.000000
+ CELL_REF| Vector b [angstrom     0.000    15.000     0.000   |b| =    15.000000
+ CELL_REF| Vector c [angstrom     0.000     0.000    15.000   |c| =    15.000000
+ CELL_REF| Angle (b,c), alpha [degree]:                                90.000000
+ CELL_REF| Angle (a,c), beta  [degree]:                                90.000000
+ CELL_REF| Angle (a,b), gamma [degree]:                                90.000000
+ CELL_REF| Numerically orthorhombic:                                         YES
+ CELL_REF| Periodicity                                                      NONE
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2026)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+ DFT| Spin restricted open Kohn-Sham calculation                            ROKS
+ DFT| Multiplicity                                                             3
+ DFT| Number of spin states                                                    2
+ DFT| Charge                                                                   0
+ DFT| Self-interaction correction (SIC)                                       NO
+ DFT| Cutoffs: density                                              1.000000E-10
+ DFT|          gradient                                             1.000000E-10
+ DFT|          tau                                                  1.000000E-10
+ DFT|          cutoff_smoothing_range                               0.000000E+00
+ DFT| XC density smoothing                                                  NONE
+ DFT| XC derivatives                                                          PW
+
+ FUNCTIONAL| PBE:
+ FUNCTIONAL| J.P.Perdew, K.Burke, M.Ernzerhof, Phys. Rev. Letter, vol. 77, n 18,
+ FUNCTIONAL|  pp. 3865-3868, (1996) {spin polarized}                            
+
+
+ QS| Method:                                                                GAPW
+ QS| Density plane wave grid type                        NON-SPHERICAL FULLSPACE
+ QS| Number of grid levels:                                                    4
+ QS| Density cutoff [a.u.]:                                                200.0
+ QS| Multi grid cutoff [a.u.]: 1) grid level                               200.0
+ QS|                           2) grid level                                66.7
+ QS|                           3) grid level                                22.2
+ QS|                           4) grid level                                 7.4
+ QS| Grid level progression factor:                                          3.0
+ QS| Relative density cutoff [a.u.]:                                        25.0
+ QS| Interaction thresholds: eps_pgf_orb:                                1.0E-05
+ QS|                         eps_filter_matrix:                          0.0E+00
+ QS|                         eps_core_charge:                            1.0E-12
+ QS|                         eps_rho_gspace:                             1.0E-10
+ QS|                         eps_rho_rspace:                             1.0E-10
+ QS|                         eps_gvg_rspace:                             1.0E-05
+ QS|                         eps_ppl:                                    1.0E-02
+ QS|                         eps_ppnl:                                   1.0E-07
+ QS| GAPW|      One center basis from orbital basis primitives
+ QS| GAPW|                   eps_fit:                                    1.0E-04
+ QS| GAPW|                   eps_iso:                                    1.0E-12
+ QS| GAPW|                   eps_svd:                                    1.0E-08
+ QS| GAPW|                   eps_cpc:                                    1.0E-10
+ QS| GAPW|   atom-r-grid: quadrature:                                     GC_LOG
+ QS| GAPW|      atom-s-grid:  max l :                                          6
+ QS| GAPW|      max_l_rho0 :                                                   2
+
+
+ ATOMIC KIND INFORMATION
+
+  1. Atomic kind: C                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVTZ
+
+       Number of orbital shell sets:                                          13
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               22
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s             8236.000000       0.334227
+                                                      1235.000000       0.623075
+                                                       280.800000       1.053106
+                                                        79.270000       1.583163
+                                                        25.590000       1.945099
+                                                         8.997000       1.642947
+                                                         3.319000       0.619659
+                                                         0.364300      -0.003067
+
+                          1       2    2s             8236.000000      -0.121010
+                                                      1235.000000      -0.226569
+                                                       280.800000      -0.385753
+                                                        79.270000      -0.596702
+                                                        25.590000      -0.785835
+                                                         8.997000      -0.816533
+                                                         3.319000      -0.518870
+                                                         0.364300       0.347735
+
+                          2       1    1s                0.905900       0.661790
+
+                          3       1    1s                0.128500       0.152963
+
+                          4       1    1px              18.710000       2.186852
+                                                         4.133000       2.050312
+                                                         1.200000       1.459945
+                          4       1    1py              18.710000       2.186852
+                                                         4.133000       2.050312
+                                                         1.200000       1.459945
+                          4       1    1pz              18.710000       2.186852
+                                                         4.133000       2.050312
+                                                         1.200000       1.459945
+
+                          5       1    1px               0.382700       0.429055
+                          5       1    1py               0.382700       0.429055
+                          5       1    1pz               0.382700       0.429055
+
+                          6       1    1px               0.120900       0.101619
+                          6       1    1py               0.120900       0.101619
+                          6       1    1pz               0.120900       0.101619
+
+                          7       1    1dx2              1.097000       1.935401
+                          7       1    1dxy              1.097000       3.352214
+                          7       1    1dxz              1.097000       3.352214
+                          7       1    1dy2              1.097000       1.935401
+                          7       1    1dyz              1.097000       3.352214
+                          7       1    1dz2              1.097000       1.935401
+
+                          8       1    1dx2              0.318000       0.221644
+                          8       1    1dxy              0.318000       0.383899
+                          8       1    1dxz              0.318000       0.383899
+                          8       1    1dy2              0.318000       0.221644
+                          8       1    1dyz              0.318000       0.383899
+                          8       1    1dz2              0.318000       0.221644
+
+                          9       1    1fx3              0.761000       0.796288
+                          9       1    1fx2y             0.761000       1.780553
+                          9       1    1fx2z             0.761000       1.780553
+                          9       1    1fxy2             0.761000       1.780553
+                          9       1    1fxyz             0.761000       3.084008
+                          9       1    1fxz2             0.761000       1.780553
+                          9       1    1fy3              0.761000       0.796288
+                          9       1    1fy2z             0.761000       1.780553
+                          9       1    1fyz2             0.761000       1.780553
+                          9       1    1fz3              0.761000       0.796288
+
+                         10       1    1s                0.044020       0.068493
+
+                         11       1    1px               0.035690       0.022112
+                         11       1    1py               0.035690       0.022112
+                         11       1    1pz               0.035690       0.022112
+
+                         12       1    1dx2              0.100000       0.029269
+                         12       1    1dxy              0.100000       0.050696
+                         12       1    1dxz              0.100000       0.050696
+                         12       1    1dy2              0.100000       0.029269
+                         12       1    1dyz              0.100000       0.050696
+                         12       1    1dz2              0.100000       0.029269
+
+                         13       1    1fx3              0.268000       0.076078
+                         13       1    1fx2y             0.268000       0.170115
+                         13       1    1fx2z             0.268000       0.170115
+                         13       1    1fxy2             0.268000       0.170115
+                         13       1    1fxyz             0.268000       0.294648
+                         13       1    1fxz2             0.268000       0.170115
+                         13       1    1fy3              0.268000       0.076078
+                         13       1    1fy2z             0.268000       0.170115
+                         13       1    1fyz2             0.268000       0.170115
+                         13       1    1fz3              0.268000       0.076078
+
+       Atomic covalent radius [Angstrom]:                                  0.770
+
+       Atomic van der Waals radius [Angstrom]:                             1.700
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVTZ_soft
+
+       Number of orbital shell sets:                                          13
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               15
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                3.319000       0.619659
+                                                         0.364300      -0.003067
+
+                          1       2    2s                3.319000      -0.518870
+                                                         0.364300       0.347735
+
+                          2       1    1s                0.905900       0.661790
+
+                          3       1    1s                0.128500       0.152963
+
+                          4       1    1px               4.133000       2.050312
+                                                         1.200000       1.459945
+                          4       1    1py               4.133000       2.050312
+                                                         1.200000       1.459945
+                          4       1    1pz               4.133000       2.050312
+                                                         1.200000       1.459945
+
+                          5       1    1px               0.382700       0.429055
+                          5       1    1py               0.382700       0.429055
+                          5       1    1pz               0.382700       0.429055
+
+                          6       1    1px               0.120900       0.101619
+                          6       1    1py               0.120900       0.101619
+                          6       1    1pz               0.120900       0.101619
+
+                          7       1    1dx2              1.097000       1.935401
+                          7       1    1dxy              1.097000       3.352214
+                          7       1    1dxz              1.097000       3.352214
+                          7       1    1dy2              1.097000       1.935401
+                          7       1    1dyz              1.097000       3.352214
+                          7       1    1dz2              1.097000       1.935401
+
+                          8       1    1dx2              0.318000       0.221644
+                          8       1    1dxy              0.318000       0.383899
+                          8       1    1dxz              0.318000       0.383899
+                          8       1    1dy2              0.318000       0.221644
+                          8       1    1dyz              0.318000       0.383899
+                          8       1    1dz2              0.318000       0.221644
+
+                          9       1    1fx3              0.761000       0.796288
+                          9       1    1fx2y             0.761000       1.780553
+                          9       1    1fx2z             0.761000       1.780553
+                          9       1    1fxy2             0.761000       1.780553
+                          9       1    1fxyz             0.761000       3.084008
+                          9       1    1fxz2             0.761000       1.780553
+                          9       1    1fy3              0.761000       0.796288
+                          9       1    1fy2z             0.761000       1.780553
+                          9       1    1fyz2             0.761000       1.780553
+                          9       1    1fz3              0.761000       0.796288
+
+                         10       1    1s                0.044020       0.068493
+
+                         11       1    1px               0.035690       0.022112
+                         11       1    1py               0.035690       0.022112
+                         11       1    1pz               0.035690       0.022112
+
+                         12       1    1dx2              0.100000       0.029269
+                         12       1    1dxy              0.100000       0.050696
+                         12       1    1dxz              0.100000       0.050696
+                         12       1    1dy2              0.100000       0.029269
+                         12       1    1dyz              0.100000       0.050696
+                         12       1    1dz2              0.100000       0.029269
+
+                         13       1    1fx3              0.268000       0.076078
+                         13       1    1fx2y             0.268000       0.170115
+                         13       1    1fx2z             0.268000       0.170115
+                         13       1    1fxy2             0.268000       0.170115
+                         13       1    1fxyz             0.268000       0.294648
+                         13       1    1fxz2             0.268000       0.170115
+                         13       1    1fy3              0.268000       0.076078
+                         13       1    1fy2z             0.268000       0.170115
+                         13       1    1fyz2             0.268000       0.170115
+                         13       1    1fz3              0.268000       0.076078
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               4.109048
+       Electronic configuration (s p d ...):                           4   2   0
+
+  2. Atomic kind: N                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVTZ
+
+       Number of orbital shell sets:                                          13
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               22
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s            11420.000000       0.421209
+                                                      1712.000000       0.784862
+                                                       389.300000       1.327398
+                                                       110.000000       1.998987
+                                                        35.570000       2.474876
+                                                        12.540000       2.106008
+                                                         4.644000       0.801375
+                                                         0.511800      -0.003753
+
+                          1       2    2s            11420.000000      -0.156504
+                                                      1712.000000      -0.293447
+                                                       389.300000      -0.499240
+                                                       110.000000      -0.775267
+                                                        35.570000      -1.028825
+                                                        12.540000      -1.084240
+                                                         4.644000      -0.672298
+                                                         0.511800       0.447213
+
+                          2       1    1s                1.293000       0.864190
+
+                          3       1    1s                0.178700       0.195886
+
+                          4       1    1px              26.630000       3.432542
+                                                         5.948000       3.296915
+                                                         1.742000       2.312025
+                          4       1    1py              26.630000       3.432542
+                                                         5.948000       3.296915
+                                                         1.742000       2.312025
+                          4       1    1pz              26.630000       3.432542
+                                                         5.948000       3.296915
+                                                         1.742000       2.312025
+
+                          5       1    1px               0.555000       0.682820
+                          5       1    1py               0.555000       0.682820
+                          5       1    1pz               0.555000       0.682820
+
+                          6       1    1px               0.172500       0.158462
+                          6       1    1py               0.172500       0.158462
+                          6       1    1pz               0.172500       0.158462
+
+                          7       1    1dx2              1.654000       3.970513
+                          7       1    1dxy              1.654000       6.877130
+                          7       1    1dxz              1.654000       6.877130
+                          7       1    1dy2              1.654000       3.970513
+                          7       1    1dyz              1.654000       6.877130
+                          7       1    1dz2              1.654000       3.970513
+
+                          8       1    1dx2              0.469000       0.437484
+                          8       1    1dxy              0.469000       0.757744
+                          8       1    1dxz              0.469000       0.757744
+                          8       1    1dy2              0.469000       0.437484
+                          8       1    1dyz              0.469000       0.757744
+                          8       1    1dz2              0.469000       0.437484
+
+                          9       1    1fx3              1.093000       1.798249
+                          9       1    1fx2y             1.093000       4.021007
+                          9       1    1fx2z             1.093000       4.021007
+                          9       1    1fxy2             1.093000       4.021007
+                          9       1    1fxyz             1.093000       6.964588
+                          9       1    1fxz2             1.093000       4.021007
+                          9       1    1fy3              1.093000       1.798249
+                          9       1    1fy2z             1.093000       4.021007
+                          9       1    1fyz2             1.093000       4.021007
+                          9       1    1fz3              1.093000       1.798249
+
+                         10       1    1s                0.057600       0.083797
+
+                         11       1    1px               0.049100       0.032945
+                         11       1    1py               0.049100       0.032945
+                         11       1    1pz               0.049100       0.032945
+
+                         12       1    1dx2              0.151000       0.060203
+                         12       1    1dxy              0.151000       0.104275
+                         12       1    1dxz              0.151000       0.104275
+                         12       1    1dy2              0.151000       0.060203
+                         12       1    1dyz              0.151000       0.104275
+                         12       1    1dz2              0.151000       0.060203
+
+                         13       1    1fx3              0.364000       0.151507
+                         13       1    1fx2y             0.364000       0.338780
+                         13       1    1fx2z             0.364000       0.338780
+                         13       1    1fxy2             0.364000       0.338780
+                         13       1    1fxyz             0.364000       0.586784
+                         13       1    1fxz2             0.364000       0.338780
+                         13       1    1fy3              0.364000       0.151507
+                         13       1    1fy2z             0.364000       0.338780
+                         13       1    1fyz2             0.364000       0.338780
+                         13       1    1fz3              0.364000       0.151507
+
+       Atomic covalent radius [Angstrom]:                                  0.750
+
+       Atomic van der Waals radius [Angstrom]:                             1.550
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVTZ_soft
+
+       Number of orbital shell sets:                                          13
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               13
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                0.511800      -0.003753
+
+                          1       2    2s                0.511800       0.447213
+
+                          2       1    1s                1.293000       0.864190
+
+                          3       1    1s                0.178700       0.195886
+
+                          4       1    1px               1.742000       2.312025
+                          4       1    1py               1.742000       2.312025
+                          4       1    1pz               1.742000       2.312025
+
+                          5       1    1px               0.555000       0.682820
+                          5       1    1py               0.555000       0.682820
+                          5       1    1pz               0.555000       0.682820
+
+                          6       1    1px               0.172500       0.158462
+                          6       1    1py               0.172500       0.158462
+                          6       1    1pz               0.172500       0.158462
+
+                          7       1    1dx2              1.654000       3.970513
+                          7       1    1dxy              1.654000       6.877130
+                          7       1    1dxz              1.654000       6.877130
+                          7       1    1dy2              1.654000       3.970513
+                          7       1    1dyz              1.654000       6.877130
+                          7       1    1dz2              1.654000       3.970513
+
+                          8       1    1dx2              0.469000       0.437484
+                          8       1    1dxy              0.469000       0.757744
+                          8       1    1dxz              0.469000       0.757744
+                          8       1    1dy2              0.469000       0.437484
+                          8       1    1dyz              0.469000       0.757744
+                          8       1    1dz2              0.469000       0.437484
+
+                          9       1    1fx3              1.093000       1.798249
+                          9       1    1fx2y             1.093000       4.021007
+                          9       1    1fx2z             1.093000       4.021007
+                          9       1    1fxy2             1.093000       4.021007
+                          9       1    1fxyz             1.093000       6.964588
+                          9       1    1fxz2             1.093000       4.021007
+                          9       1    1fy3              1.093000       1.798249
+                          9       1    1fy2z             1.093000       4.021007
+                          9       1    1fyz2             1.093000       4.021007
+                          9       1    1fz3              1.093000       1.798249
+
+                         10       1    1s                0.057600       0.083797
+
+                         11       1    1px               0.049100       0.032945
+                         11       1    1py               0.049100       0.032945
+                         11       1    1pz               0.049100       0.032945
+
+                         12       1    1dx2              0.151000       0.060203
+                         12       1    1dxy              0.151000       0.104275
+                         12       1    1dxz              0.151000       0.104275
+                         12       1    1dy2              0.151000       0.060203
+                         12       1    1dyz              0.151000       0.104275
+                         12       1    1dz2              0.151000       0.060203
+
+                         13       1    1fx3              0.364000       0.151507
+                         13       1    1fx2y             0.364000       0.338780
+                         13       1    1fx2z             0.364000       0.338780
+                         13       1    1fxy2             0.364000       0.338780
+                         13       1    1fxyz             0.364000       0.586784
+                         13       1    1fxz2             0.364000       0.338780
+                         13       1    1fy3              0.364000       0.151507
+                         13       1    1fy2z             0.364000       0.338780
+                         13       1    1fyz2             0.364000       0.338780
+                         13       1    1fz3              0.364000       0.151507
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               5.979100
+       Electronic configuration (s p d ...):                           4   3   0
+
+  3. Atomic kind: H                                     Number of atoms:       3
+
+     Orbital Basis Set                                               aug-cc-pVTZ
+
+       Number of orbital shell sets:                                           9
+       Number of orbital shells:                                               9
+       Number of primitive Cartesian functions:                               11
+       Number of Cartesian basis functions:                                   25
+       Number of spherical basis functions:                                   23
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s               33.870000       0.255108
+                                                         5.095000       0.460098
+                                                         1.159000       0.678414
+
+                          2       1    1s                0.325800       0.307343
+
+                          3       1    1s                0.102700       0.129297
+
+                          4       1    1px               1.407000       2.184277
+                          4       1    1py               1.407000       2.184277
+                          4       1    1pz               1.407000       2.184277
+
+                          5       1    1px               0.388000       0.436495
+                          5       1    1py               0.388000       0.436495
+                          5       1    1pz               0.388000       0.436495
+
+                          6       1    1dx2              1.057000       1.813597
+                          6       1    1dxy              1.057000       3.141241
+                          6       1    1dxz              1.057000       3.141241
+                          6       1    1dy2              1.057000       1.813597
+                          6       1    1dyz              1.057000       3.141241
+                          6       1    1dz2              1.057000       1.813597
+
+                          7       1    1s                0.025260       0.045158
+
+                          8       1    1px               0.102000       0.082166
+                          8       1    1py               0.102000       0.082166
+                          8       1    1pz               0.102000       0.082166
+
+                          9       1    1dx2              0.247000       0.142439
+                          9       1    1dxy              0.247000       0.246712
+                          9       1    1dxz              0.247000       0.246712
+                          9       1    1dy2              0.247000       0.142439
+                          9       1    1dyz              0.247000       0.246712
+                          9       1    1dz2              0.247000       0.142439
+
+       Atomic covalent radius [Angstrom]:                                  0.320
+
+       Atomic van der Waals radius [Angstrom]:                             1.090
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.200
+       Rho0 radius:                                                        1.200
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVTZ_soft
+
+       Number of orbital shell sets:                                           9
+       Number of orbital shells:                                               9
+       Number of primitive Cartesian functions:                               10
+       Number of Cartesian basis functions:                                   25
+       Number of spherical basis functions:                                   23
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                5.095000       0.460098
+                                                         1.159000       0.678414
+
+                          2       1    1s                0.325800       0.307343
+
+                          3       1    1s                0.102700       0.129297
+
+                          4       1    1px               1.407000       2.184277
+                          4       1    1py               1.407000       2.184277
+                          4       1    1pz               1.407000       2.184277
+
+                          5       1    1px               0.388000       0.436495
+                          5       1    1py               0.388000       0.436495
+                          5       1    1pz               0.388000       0.436495
+
+                          6       1    1dx2              1.057000       1.813597
+                          6       1    1dxy              1.057000       3.141241
+                          6       1    1dxz              1.057000       3.141241
+                          6       1    1dy2              1.057000       1.813597
+                          6       1    1dyz              1.057000       3.141241
+                          6       1    1dz2              1.057000       1.813597
+
+                          7       1    1s                0.025260       0.045158
+
+                          8       1    1px               0.102000       0.082166
+                          8       1    1py               0.102000       0.082166
+                          8       1    1pz               0.102000       0.082166
+
+                          9       1    1dx2              0.247000       0.142439
+                          9       1    1dxy              0.247000       0.246712
+                          9       1    1dxz              0.247000       0.246712
+                          9       1    1dy2              0.247000       0.142439
+                          9       1    1dyz              0.247000       0.246712
+                          9       1    1dz2              0.247000       0.142439
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:              12.500000
+       Electronic configuration (s p d ...):                           1   0   0
+
+
+ MOLECULE KIND INFORMATION
+
+
+ All atoms are their own molecule, skipping detailed information
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   3
+                             - Atoms:                                          5
+                             - Shell sets:                                    53
+                             - Shells:                                        55
+                             - Primitive Cartesian functions:                 77
+                             - Cartesian basis functions:                    185
+                             - Spherical basis functions:                    161
+
+  Maximum angular momentum of the orbital basis functions:                     3
+
+
+ MODULE QUICKSTEP: ATOMIC COORDINATES IN ANGSTROM
+
+   Atom Kind Element         X             Y             Z       Z(eff)     Mass
+      1    1 C     6      7.502313      7.500000      8.005637   6.0000  12.0107
+      2    2 N     7      7.502670      7.500000      6.731543   7.0000  14.0067
+      3    3 H     1      6.603571      7.500000      8.620570   1.0000   1.0079
+      4    3 H     1      8.453660      7.500000      8.525833   1.0000   1.0079
+      5    3 H     1      6.546340      7.500000      6.379430   1.0000   1.0079
+
+
+
+ SCF PARAMETERS         Density guess:                                    ATOMIC
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-05
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.200000
+                        SCF update method:                                MIXING
+                        added MOs                                         4    6
+                        --------------------------------------------------------
+                        Mixing method:                           DIRECT_P_MIXING
+                        --------------------------------------------------------
+                        ROKS scheme:                                   HIGH-SPIN
+                        ROKS parameters: a)lpha, b)eta; c)losed, o)pen, v)irtual
+                        acc                                            -0.500000
+                        bcc                                             1.500000
+                        aoo                                             0.500000
+                        boo                                             0.500000
+                        avv                                             1.500000
+                        bvv                                            -0.500000
+                        --------------------------------------------------------
+                        No outer SCF
+
+ PW_GRID| Information for grid number                                          1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    400.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1           -128     127                Points:         256
+ PW_GRID|   Bounds   2           -128     127                Points:         256
+ PW_GRID|   Bounds   3           -128     127                Points:         256
+ PW_GRID| Volume element (a.u.^3)  0.1358E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           524288.0      524288      524288
+ PW_GRID|   G-Rays                                2048.0        2048        2048
+ PW_GRID|   Real Space Points                   524288.0      524288      524288
+
+ PW_GRID| Information for grid number                                          2
+ PW_GRID| Number of the reference grid                                         1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    200.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -96      95                Points:         192
+ PW_GRID|   Bounds   2            -96      95                Points:         192
+ PW_GRID|   Bounds   3            -96      95                Points:         192
+ PW_GRID| Volume element (a.u.^3)  0.3218E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           221184.0      221376      220992
+ PW_GRID|   G-Rays                                1152.0        1153        1151
+ PW_GRID|   Real Space Points                   221184.0      221184      221184
+
+ PW_GRID| Information for grid number                                          3
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     66.7
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -54      53                Points:         108
+ PW_GRID|   Bounds   2            -54      53                Points:         108
+ PW_GRID|   Bounds   3            -54      53                Points:         108
+ PW_GRID| Volume element (a.u.^3)  0.1808E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                            39366.0       39420       39312
+ PW_GRID|   G-Rays                                 364.5         365         364
+ PW_GRID|   Real Space Points                    39366.0       46656       34992
+
+ PW_GRID| Information for grid number                                          4
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     22.2
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -32      31                Points:          64
+ PW_GRID|   Bounds   2            -32      31                Points:          64
+ PW_GRID|   Bounds   3            -32      31                Points:          64
+ PW_GRID| Volume element (a.u.^3)  0.8688E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             8192.0        8256        8128
+ PW_GRID|   G-Rays                                 128.0         129         127
+ PW_GRID|   Real Space Points                     8192.0        8192        8192
+
+ PW_GRID| Information for grid number                                          5
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                      7.4
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -18      17                Points:          36
+ PW_GRID|   Bounds   2            -18      17                Points:          36
+ PW_GRID|   Bounds   3            -18      17                Points:          36
+ PW_GRID| Volume element (a.u.^3)  0.4882         Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             1458.0        1548        1368
+ PW_GRID|   G-Rays                                  40.5          43          38
+ PW_GRID|   Real Space Points                     1458.0        2592        1296
+
+ POISSON| Solver                                          Martyna-Tuckerman (MT)
+ POISSON| MT| Alpha                                                        7.000
+ POISSON| MT| Relative cutoff                                                2.0
+ POISSON| Periodicity                                                       NONE
+
+ RS_GRID| Information for grid number                                          2
+ RS_GRID|   Bounds   1            -96      95                Points:         192
+ RS_GRID|   Bounds   2            -96      95                Points:         192
+ RS_GRID|   Bounds   3            -96      95                Points:         192
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         25
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         25
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  98.0          98          98
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  74.0          74          74
+
+ RS_GRID| Information for grid number                                          3
+ RS_GRID|   Bounds   1            -54      53                Points:         108
+ RS_GRID|   Bounds   2            -54      53                Points:         108
+ RS_GRID|   Bounds   3            -54      53                Points:         108
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         25
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         25
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  77.0          77          77
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  63.5          64          63
+
+ RS_GRID| Information for grid number                                          4
+ RS_GRID|   Bounds   1            -32      31                Points:          64
+ RS_GRID|   Bounds   2            -32      31                Points:          64
+ RS_GRID|   Bounds   3            -32      31                Points:          64
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ RS_GRID| Information for grid number                                          5
+ RS_GRID|   Bounds   1            -18      17                Points:          36
+ RS_GRID|   Bounds   2            -18      17                Points:          36
+ RS_GRID|   Bounds   3            -18      17                Points:          36
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ Extrapolation method: initial_guess
+
+ Atomic guess: The first density matrix is obtained in terms of atomic orbitals
+               and electronic configurations assigned to each atomic kind
+
+ Guess for atomic kind: C
+
+ Electronic structure
+    Total number of core electrons                                          0.00
+    Total number of valence electrons                                       6.00
+    Total number of electrons                                               6.00
+    Multiplicity                                                   not specified
+    S      2.00  2.00
+    P      2.00
+
+
+ *******************************************************************************
+                  Iteration          Convergence                     Energy [au]
+ *******************************************************************************
+                          1        0.974285E-01                 -37.407214584056
+                          2        0.837482E-01                 -37.411974260121
+                          3        0.130380E-02                 -37.422101193838
+                          4        0.226845E-03                 -37.422104372202
+                          5        0.598052E-05                 -37.422104444613
+                          6        0.107656E-06                 -37.422104444674
+
+ Energy components [Hartree]           Total Energy ::          -37.422104444674
+                                        Band Energy ::          -21.296184300046
+                                     Kinetic Energy ::           37.178589977108
+                                   Potential Energy ::          -74.600694421782
+                                      Virial (-V/T) ::            2.006549857531
+                                        Core Energy ::          -50.317487522836
+                                          XC Energy ::           -4.728464131958
+                                     Coulomb Energy ::           17.623847210120
+
+ Orbital energies  State     L     Occupation   Energy[a.u.]          Energy[eV]
+
+                       1     0          2.000      -9.947922         -270.696712
+                       2     0          2.000      -0.501180          -13.637806
+
+                       1     1          2.000      -0.198990           -5.414805
+
+
+ Total Electron Density at R=0:                                       120.710098
+
+ Guess for atomic kind: N
+
+ Electronic structure
+    Total number of core electrons                                          0.00
+    Total number of valence electrons                                       7.00
+    Total number of electrons                                               7.00
+    Multiplicity                                                   not specified
+    S      2.00  2.00
+    P      3.00
+
+
+ *******************************************************************************
+                  Iteration          Convergence                     Energy [au]
+ *******************************************************************************
+                          1        0.248231                     -53.975514450746
+                          2        0.271494                     -53.977231052981
+                          3        0.133943E-01                 -54.018920322372
+                          4        0.624051E-03                 -54.019061354022
+                          5        0.309901E-04                 -54.019061519038
+                          6        0.578193E-06                 -54.019061519695
+
+ Energy components [Hartree]           Total Energy ::          -54.019061519695
+                                        Band Energy ::          -30.176613115348
+                                     Kinetic Energy ::           53.717766456587
+                                   Potential Energy ::         -107.736827976282
+                                      Virial (-V/T) ::            2.005608853141
+                                        Core Energy ::          -73.671425176339
+                                          XC Energy ::           -6.139056512623
+                                     Coulomb Energy ::           25.791420169267
+
+ Orbital energies  State     L     Occupation   Energy[a.u.]          Energy[eV]
+
+                       1     0          2.000     -14.012608         -381.302454
+                       2     0          2.000      -0.676604          -18.411329
+
+                       1     1          3.000      -0.266063           -7.239946
+
+
+ Total Electron Density at R=0:                                       195.603061
+
+ Guess for atomic kind: H
+
+ Electronic structure
+    Total number of core electrons                                          0.00
+    Total number of valence electrons                                       1.00
+    Total number of electrons                                               1.00
+    Multiplicity                                                   not specified
+    S      1.00
+
+
+ *******************************************************************************
+                  Iteration          Convergence                     Energy [au]
+ *******************************************************************************
+                          1        0.835280E-02                  -0.445273676984
+                          2        0.807456E-03                  -0.445370735705
+                          3        0.974519E-04                  -0.445373223017
+                          4        0.128612E-06                  -0.445373248884
+
+ Energy components [Hartree]           Total Energy ::           -0.445373248884
+                                        Band Energy ::           -0.233121027105
+                                     Kinetic Energy ::            0.424055116706
+                                   Potential Energy ::           -0.869428365590
+                                      Virial (-V/T) ::            2.050272078646
+                                        Core Energy ::           -0.495782636313
+                                          XC Energy ::           -0.232278681357
+                                     Coulomb Energy ::            0.282688068786
+
+ Orbital energies  State     L     Occupation   Energy[a.u.]          Energy[eV]
+
+                       1     0          1.000      -0.233121           -6.343546
+
+
+ Total Electron Density at R=0:                                         0.244200
+
+ Spin 1
+ Re-scaling the density matrix to get the right number of electrons for spin 1
+                  # Electrons              Trace(P)               Scaling factor
+                            9                 8.000                        1.125
+
+ Spin 2
+ Re-scaling the density matrix to get the right number of electrons for spin 2
+                  # Electrons              Trace(P)               Scaling factor
+                            7                 8.000                        0.875
+
+ Spin 1
+
+ Number of electrons:                                                          9
+ Number of occupied orbitals:                                                  9
+ Number of molecular orbitals:                                               161
+
+ Spin 2
+
+ Number of electrons:                                                          7
+ Number of occupied orbitals:                                                  7
+ Number of molecular orbitals:                                               161
+
+ Number of orbital functions:                                                161
+ Number of independent orbital functions:                                    161
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.171251            -385.619350               1.000000
+ MO|      2             -10.105515            -274.985058               1.000000
+ MO|      3              -1.006463             -27.387253               1.000000
+ MO|      4              -0.711508             -19.361117               1.000000
+ MO|      5              -0.608655             -16.562350               1.000000
+ MO|      6              -0.538266             -14.646952               1.000000
+ MO|      7              -0.443549             -12.069587               1.000000
+ MO|      8              -0.388541             -10.572747               1.000000
+ MO|      9              -0.192291              -5.232508               1.000000
+ MO|     10              -0.050448              -1.372761               0.000000
+ MO|     11              -0.025345              -0.689685               0.000000
+ MO|     12              -0.005505              -0.149799               0.000000
+ MO|     13               0.021785               0.592801               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.141843 a.u.          3.859747 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.171251            -385.619350               1.000000
+ MO|      2             -10.105515            -274.985058               1.000000
+ MO|      3              -1.006463             -27.387253               1.000000
+ MO|      4              -0.711508             -19.361117               1.000000
+ MO|      5              -0.608655             -16.562350               1.000000
+ MO|      6              -0.538266             -14.646952               1.000000
+ MO|      7              -0.443549             -12.069587               1.000000
+ MO|      8              -0.388541             -10.572747               0.000000
+ MO|      9              -0.192291              -5.232508               0.000000
+ MO|     10              -0.050448              -1.372761               0.000000
+ MO|     11              -0.025345              -0.689685               0.000000
+ MO|     12              -0.005505              -0.149799               0.000000
+ MO|     13               0.021785               0.592801               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.055008 a.u.          1.496840 eV
+
+     1 P_Mix/Diag. 0.10E+00    1.7     0.15867601       -94.7358869795 -9.47E+01
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 1
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.046953            -382.237023               1.000000
+ MO|      2              -9.977662            -271.506003               1.000000
+ MO|      3              -0.949448             -25.835802               1.000000
+ MO|      4              -0.664550             -18.083312               1.000000
+ MO|      5              -0.561704             -15.284751               1.000000
+ MO|      6              -0.491209             -13.366476               1.000000
+ MO|      7              -0.392585             -10.682789               1.000000
+ MO|      8              -0.382234             -10.401126               1.000000
+ MO|      9              -0.178367              -4.853625               1.000000
+ MO|     10              -0.062413              -1.698342               0.000000
+ MO|     11              -0.033950              -0.923835               0.000000
+ MO|     12              -0.011806              -0.321262               0.000000
+ MO|     13               0.017405               0.473612               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.115955 a.u.          3.155283 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 1
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.046953            -382.237023               1.000000
+ MO|      2              -9.977662            -271.506003               1.000000
+ MO|      3              -0.949448             -25.835802               1.000000
+ MO|      4              -0.664550             -18.083312               1.000000
+ MO|      5              -0.561704             -15.284751               1.000000
+ MO|      6              -0.491209             -13.366476               1.000000
+ MO|      7              -0.392585             -10.682789               1.000000
+ MO|      8              -0.382234             -10.401126               0.000000
+ MO|      9              -0.178367              -4.853625               0.000000
+ MO|     10              -0.062413              -1.698342               0.000000
+ MO|     11              -0.033950              -0.923835               0.000000
+ MO|     12              -0.011806              -0.321262               0.000000
+ MO|     13               0.017405               0.473612               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.010351 a.u.          0.281663 eV
+
+     2 P_Mix/Diag. 0.10E+00    1.8     0.15701698       -94.7075153717  2.84E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 2
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.016757            -381.415365               1.000000
+ MO|      2              -9.935419            -270.356499               1.000000
+ MO|      3              -0.918724             -24.999765               1.000000
+ MO|      4              -0.639399             -17.398924               1.000000
+ MO|      5              -0.536310             -14.593748               1.000000
+ MO|      6              -0.465496             -12.666777               1.000000
+ MO|      7              -0.364104              -9.907765               1.000000
+ MO|      8              -0.360397              -9.806892               1.000000
+ MO|      9              -0.152029              -4.136919               1.000000
+ MO|     10              -0.056000              -1.523829               0.000000
+ MO|     11              -0.027859              -0.758077               0.000000
+ MO|     12              -0.007008              -0.190692               0.000000
+ MO|     13               0.020692               0.563067               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.096029 a.u.          2.613090 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 2
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.016757            -381.415365               1.000000
+ MO|      2              -9.935419            -270.356499               1.000000
+ MO|      3              -0.918724             -24.999765               1.000000
+ MO|      4              -0.639399             -17.398924               1.000000
+ MO|      5              -0.536310             -14.593748               1.000000
+ MO|      6              -0.465496             -12.666777               1.000000
+ MO|      7              -0.364104              -9.907765               1.000000
+ MO|      8              -0.360397              -9.806892               0.000000
+ MO|      9              -0.152029              -4.136919               0.000000
+ MO|     10              -0.056000              -1.523829               0.000000
+ MO|     11              -0.027859              -0.758077               0.000000
+ MO|     12              -0.007008              -0.190692               0.000000
+ MO|     13               0.020692               0.563067               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.003707 a.u.          0.100873 eV
+
+     3 P_Mix/Diag. 0.10E+00    1.8     0.14099036       -94.6790884987  2.84E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 3
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.994755            -380.816648               1.000000
+ MO|      2              -9.904383            -269.511972               1.000000
+ MO|      3              -0.894502             -24.340642               1.000000
+ MO|      4              -0.619187             -16.848922               1.000000
+ MO|      5              -0.516061             -14.042722               1.000000
+ MO|      6              -0.444956             -12.107867               1.000000
+ MO|      7              -0.341716              -9.298565               1.000000
+ MO|      8              -0.343157              -9.337769               1.000000
+ MO|      9              -0.131642              -3.582162               1.000000
+ MO|     10              -0.051057              -1.389344               0.000000
+ MO|     11              -0.023312              -0.634340               0.000000
+ MO|     12              -0.003569              -0.097107               0.000000
+ MO|     13               0.023210               0.631588               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.080585 a.u.          2.192818 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 3
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.994755            -380.816648               1.000000
+ MO|      2              -9.904383            -269.511972               1.000000
+ MO|      3              -0.894502             -24.340642               1.000000
+ MO|      4              -0.619187             -16.848922               1.000000
+ MO|      5              -0.516061             -14.042722               1.000000
+ MO|      6              -0.444956             -12.107867               1.000000
+ MO|      7              -0.341716              -9.298565               1.000000
+ MO|      8              -0.343157              -9.337769               0.000000
+ MO|      9              -0.131642              -3.582162               0.000000
+ MO|     10              -0.051057              -1.389344               0.000000
+ MO|     11              -0.023312              -0.634340               0.000000
+ MO|     12              -0.003569              -0.097107               0.000000
+ MO|     13               0.023210               0.631588               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.001441 a.u.         -0.039204 eV
+
+     4 P_Mix/Diag. 0.10E+00    1.8     0.12674428       -94.6517170456  2.74E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 4
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.979650            -380.405624               1.000000
+ MO|      2              -9.882368            -268.912912               1.000000
+ MO|      3              -0.875673             -23.828271               1.000000
+ MO|      4              -0.603034             -16.409380               1.000000
+ MO|      5              -0.500032             -13.606571               1.000000
+ MO|      6              -0.428646             -11.664047               1.000000
+ MO|      7              -0.324273              -8.823920               1.000000
+ MO|      8              -0.329620              -8.969423               1.000000
+ MO|      9              -0.115920              -3.154343               1.000000
+ MO|     10              -0.047242              -1.285516               0.000000
+ MO|     11              -0.019887              -0.541165               0.000000
+ MO|     12              -0.001061              -0.028871               0.000000
+ MO|     13               0.025045               0.681505               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.068678 a.u.          1.868827 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 4
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.979650            -380.405624               1.000000
+ MO|      2              -9.882368            -268.912912               1.000000
+ MO|      3              -0.875673             -23.828271               1.000000
+ MO|      4              -0.603034             -16.409380               1.000000
+ MO|      5              -0.500032             -13.606571               1.000000
+ MO|      6              -0.428646             -11.664047               1.000000
+ MO|      7              -0.324273              -8.823920               1.000000
+ MO|      8              -0.329620              -8.969423               0.000000
+ MO|      9              -0.115920              -3.154343               0.000000
+ MO|     10              -0.047242              -1.285516               0.000000
+ MO|     11              -0.019887              -0.541165               0.000000
+ MO|     12              -0.001061              -0.028871               0.000000
+ MO|     13               0.025045               0.681505               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.005347 a.u.         -0.145504 eV
+
+     5 P_Mix/Diag. 0.10E+00    1.8     0.11402017       -94.6260788423  2.56E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 5
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.969869            -380.139460               1.000000
+ MO|      2              -9.867304            -268.502986               1.000000
+ MO|      3              -0.861108             -23.431942               1.000000
+ MO|      4              -0.590145             -16.058662               1.000000
+ MO|      5              -0.487367             -13.261940               1.000000
+ MO|      6              -0.415699             -11.311754               1.000000
+ MO|      7              -0.310706              -8.454743               1.000000
+ MO|      8              -0.318996              -8.680313               1.000000
+ MO|      9              -0.103797              -2.824461               1.000000
+ MO|     10              -0.044286              -1.205096               0.000000
+ MO|     11              -0.017302              -0.470812               0.000000
+ MO|     12               0.000783               0.021319               0.000000
+ MO|     13               0.026291               0.715417               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.059511 a.u.          1.619365 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 5
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.969869            -380.139460               1.000000
+ MO|      2              -9.867304            -268.502986               1.000000
+ MO|      3              -0.861108             -23.431942               1.000000
+ MO|      4              -0.590145             -16.058662               1.000000
+ MO|      5              -0.487367             -13.261940               1.000000
+ MO|      6              -0.415699             -11.311754               1.000000
+ MO|      7              -0.310706              -8.454743               1.000000
+ MO|      8              -0.318996              -8.680313               0.000000
+ MO|      9              -0.103797              -2.824461               0.000000
+ MO|     10              -0.044286              -1.205096               0.000000
+ MO|     11              -0.017302              -0.470812               0.000000
+ MO|     12               0.000783               0.021319               0.000000
+ MO|     13               0.026291               0.715417               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.008290 a.u.         -0.225570 eV
+
+     6 P_Mix/Diag. 0.10E+00    1.8     0.10263494       -94.6024632466  2.36E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 6
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.964043            -379.980944               1.000000
+ MO|      2              -9.857469            -268.235379               1.000000
+ MO|      3              -0.849859             -23.125837               1.000000
+ MO|      4              -0.579857             -15.778716               1.000000
+ MO|      5              -0.477356             -12.989514               1.000000
+ MO|      6              -0.405408             -11.031716               1.000000
+ MO|      7              -0.300144              -8.167330               1.000000
+ MO|      8              -0.310634              -8.452780               1.000000
+ MO|      9              -0.094434              -2.569679               1.000000
+ MO|     10              -0.041990              -1.142599               0.000000
+ MO|     11              -0.015353              -0.417777               0.000000
+ MO|     12               0.002140               0.058243               0.000000
+ MO|     13               0.027052               0.736118               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.052444 a.u.          1.427080 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 6
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.964043            -379.980944               1.000000
+ MO|      2              -9.857469            -268.235379               1.000000
+ MO|      3              -0.849859             -23.125837               1.000000
+ MO|      4              -0.579857             -15.778716               1.000000
+ MO|      5              -0.477356             -12.989514               1.000000
+ MO|      6              -0.405408             -11.031716               1.000000
+ MO|      7              -0.300144              -8.167330               1.000000
+ MO|      8              -0.310634              -8.452780               0.000000
+ MO|      9              -0.094434              -2.569679               0.000000
+ MO|     10              -0.041990              -1.142599               0.000000
+ MO|     11              -0.015353              -0.417777               0.000000
+ MO|     12               0.002140               0.058243               0.000000
+ MO|     13               0.027052               0.736118               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.010490 a.u.         -0.285450 eV
+
+     7 P_Mix/Diag. 0.10E+00    1.9     0.09402304       -94.5809339943  2.15E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 7
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.983073            -380.498754               1.000000
+ MO|      2              -9.865149            -268.444355               1.000000
+ MO|      3              -0.811034             -22.069361               1.000000
+ MO|      4              -0.537595             -14.628698               1.000000
+ MO|      5              -0.437922             -11.916459               1.000000
+ MO|      6              -0.363543              -9.892517               1.000000
+ MO|      7              -0.261205              -7.107739               1.000000
+ MO|      8              -0.277714              -7.556975               1.000000
+ MO|      9              -0.060769              -1.653611               1.000000
+ MO|     10              -0.033578              -0.913704               0.000000
+ MO|     11              -0.009469              -0.257677               0.000000
+ MO|     12               0.005573               0.151659               0.000000
+ MO|     13               0.023455               0.638241               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.027191 a.u.          0.739907 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 7
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.983073            -380.498754               1.000000
+ MO|      2              -9.865149            -268.444355               1.000000
+ MO|      3              -0.811034             -22.069361               1.000000
+ MO|      4              -0.537595             -14.628698               1.000000
+ MO|      5              -0.437922             -11.916459               1.000000
+ MO|      6              -0.363543              -9.892517               1.000000
+ MO|      7              -0.261205              -7.107739               1.000000
+ MO|      8              -0.277714              -7.556975               0.000000
+ MO|      9              -0.060769              -1.653611               0.000000
+ MO|     10              -0.033578              -0.913704               0.000000
+ MO|     11              -0.009469              -0.257677               0.000000
+ MO|     12               0.005573               0.151659               0.000000
+ MO|     13               0.023455               0.638241               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016509 a.u.         -0.449237 eV
+
+     8 DIIS/Diag.  0.63E-02    1.8     0.09029636       -94.5614319601  1.95E-02
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 8
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.975489            -380.292395               1.000000
+ MO|      2              -9.860914            -268.329116               1.000000
+ MO|      3              -0.822954             -22.393707               1.000000
+ MO|      4              -0.550424             -14.977798               1.000000
+ MO|      5              -0.450028             -12.245895               1.000000
+ MO|      6              -0.376456             -10.243877               1.000000
+ MO|      7              -0.273461              -7.441261               1.000000
+ MO|      8              -0.288243              -7.843491               1.000000
+ MO|      9              -0.071258              -1.939019               1.000000
+ MO|     10              -0.035820              -0.974699               0.000000
+ MO|     11              -0.010783              -0.293431               0.000000
+ MO|     12               0.004900               0.133344               0.000000
+ MO|     13               0.025090               0.682740               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.035438 a.u.          0.964321 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 8
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.975489            -380.292395               1.000000
+ MO|      2              -9.860914            -268.329116               1.000000
+ MO|      3              -0.822954             -22.393707               1.000000
+ MO|      4              -0.550424             -14.977798               1.000000
+ MO|      5              -0.450028             -12.245895               1.000000
+ MO|      6              -0.376456             -10.243877               1.000000
+ MO|      7              -0.273461              -7.441261               1.000000
+ MO|      8              -0.288243              -7.843491               0.000000
+ MO|      9              -0.071258              -1.939019               0.000000
+ MO|     10              -0.035820              -0.974699               0.000000
+ MO|     11              -0.010783              -0.293431               0.000000
+ MO|     12               0.004900               0.133344               0.000000
+ MO|     13               0.025090               0.682740               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.014782 a.u.         -0.402230 eV
+
+     9 DIIS/Diag.  0.14E-01    1.8     0.00367379       -94.3876971208  1.74E-01
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 9
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.949375            -379.581801               1.000000
+ MO|      2              -9.838982            -267.732319               1.000000
+ MO|      3              -0.842792             -22.933549               1.000000
+ MO|      4              -0.574680             -15.637831               1.000000
+ MO|      5              -0.471942             -12.842206               1.000000
+ MO|      6              -0.400236             -10.890978               1.000000
+ MO|      7              -0.294428              -8.011804               1.000000
+ MO|      8              -0.307018              -8.354379               1.000000
+ MO|      9              -0.089096              -2.424432               1.000000
+ MO|     10              -0.041265              -1.122890               0.000000
+ MO|     11              -0.014141              -0.384801               0.000000
+ MO|     12               0.003220               0.087609               0.000000
+ MO|     13               0.028752               0.782391               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.047831 a.u.          1.301542 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 9
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.949375            -379.581801               1.000000
+ MO|      2              -9.838982            -267.732319               1.000000
+ MO|      3              -0.842792             -22.933549               1.000000
+ MO|      4              -0.574680             -15.637831               1.000000
+ MO|      5              -0.471942             -12.842206               1.000000
+ MO|      6              -0.400236             -10.890978               1.000000
+ MO|      7              -0.294428              -8.011804               1.000000
+ MO|      8              -0.307018              -8.354379               0.000000
+ MO|      9              -0.089096              -2.424432               0.000000
+ MO|     10              -0.041265              -1.122890               0.000000
+ MO|     11              -0.014141              -0.384801               0.000000
+ MO|     12               0.003220               0.087609               0.000000
+ MO|     13               0.028752               0.782391               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.012589 a.u.         -0.342576 eV
+
+    10 DIIS/Diag.  0.15E-01    1.9     0.00719454       -94.3875288455  1.68E-04
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 10
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.953449            -379.692669               1.000000
+ MO|      2              -9.851753            -268.079836               1.000000
+ MO|      3              -0.864561             -23.525900               1.000000
+ MO|      4              -0.596098             -16.220640               1.000000
+ MO|      5              -0.492356             -13.397683               1.000000
+ MO|      6              -0.421558             -11.471190               1.000000
+ MO|      7              -0.315466              -8.584267               1.000000
+ MO|      8              -0.324046              -8.817741               1.000000
+ MO|      9              -0.107876              -2.935448               1.000000
+ MO|     10              -0.046400              -1.262608               0.000000
+ MO|     11              -0.018426              -0.501401               0.000000
+ MO|     12               0.000358               0.009751               0.000000
+ MO|     13               0.027633               0.751929               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.061476 a.u.          1.672840 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 10
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -13.953449            -379.692669               1.000000
+ MO|      2              -9.851753            -268.079836               1.000000
+ MO|      3              -0.864561             -23.525900               1.000000
+ MO|      4              -0.596098             -16.220640               1.000000
+ MO|      5              -0.492356             -13.397683               1.000000
+ MO|      6              -0.421558             -11.471190               1.000000
+ MO|      7              -0.315466              -8.584267               1.000000
+ MO|      8              -0.324046              -8.817741               0.000000
+ MO|      9              -0.107876              -2.935448               0.000000
+ MO|     10              -0.046400              -1.262608               0.000000
+ MO|     11              -0.018426              -0.501401               0.000000
+ MO|     12               0.000358               0.009751               0.000000
+ MO|     13               0.027633               0.751929               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.008580 a.u.         -0.233474 eV
+
+    11 DIIS/Diag.  0.30E-01    1.9     0.00868487       -94.3851782891  2.35E-03
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 11
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.002725            -381.033519               1.000000
+ MO|      2              -9.886298            -269.019842               1.000000
+ MO|      3              -0.806573             -21.947957               1.000000
+ MO|      4              -0.532899             -14.500929               1.000000
+ MO|      5              -0.433483             -11.795674               1.000000
+ MO|      6              -0.358493              -9.755084               1.000000
+ MO|      7              -0.254944              -6.937391               1.000000
+ MO|      8              -0.270812              -7.369162               1.000000
+ MO|      9              -0.056396              -1.534607               1.000000
+ MO|     10              -0.032565              -0.886146               0.000000
+ MO|     11              -0.009547              -0.259789               0.000000
+ MO|     12               0.005060               0.137701               0.000000
+ MO|     13               0.021818               0.593712               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.023831 a.u.          0.648461 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 11
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.002725            -381.033519               1.000000
+ MO|      2              -9.886298            -269.019842               1.000000
+ MO|      3              -0.806573             -21.947957               1.000000
+ MO|      4              -0.532899             -14.500929               1.000000
+ MO|      5              -0.433483             -11.795674               1.000000
+ MO|      6              -0.358493              -9.755084               1.000000
+ MO|      7              -0.254944              -6.937391               1.000000
+ MO|      8              -0.270812              -7.369162               0.000000
+ MO|      9              -0.056396              -1.534607               0.000000
+ MO|     10              -0.032565              -0.886146               0.000000
+ MO|     11              -0.009547              -0.259789               0.000000
+ MO|     12               0.005060               0.137701               0.000000
+ MO|     13               0.021818               0.593712               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.015867 a.u.         -0.431771 eV
+
+    12 DIIS/Diag.  0.54E-01    1.8     0.01668921       -94.3793719951  5.81E-03
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 12
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.006775            -381.143743               1.000000
+ MO|      2              -9.884727            -268.977092               1.000000
+ MO|      3              -0.807790             -21.981075               1.000000
+ MO|      4              -0.533174             -14.508403               1.000000
+ MO|      5              -0.433618             -11.799346               1.000000
+ MO|      6              -0.358634              -9.758917               1.000000
+ MO|      7              -0.256059              -6.967732               1.000000
+ MO|      8              -0.272407              -7.412566               1.000000
+ MO|      9              -0.056800              -1.545616               1.000000
+ MO|     10              -0.032576              -0.886430               0.000000
+ MO|     11              -0.009460              -0.257415               0.000000
+ MO|     12               0.005072               0.138018               0.000000
+ MO|     13               0.021991               0.598393               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.024225 a.u.          0.659186 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 12
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.006775            -381.143743               1.000000
+ MO|      2              -9.884727            -268.977092               1.000000
+ MO|      3              -0.807790             -21.981075               1.000000
+ MO|      4              -0.533174             -14.508403               1.000000
+ MO|      5              -0.433618             -11.799346               1.000000
+ MO|      6              -0.358634              -9.758917               1.000000
+ MO|      7              -0.256059              -6.967732               1.000000
+ MO|      8              -0.272407              -7.412566               0.000000
+ MO|      9              -0.056800              -1.545616               0.000000
+ MO|     10              -0.032576              -0.886430               0.000000
+ MO|     11              -0.009460              -0.257415               0.000000
+ MO|     12               0.005072               0.138018               0.000000
+ MO|     13               0.021991               0.598393               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016347 a.u.         -0.444834 eV
+
+    13 DIIS/Diag.  0.14E-01    1.7     0.01125582       -94.3878747126 -8.50E-03
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 13
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007653            -381.167618               1.000000
+ MO|      2              -9.886816            -269.033956               1.000000
+ MO|      3              -0.809930             -22.039324               1.000000
+ MO|      4              -0.535133             -14.561710               1.000000
+ MO|      5              -0.435458             -11.849425               1.000000
+ MO|      6              -0.360560              -9.811341               1.000000
+ MO|      7              -0.258477              -7.033522               1.000000
+ MO|      8              -0.275062              -7.484806               1.000000
+ MO|      9              -0.058755              -1.598801               1.000000
+ MO|     10              -0.033483              -0.911114               0.000000
+ MO|     11              -0.010264              -0.279311               0.000000
+ MO|     12               0.004062               0.110546               0.000000
+ MO|     13               0.020377               0.554500               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025272 a.u.          0.687687 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 13
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007653            -381.167618               1.000000
+ MO|      2              -9.886816            -269.033956               1.000000
+ MO|      3              -0.809930             -22.039324               1.000000
+ MO|      4              -0.535133             -14.561710               1.000000
+ MO|      5              -0.435458             -11.849425               1.000000
+ MO|      6              -0.360560              -9.811341               1.000000
+ MO|      7              -0.258477              -7.033522               1.000000
+ MO|      8              -0.275062              -7.484806               0.000000
+ MO|      9              -0.058755              -1.598801               0.000000
+ MO|     10              -0.033483              -0.911114               0.000000
+ MO|     11              -0.010264              -0.279311               0.000000
+ MO|     12               0.004062               0.110546               0.000000
+ MO|     13               0.020377               0.554500               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016584 a.u.         -0.451285 eV
+
+    14 DIIS/Diag.  0.28E-02    1.4     0.00369528       -94.3884134957 -5.39E-04
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 14
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.006774            -381.143714               1.000000
+ MO|      2              -9.886542            -269.026489               1.000000
+ MO|      3              -0.809374             -22.024197               1.000000
+ MO|      4              -0.534767             -14.551748               1.000000
+ MO|      5              -0.435199             -11.842371               1.000000
+ MO|      6              -0.360228              -9.802299               1.000000
+ MO|      7              -0.257854              -7.016562               1.000000
+ MO|      8              -0.274124              -7.459283               1.000000
+ MO|      9              -0.058395              -1.588997               1.000000
+ MO|     10              -0.033357              -0.907691               0.000000
+ MO|     11              -0.010196              -0.277457               0.000000
+ MO|     12               0.004200               0.114278               0.000000
+ MO|     13               0.020522               0.558428               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025038 a.u.          0.681307 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 14
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.006774            -381.143714               1.000000
+ MO|      2              -9.886542            -269.026489               1.000000
+ MO|      3              -0.809374             -22.024197               1.000000
+ MO|      4              -0.534767             -14.551748               1.000000
+ MO|      5              -0.435199             -11.842371               1.000000
+ MO|      6              -0.360228              -9.802299               1.000000
+ MO|      7              -0.257854              -7.016562               1.000000
+ MO|      8              -0.274124              -7.459283               0.000000
+ MO|      9              -0.058395              -1.588997               0.000000
+ MO|     10              -0.033357              -0.907691               0.000000
+ MO|     11              -0.010196              -0.277457               0.000000
+ MO|     12               0.004200               0.114278               0.000000
+ MO|     13               0.020522               0.558428               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016270 a.u.         -0.442721 eV
+
+    15 DIIS/Diag.  0.16E-02    1.6     0.00242868       -94.3884434427 -2.99E-05
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 15
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007271            -381.157231               1.000000
+ MO|      2              -9.886759            -269.032395               1.000000
+ MO|      3              -0.809610             -22.030597               1.000000
+ MO|      4              -0.535014             -14.558469               1.000000
+ MO|      5              -0.435418             -11.848316               1.000000
+ MO|      6              -0.360467              -9.808807               1.000000
+ MO|      7              -0.258117              -7.023725               1.000000
+ MO|      8              -0.274308              -7.464290               1.000000
+ MO|      9              -0.058659              -1.596201               1.000000
+ MO|     10              -0.033495              -0.911441               0.000000
+ MO|     11              -0.010360              -0.281909               0.000000
+ MO|     12               0.004041               0.109954               0.000000
+ MO|     13               0.020259               0.551279               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025164 a.u.          0.684761 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 15
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007271            -381.157231               1.000000
+ MO|      2              -9.886759            -269.032395               1.000000
+ MO|      3              -0.809610             -22.030597               1.000000
+ MO|      4              -0.535014             -14.558469               1.000000
+ MO|      5              -0.435418             -11.848316               1.000000
+ MO|      6              -0.360467              -9.808807               1.000000
+ MO|      7              -0.258117              -7.023725               1.000000
+ MO|      8              -0.274308              -7.464290               0.000000
+ MO|      9              -0.058659              -1.596201               0.000000
+ MO|     10              -0.033495              -0.911441               0.000000
+ MO|     11              -0.010360              -0.281909               0.000000
+ MO|     12               0.004041               0.109954               0.000000
+ MO|     13               0.020259               0.551279               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016190 a.u.         -0.440565 eV
+
+    16 DIIS/Diag.  0.30E-03    1.8     0.00076594       -94.3884519772 -8.53E-06
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 16
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007336            -381.158984               1.000000
+ MO|      2              -9.886837            -269.034507               1.000000
+ MO|      3              -0.809698             -22.032993               1.000000
+ MO|      4              -0.535074             -14.560107               1.000000
+ MO|      5              -0.435470             -11.849744               1.000000
+ MO|      6              -0.360511              -9.809994               1.000000
+ MO|      7              -0.258195              -7.025836               1.000000
+ MO|      8              -0.274369              -7.465956               1.000000
+ MO|      9              -0.058714              -1.597686               1.000000
+ MO|     10              -0.033538              -0.912616               0.000000
+ MO|     11              -0.010392              -0.282785               0.000000
+ MO|     12               0.004008               0.109051               0.000000
+ MO|     13               0.020197               0.549591               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025176 a.u.          0.685070 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 16
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007336            -381.158984               1.000000
+ MO|      2              -9.886837            -269.034507               1.000000
+ MO|      3              -0.809698             -22.032993               1.000000
+ MO|      4              -0.535074             -14.560107               1.000000
+ MO|      5              -0.435470             -11.849744               1.000000
+ MO|      6              -0.360511              -9.809994               1.000000
+ MO|      7              -0.258195              -7.025836               1.000000
+ MO|      8              -0.274369              -7.465956               0.000000
+ MO|      9              -0.058714              -1.597686               0.000000
+ MO|     10              -0.033538              -0.912616               0.000000
+ MO|     11              -0.010392              -0.282785               0.000000
+ MO|     12               0.004008               0.109051               0.000000
+ MO|     13               0.020197               0.549591               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016174 a.u.         -0.440121 eV
+
+    17 DIIS/Diag.  0.54E-04    1.8     0.00028850       -94.3884526735 -6.96E-07
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 17
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007351            -381.159393               1.000000
+ MO|      2              -9.886873            -269.035502               1.000000
+ MO|      3              -0.809722             -22.033654               1.000000
+ MO|      4              -0.535102             -14.560855               1.000000
+ MO|      5              -0.435493             -11.850360               1.000000
+ MO|      6              -0.360540              -9.810780               1.000000
+ MO|      7              -0.258226              -7.026697               1.000000
+ MO|      8              -0.274408              -7.467019               1.000000
+ MO|      9              -0.058742              -1.598439               1.000000
+ MO|     10              -0.033556              -0.913097               0.000000
+ MO|     11              -0.010409              -0.283254               0.000000
+ MO|     12               0.003985               0.108438               0.000000
+ MO|     13               0.020155               0.548453               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025186 a.u.          0.685342 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 17
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007351            -381.159393               1.000000
+ MO|      2              -9.886873            -269.035502               1.000000
+ MO|      3              -0.809722             -22.033654               1.000000
+ MO|      4              -0.535102             -14.560855               1.000000
+ MO|      5              -0.435493             -11.850360               1.000000
+ MO|      6              -0.360540              -9.810780               1.000000
+ MO|      7              -0.258226              -7.026697               1.000000
+ MO|      8              -0.274408              -7.467019               0.000000
+ MO|      9              -0.058742              -1.598439               0.000000
+ MO|     10              -0.033556              -0.913097               0.000000
+ MO|     11              -0.010409              -0.283254               0.000000
+ MO|     12               0.003985               0.108438               0.000000
+ MO|     13               0.020155               0.548453               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016182 a.u.         -0.440323 eV
+
+    18 DIIS/Diag.  0.38E-04    1.8     0.00008076       -94.3884527163 -4.29E-08
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 18
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007395            -381.160599               1.000000
+ MO|      2              -9.886892            -269.036026               1.000000
+ MO|      3              -0.809745             -22.034278               1.000000
+ MO|      4              -0.535122             -14.561415               1.000000
+ MO|      5              -0.435513             -11.850904               1.000000
+ MO|      6              -0.360558              -9.811294               1.000000
+ MO|      7              -0.258248              -7.027297               1.000000
+ MO|      8              -0.274428              -7.467557               1.000000
+ MO|      9              -0.058760              -1.598953               1.000000
+ MO|     10              -0.033565              -0.913362               0.000000
+ MO|     11              -0.010419              -0.283506               0.000000
+ MO|     12               0.003975               0.108177               0.000000
+ MO|     13               0.020137               0.547955               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025195 a.u.          0.685591 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 18
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007395            -381.160599               1.000000
+ MO|      2              -9.886892            -269.036026               1.000000
+ MO|      3              -0.809745             -22.034278               1.000000
+ MO|      4              -0.535122             -14.561415               1.000000
+ MO|      5              -0.435513             -11.850904               1.000000
+ MO|      6              -0.360558              -9.811294               1.000000
+ MO|      7              -0.258248              -7.027297               1.000000
+ MO|      8              -0.274428              -7.467557               0.000000
+ MO|      9              -0.058760              -1.598953               0.000000
+ MO|     10              -0.033565              -0.913362               0.000000
+ MO|     11              -0.010419              -0.283506               0.000000
+ MO|     12               0.003975               0.108177               0.000000
+ MO|     13               0.020137               0.547955               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016179 a.u.         -0.440260 eV
+
+    19 DIIS/Diag.  0.30E-04    1.8     0.00001084       -94.3884527237 -7.34E-09
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 19
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007377            -381.160101               1.000000
+ MO|      2              -9.886887            -269.035880               1.000000
+ MO|      3              -0.809741             -22.034181               1.000000
+ MO|      4              -0.535120             -14.561350               1.000000
+ MO|      5              -0.435509             -11.850798               1.000000
+ MO|      6              -0.360555              -9.811202               1.000000
+ MO|      7              -0.258246              -7.027232               1.000000
+ MO|      8              -0.274427              -7.467548               1.000000
+ MO|      9              -0.058758              -1.598882               1.000000
+ MO|     10              -0.033567              -0.913405               0.000000
+ MO|     11              -0.010420              -0.283532               0.000000
+ MO|     12               0.003974               0.108130               0.000000
+ MO|     13               0.020133               0.547839               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025191 a.u.          0.685476 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 19
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007377            -381.160101               1.000000
+ MO|      2              -9.886887            -269.035880               1.000000
+ MO|      3              -0.809741             -22.034181               1.000000
+ MO|      4              -0.535120             -14.561350               1.000000
+ MO|      5              -0.435509             -11.850798               1.000000
+ MO|      6              -0.360555              -9.811202               1.000000
+ MO|      7              -0.258246              -7.027232               1.000000
+ MO|      8              -0.274427              -7.467548               0.000000
+ MO|      9              -0.058758              -1.598882               0.000000
+ MO|     10              -0.033567              -0.913405               0.000000
+ MO|     11              -0.010420              -0.283532               0.000000
+ MO|     12               0.003974               0.108130               0.000000
+ MO|     13               0.020133               0.547839               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016181 a.u.         -0.440316 eV
+
+    20 DIIS/Diag.  0.10E-04    1.8     0.00000513       -94.3884527253 -1.62E-09
+
+  *** SCF run converged in    20 steps ***
+
+
+  Electronic density on regular grids:        -12.2105747638        3.7894252362
+  Core density on regular grids:               16.0000000000       -0.0000000000
+  Hard and soft densities (Lebedev):          -97.1715973306      -93.3821728102
+  Total Rho_soft + Rho1_hard - Rho1_soft      -15.9999992843
+  Total charge density (r-space):               0.0000007157
+  Total Rho_soft + Rho0_soft (g-space):         0.0000006855
+
+  Overlap energy of the core charge distribution:               0.00000394894367
+  Self energy of the core charge distribution:                -81.14374523884399
+  Core Hamiltonian energy:                                    -13.04346597776249
+  Hartree energy:                                              29.55667232309014
+  Exchange-correlation energy:                                 -5.43580551848396
+
+  GAPW| Exc from hard and soft atomic rho1:                    -7.82543317144717
+  GAPW| local Eh = 1 center integrals:                        -16.49667909080261
+
+  Total energy:                                               -94.38845272530642
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007377            -381.160101               1.000000
+ MO|      2              -9.886887            -269.035880               1.000000
+ MO|      3              -0.809741             -22.034181               1.000000
+ MO|      4              -0.535120             -14.561350               1.000000
+ MO|      5              -0.435509             -11.850798               1.000000
+ MO|      6              -0.360555              -9.811202               1.000000
+ MO|      7              -0.258246              -7.027232               1.000000
+ MO|      8              -0.274427              -7.467548               1.000000
+ MO|      9              -0.058758              -1.598882               1.000000
+ MO|     10              -0.033567              -0.913405               0.000000
+ MO|     11              -0.010420              -0.283532               0.000000
+ MO|     12               0.003974               0.108130               0.000000
+ MO|     13               0.020133               0.547839               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.025191 a.u.          0.685476 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -14.007377            -381.160101               1.000000
+ MO|      2              -9.886887            -269.035880               1.000000
+ MO|      3              -0.809741             -22.034181               1.000000
+ MO|      4              -0.535120             -14.561350               1.000000
+ MO|      5              -0.435509             -11.850798               1.000000
+ MO|      6              -0.360555              -9.811202               1.000000
+ MO|      7              -0.258246              -7.027232               1.000000
+ MO|      8              -0.274427              -7.467548               0.000000
+ MO|      9              -0.058758              -1.598882               0.000000
+ MO|     10              -0.033567              -0.913405               0.000000
+ MO|     11              -0.010420              -0.283532               0.000000
+ MO|     12               0.003974               0.108130               0.000000
+ MO|     13               0.020133               0.547839               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:           -0.016181 a.u.         -0.440316 eV
+
+
+  Integrated spin density:                                          2.0000005150
+  Integrated absolute spin density:                                 2.0000005955
+  Ideal and single determinant S**2 :                    2.000000       2.000000
+
+ !-----------------------------------------------------------------------------!
+                     Mulliken Population Analysis
+
+ #  Atom  Element  Kind  Atomic population (alpha,beta) Net charge  Spin moment
+       1     C        1         3.711899     2.980385    -0.692284     0.731514
+       2     N        2         4.083337     3.092998    -0.176335     0.990339
+       3     H        3         0.383969     0.262035     0.353996     0.121934
+       4     H        3         0.361223     0.277750     0.361027     0.083473
+       5     H        3         0.459572     0.386832     0.153596     0.072740
+ # Total charge and spin        9.000000     7.000000    -0.000000     2.000000
+
+ !-----------------------------------------------------------------------------!
+
+ !-----------------------------------------------------------------------------!
+                           Hirshfeld Charges
+
+  #Atom  Element  Kind  Ref Charge     Population       Spin moment  Net charge
+      1       C      1       6.000    3.901   3.112            0.789     -1.013
+      2       N      2       7.000    4.301   3.259            1.042     -0.560
+      3       H      3       1.000    0.268   0.205            0.063      0.527
+      4       H      3       1.000    0.263   0.224            0.039      0.513
+      5       H      3       1.000    0.235   0.193            0.041      0.572
+
+  Total Charge                                                            0.039
+ !-----------------------------------------------------------------------------!
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [hartree]            -94.388452725306422
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                DBCSR STATISTICS                             -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ COUNTER                                    TOTAL       BLAS       SMM       ACC
+ flops    23 x     1 x    23               190440       0.0%    100.0%      0.0%     
+ flops    23 x    23 x     1               253920       0.0%    100.0%      0.0%     
+ flops    23 x     1 x    46               253920       0.0%    100.0%      0.0%     
+ flops    23 x    46 x     1               253920       0.0%    100.0%      0.0%     
+ flops    46 x    23 x     1               253920       0.0%    100.0%      0.0%     
+ flops    46 x     1 x    23               253920       0.0%    100.0%      0.0%     
+ flops    46 x     1 x    46               338560       0.0%    100.0%      0.0%     
+ flops    46 x    46 x     1               507840       0.0%    100.0%      0.0%     
+ flops    23 x    32 x    23             30470400       0.0%    100.0%      0.0%     
+ flops    46 x    32 x    23             40627200       0.0%    100.0%      0.0%     
+ flops    23 x    23 x    32             40627200       0.0%    100.0%      0.0%     
+ flops    23 x    32 x    46             40627200       0.0%    100.0%      0.0%     
+ flops    23 x    46 x    32             40627200       0.0%    100.0%      0.0%     
+ flops    46 x    23 x    32             40627200       0.0%    100.0%      0.0%     
+ flops    46 x    32 x    46             54169600       0.0%    100.0%      0.0%     
+ flops    46 x    46 x    32             81254400       0.0%    100.0%      0.0%     
+ flops inhomo. stacks                           0       0.0%      0.0%      0.0%
+ flops total                       371.336840E+06       0.0%    100.0%      0.0%
+ flops max/rank                     73.467520E+06       0.0%    100.0%      0.0%
+ matmuls inhomo. stacks                         0       0.0%      0.0%      0.0%
+ matmuls total                               6600       0.0%    100.0%      0.0%
+ number of processed stacks                  5760       0.0%    100.0%      0.0%
+ average stack size                                     0.0       1.1       0.0
+ marketing flops                   183.520656E+06
+ -------------------------------------------------------------------------------
+ # multiplications                             60
+ max memory usage/rank               1.974030E+09
+ # max total images/rank                        2
+ # max 3D layers                                1
+ # MPI messages exchanged                   24960
+ MPI messages size (bytes):
+  total size                       124.420800E+06
+  min size                           0.000000E+00
+  max size                          33.856000E+03
+  average size                       4.984808E+03
+ MPI breakdown and total messages size (bytes):
+             size <=      128               10040                        0
+       128 < size <=     8192               10180                 46552000
+      8192 < size <=    32768                4460                 68389120
+     32768 < size <=   131072                 280                  9479680
+    131072 < size <=  4194304                   0                        0
+   4194304 < size <= 16777216                   0                        0
+  16777216 < size                               0                        0
+ -------------------------------------------------------------------------------
+
+ *** WARNING in dbcsr_mm.F:301 :: Using a non-square number of MPI ranks ***
+ *** might lead to poor performance. Used ranks: 32 Suggested: 36 64     ***
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                      DBCSR MESSAGE PASSING PERFORMANCE                      -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Bcast               17                     12.
+ MP_Allreduce          311                     11.
+ MP_Alltoall           680                   6928.
+ MP_ISend             1880                   5911.
+ MP_IRecv             1880                   4539.
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                GRID STATISTICS                              -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ LP    KERNEL             BACKEND                              COUNT     PERCENT
+ 2     collocate ortho    CPU                                   5964      14.62%
+ 2     integrate ortho    CPU                                   5680      13.92%
+ 1     collocate ortho    CPU                                   4746      11.63%
+ 1     integrate ortho    CPU                                   4520      11.08%
+ 3     collocate ortho    CPU                                   4326      10.60%
+ 3     integrate ortho    CPU                                   4120      10.10%
+ 0     collocate ortho    CPU                                   2646       6.48%
+ 0     integrate ortho    CPU                                   2520       6.18%
+ 4     collocate ortho    CPU                                   2100       5.15%
+ 4     integrate ortho    CPU                                   2000       4.90%
+ 5     collocate ortho    CPU                                    840       2.06%
+ 5     integrate ortho    CPU                                    800       1.96%
+ 6     collocate ortho    CPU                                    168       0.41%
+ 6     integrate ortho    CPU                                    160       0.39%
+ 2     collocate general  CPU                                    100       0.25%
+ 2     integrate general  CPU                                    100       0.25%
+ 0     integrate general  CPU                                     10       0.02%
+ 0     collocate general  CPU                                      5       0.01%
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                          OFFLOAD MEMPOOL STATISTICS                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ Memory consumption                Number of allocations  Used [MiB]  Size [MiB]
+ Host                                                  7          28          28
+ -------------------------------------------------------------------------------
+
+ MEMORY| Estimated peak process memory [MiB]                                 452
+
+ -------------------------------------------------------------------------------
+ ----                             MULTIGRID INFO                            ----
+ -------------------------------------------------------------------------------
+ count for grid        1:         479310          cutoff [a.u.]          200.00
+ count for grid        2:          88422          cutoff [a.u.]           66.67
+ count for grid        3:          65575          cutoff [a.u.]           22.22
+ count for grid        4:          23143          cutoff [a.u.]            7.41
+ total gridlevel count  :         656450
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                         MESSAGE PASSING PERFORMANCE                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Group               65
+ MP_Bcast              964                 190933.
+ MP_Allreduce         1189                  20377.
+ MP_Sync                24
+ MP_Alltoall           855                7700545.
+ MP_SendRecv          2604                  43136.
+ MP_ISendRecv         2480                  43136.
+ MP_Wait             11174
+ MP_comm_split          20
+ MP_ISend             7866                 221838.
+ MP_IRecv             7866                 221860.
+ -------------------------------------------------------------------------------
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                           R E F E R E N C E S                               -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ 
+ CP2K version 2026.2 (Development Version), the CP2K developers group (2026).
+ CP2K is freely available from https://www.cp2k.org/ .
+ 
+ M. Iannuzzi, J. Wilhelm, F. Stein, A. Bussy, H. Elgabarty, D. Golze, A. Hehn, 
+ M. Graml, S. Marek, B. Sertcan Gökmen, C. Schran, H. Forbert, R. Z. 
+ Khaliullin, A. Kozhevnikov, M. Taillefumier, R. Meli, V. V. Rybkin, M. Brehm, 
+ R. Schade, O. Schütt, J. V. Pototschnig, H. Mirhosseini, A. Knüpfer, D. Marx, 
+ M. Krack, J. Hutter, T. D. Kühne.
+ J. Phys. Chem. B 130, 1237-1310 (2026).
+ The CP2K Program Package Made Simple.
+ https://doi.org/10.1021/acs.jpcb.5c05851
+
+ T. D. Kühne, M. Iannuzzi, M. Del Ben, V. V. Rybkin, P. Seewald, F. Stein, T. 
+ Laino, R. Z. Khaliullin, O. Schütt, F. Schiffmann, D. Golze, J. Wilhelm, S. 
+ Chulkov, M. H. Bani-Hashemian, V. Weber, U. Borstnik, M. Taillefumier, A. S. 
+ Jakobovits, A. Lazzaro, H. Pabst, T. Müller, R. Schade, M. Guidon, S. 
+ Andermatt, N. Holmberg, G. K. Schenter, A. Hehn, A. Bussy, F. Belleflamme, G. 
+ Tabacchi, A. Glöß, M. Lass, I. Bethune, C. J. Mundy, C. Plessl, M. Watkins, 
+ J. VandeVondele, M. Krack, J. Hutter.
+ J. Chem. Phys. 152, 194103 (2020).
+ CP2K: An electronic structure and molecular dynamics software package - 
+ Quickstep: Efficient and accurate electronic structure calculations.
+ https://doi.org/10.1063/5.0007045
+
+ O. Schuett, P. Messmer, J. Hutter, J. VandeVondele.
+ Electronic Structure Calculations on Graphics Processing Units, 173-190 (2016).
+ GPU-Accelerated Sparse Matrix-Matrix Multiplication for Linear Scaling Density 
+ Functional Theory.
+ https://doi.org/10.1002/9781118670712.ch8
+
+ A. Heinecke, G. Henry, M. Hutchinson, H. Pabst.
+ Proceedings of Intl. Supercomputing Conference, 981-991 (2016).
+ LIBXSMM: Accelerating Small Matrix Multiplications by Runtime Code Generation.
+ https://doi.org/10.1109/SC.2016.83
+
+ U. Borstnik, J. VandeVondele, V. Weber, J. Hutter.
+ Parallel Comput. 40, 47-58 (2014).
+ Sparse matrix multiplication: The distributed block-compressed sparse row 
+ library.
+ https://doi.org/10.1016/j.parco.2014.03.012
+
+ M. Frigo, S. G. Johnson.
+ Proc. IEEE 93, 216-231 (2005).
+ The design and implementation of FFTW3.
+ https://doi.org/10.1109/JPROC.2004.840301
+
+ M. Krack, M. Parrinello.
+ Phys. Chem. Chem. Phys. 2, 2105-2112 (2000).
+ All-electron ab-initio molecular dynamics.
+ https://doi.org/10.1039/b001167n
+
+ G. Lippert, J. Hutter, M. Parrinello.
+ Theor. Chem. Acc. 103, 124-140 (1999).
+ The Gaussian and augmented-plane-wave density functional method for ab initio 
+ molecular dynamics simulations.
+ https://doi.org/10.1007/s002140050523
+
+ G. J. Martyna, M. E. Tuckerman.
+ J. Chem. Phys. 110, 2810-2821 (1999).
+ A reciprocal space based method for treating long range interactions in ab 
+ initio and force-field-based calculations in clusters.
+ https://doi.org/10.1063/1.477923
+
+ J. P. Perdew, K. Burke, M. Ernzerhof.
+ Phys. Rev. Lett. 77, 3865-3868 (1996).
+ Generalized gradient approximation made simple.
+ https://doi.org/10.1103/PhysRevLett.77.3865
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                T I M I N G                                  -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ SUBROUTINE                       CALLS  ASD         SELF TIME        TOTAL TIME
+                                MAXIMUM       AVERAGE  MAXIMUM  AVERAGE  MAXIMUM
+ CP2K                                 1  1.0    0.038    0.046   37.642   37.643
+ qs_energies                          1  2.0    0.000    0.000   36.695   36.696
+ scf_env_do_scf                       1  3.0    0.000    0.000   36.152   36.153
+ scf_env_do_scf_inner_loop           20  4.0    0.001    0.002   36.152   36.153
+ qs_ks_update_qs_env                 20  5.0    0.000    0.000   29.398   29.408
+ rebuild_ks_matrix                   20  6.0    0.000    0.000   29.395   29.405
+ qs_ks_build_kohn_sham_matrix        20  7.0    0.009    0.010   29.395   29.405
+ fft_wrap_pw1pw2                    691 10.3    0.020    0.025   18.306   19.517
+ fft_wrap_pw1pw2_200                444 11.8    0.995    1.048   17.694   18.956
+ qs_vxc_create                       20  8.0    0.001    0.001   16.892   16.927
+ xc_vxc_pw_create                    20  9.0    0.292    0.417   16.891   16.926
+ fft3d_ps                           691 12.3    8.959    9.244   14.093   15.396
+ xc_pw_derive                       240 11.0    0.004    0.005   12.048   13.271
+ xc_pw_divergence                    40 10.0    0.002    0.003    8.418    9.610
+ xc_rho_set_and_dset_create          20 10.0    0.364    0.458    7.836    8.406
+ qs_rho_update_rho_low               21  5.0    0.001    0.001    6.772    6.772
+ calculate_rho_elec                  42  6.0    0.054    0.055    6.730    6.730
+ density_rs2pw                       42  7.0    0.003    0.004    6.000    6.151
+ sum_up_and_integrate                20  8.0    0.001    0.001    5.111    5.286
+ integrate_v_rspace                  40  9.0    0.002    0.002    5.035    5.216
+ potential_pw2rs                     40 10.0    0.004    0.005    4.539    4.797
+ mp_alltoall_z22v                   691 14.3    3.291    4.697    3.291    4.697
+ yz_to_x                            349 12.8    0.904    0.988    3.122    4.401
+ transfer_pw2rs                     182 10.7    0.003    0.004    3.737    4.024
+ transfer_pw2rs_200                  62 11.2    1.440    1.490    3.038    3.335
+ transfer_rs2pw                     189  8.2    0.005    0.006    2.983    3.123
+ mp_waitany                        7866 11.4    2.514    3.046    2.514    3.046
+ transfer_rs2pw_200                  63  9.6    1.324    1.466    2.415    2.597
+ prepare_gapw_den                    20  8.0    0.001    0.001    2.344    2.368
+ xc_functional_eval                 140 10.8    0.001    0.001    1.585    2.199
+ pbe_lsd_eval                       140 11.8    1.584    2.198    1.584    2.198
+ pw_derive                          300 11.6    2.071    2.115    2.071    2.115
+ x_to_yz                            342 13.8    0.912    0.967    1.985    2.115
+ put_rho0_on_grid                    20  9.0    0.027    0.031    1.741    1.766
+ mp_sum_d                           761  4.0    1.527    1.641    1.527    1.641
+ integrate_vhg0_rspace               20  8.0    0.039    0.055    1.266    1.516
+ calculate_vxc_atom                  20  8.0    0.032    0.168    1.446    1.446
+ pw_copy                            481 10.8    1.298    1.325    1.298    1.325
+ pw_poisson_solve                    20  8.0    0.001    0.002    1.238    1.253
+ grid_collocate_task_list            42  7.0    0.636    1.247    0.636    1.247
+ pw_axpy                            530  9.4    1.114    1.214    1.114    1.214
+ gaVxcgb_GC                          60  9.0    0.042    1.110    0.042    1.110
+ pw_gather_p                        349 11.8    1.014    1.091    1.014    1.091
+ pw_scatter_p                       342 12.8    0.942    1.046    0.942    1.046
+ rs_grid_zero                       143 11.6    0.750    0.857    0.750    0.857
+ grid_integrate_task_list            40 10.0    0.109    0.834    0.109    0.834
+ mp_alltoall_d11v                   382  9.9    0.394    0.795    0.394    0.795
+ rs_gather_matrices                  40 10.0    0.001    0.003    0.385    0.785
+ pw_copy_to_array                   349 11.8    0.716    0.761    0.716    0.761
+ -------------------------------------------------------------------------------
+
+ The number of warnings for this run is : 1
+ 
+ -------------------------------------------------------------------------------
+  **** **** ******  **  PROGRAM ENDED AT                 2026-11-08 16:33:46.769
+ ***** ** ***  *** **   PROGRAM RAN ON                                    cro005
+ **    ****   ******    PROGRAM RAN BY                                  trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               3641388
+  **** **  *******  **  PROGRAM STOPPED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVTZ/QUEST1
+                                           /roks/pbe/Methanimine

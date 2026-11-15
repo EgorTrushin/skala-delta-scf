@@ -1,0 +1,2664 @@
+ DBCSR| CPU Multiplication driver                                           XSMM (U)
+ DBCSR| Multrec recursion limit                                              512 (U)
+ DBCSR| Multiplication stack size                                           1000 (D)
+ DBCSR| Maximum elements for images                                    UNLIMITED (U)
+ DBCSR| Multiplicative factor virtual images                                   1 (U)
+ DBCSR| Use multiplication densification                                       T (D)
+ DBCSR| Multiplication size stacks                                             3 (U)
+ DBCSR| Use memory pool for CPU allocation                                     F (U)
+ DBCSR| Number of 3D layers                                               SINGLE (U)
+ DBCSR| Use MPI memory allocation                                              F (U)
+ DBCSR| Use RMA algorithm                                                      F (U)
+ DBCSR| Use Communication thread                                               T (U)
+ DBCSR| Communication thread load                                             87 (D)
+ DBCSR| MPI: My process id                                                     0
+ DBCSR| MPI: Number of processes                                              32
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2026-11-08 22:20:30.781
+ ***** ** ***  *** **   PROGRAM STARTED ON                                cro015
+ **    ****   ******    PROGRAM STARTED BY                              trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               3060379
+  **** **  *******  **  PROGRAM STARTED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVQZ/QUEST1
+                                           /uks/r2scan/Formaldehyde
+
+ CP2K| version string:                 CP2K version 2026.2 (Development Version)
+ CP2K| source code revision number:                                   d1d1a05c28
+ CP2K| cp2kflags: omp libint fftw3 libxc libxc_gpu gauxc gauxc_mpi gauxc_onedft 
+ CP2K|            gauxc_onedft_gradients gauxc_host skala parallel scalapack mpi
+ CP2K|            i_f08 libxs libxsmm spglib openblas libtorch libwignernj
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                                   2026-11-08 13:59:08
+ CP2K| Program compiled on                                                csk007
+ CP2K| Program compiled with                                  GCC version 14.3.0
+ CP2K| Program compiled for                                               x86_64
+ CP2K| Program compiled in     /data/home2/trushi79/software/src/cp2k/main/build
+ CP2K| Program executable       /data/home2/trushi79/opt/cp2k/main/bin/cp2k.psmp
+ CP2K| Data directory path    /data/home2/trushi79/opt/cp2k/main/bin/../share/cp
+ CP2K|                        2k/data
+ CP2K| Input file name                                               triplet.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                     EMSL_BASIS_SETS
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                Formaldehyde_R2SCAN_TRIPLET
+ GLOBAL| Run type                                                         ENERGY
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                       ScaLAPACK
+ GLOBAL| Cholesky decomposition library                                ScaLAPACK
+ GLOBAL| DGEMM library                                                      BLAS
+ GLOBAL| Direct generalized diagonalization requested                          F
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                               MEDIUM
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                            32
+ GLOBAL| Number of distributed systems (nodes)                                 1
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| OpenMP stack size per thread (OMP_STACKSIZE)                    default
+ GLOBAL| CPU model name                          AMD EPYC 7702 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+ GLOBAL| Compiled for CPUID                                                    0
+
+ *** HINT in environment.F:1020 :: The compiler target (generic) used to ***
+ *** build this binary does not enable all instruction-set extensions    ***
+ *** available on this CPU (x86_avx2). Consider reconfiguring and        ***
+ *** rebuilding CP2K for this target system to enable them.              ***
+
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            528175132     528175132     528175132     528175132
+ MEMORY| MemFree             479273812     479273812     479273812     479273812
+ MEMORY| Buffers                     0             0             0             0
+ MEMORY| Cached                8608396       8608396       8608396       8608396
+ MEMORY| Slab                  1700432       1700432       1700432       1700432
+ MEMORY| SReclaimable           444984        444984        444984        444984
+ MEMORY| MemLikelyFree       477890424     477890424     477890424     477890424
+
+
+ *** Fundamental physical constants (SI units) ***
+
+ *** Literature: B. J. Mohr and B. N. Taylor,
+ ***             CODATA recommended values of the fundamental physical
+ ***             constants: 2006, Web Version 5.1
+ ***             http://physics.nist.gov/constants
+
+ Speed of light in vacuum [m/s]                             2.99792458000000E+08
+ Magnetic constant or permeability of vacuum [N/A**2]       1.25663706143592E-06
+ Electric constant or permittivity of vacuum [F/m]          8.85418781762039E-12
+ Planck constant (h) [J*s]                                  6.62606896000000E-34
+ Planck constant (h-bar) [J*s]                              1.05457162825177E-34
+ Elementary charge [C]                                      1.60217648700000E-19
+ Electron mass [kg]                                         9.10938215000000E-31
+ Electron g factor [ ]                                     -2.00231930436220E+00
+ Proton mass [kg]                                           1.67262163700000E-27
+ Fine-structure constant                                    7.29735253760000E-03
+ Rydberg constant [1/m]                                     1.09737315685270E+07
+ Avogadro constant [1/mol]                                  6.02214179000000E+23
+ Boltzmann constant [J/K]                                   1.38065040000000E-23
+ Atomic mass unit [kg]                                      1.66053878200000E-27
+ Bohr radius [m]                                            5.29177208590000E-11
+
+ *** Conversion factors ***
+
+ [u] -> [a.u.]                                              1.82288848426455E+03
+ [Angstrom] -> [Bohr] = [a.u.]                              1.88972613288564E+00
+ [a.u.] = [Bohr] -> [Angstrom]                              5.29177208590000E-01
+ [a.u.] -> [s]                                              2.41888432650478E-17
+ [a.u.] -> [fs]                                             2.41888432650478E-02
+ [a.u.] -> [J]                                              4.35974393937059E-18
+ [a.u.] -> [N]                                              8.23872205491840E-08
+ [a.u.] -> [K]                                              3.15774647902944E+05
+ [a.u.] -> [kJ/mol]                                         2.62549961709828E+03
+ [a.u.] -> [kcal/mol]                                       6.27509468713739E+02
+ [a.u.] -> [Pa]                                             2.94210107994716E+13
+ [a.u.] -> [bar]                                            2.94210107994716E+08
+ [a.u.] -> [atm]                                            2.90362800883016E+08
+ [a.u.] -> [eV]                                             2.72113838565563E+01
+ [a.u.] -> [Hz]                                             6.57968392072181E+15
+ [a.u.] -> [1/cm] (wave numbers)                            2.19474631370540E+05
+ [a.u./Bohr**2] -> [1/cm]                                   5.14048714338585E+03
+ 
+
+ CELL| Volume [angstrom^3]:                                          3375.000000
+ CELL| Vector a [angstrom]:      15.000     0.000     0.000   |a| =    15.000000
+ CELL| Vector b [angstrom]:       0.000    15.000     0.000   |b| =    15.000000
+ CELL| Vector c [angstrom]:       0.000     0.000    15.000   |c| =    15.000000
+ CELL| Angle (b,c), alpha [degree]:                                    90.000000
+ CELL| Angle (a,c), beta  [degree]:                                    90.000000
+ CELL| Angle (a,b), gamma [degree]:                                    90.000000
+ CELL| Numerically orthorhombic:                                             YES
+ CELL| Periodicity                                                          NONE
+
+ CELL_REF| Volume [angstrom^3]:                                      3375.000000
+ CELL_REF| Vector a [angstrom    15.000     0.000     0.000   |a| =    15.000000
+ CELL_REF| Vector b [angstrom     0.000    15.000     0.000   |b| =    15.000000
+ CELL_REF| Vector c [angstrom     0.000     0.000    15.000   |c| =    15.000000
+ CELL_REF| Angle (b,c), alpha [degree]:                                90.000000
+ CELL_REF| Angle (a,c), beta  [degree]:                                90.000000
+ CELL_REF| Angle (a,b), gamma [degree]:                                90.000000
+ CELL_REF| Numerically orthorhombic:                                         YES
+ CELL_REF| Periodicity                                                      NONE
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2026)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+ DFT| Spin unrestricted (spin-polarized) Kohn-Sham calculation               UKS
+ DFT| Multiplicity                                                             3
+ DFT| Number of spin states                                                    2
+ DFT| Charge                                                                   0
+ DFT| Self-interaction correction (SIC)                                       NO
+ DFT| Cutoffs: density                                              1.000000E-10
+ DFT|          gradient                                             1.000000E-10
+ DFT|          tau                                                  1.000000E-10
+ DFT|          cutoff_smoothing_range                               0.000000E+00
+ DFT| XC density smoothing                                                  NONE
+ DFT| XC derivatives                                                          PW
+
+ FUNCTIONAL| LIBXC version 7.1.2
+ FUNCTIONAL| S. Lehtola, C. Steigemann, M. J. T. Oliveira, and M. A. L. Marques,
+ FUNCTIONAL|   SoftwareX 7, 1–5 (2018)                                        
+ FUNCTIONAL| doi: 10.1016/j.softx.2017.11.002
+ FUNCTIONAL| MGGA_X_R2SCAN:
+ FUNCTIONAL| [1] J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun,
+ FUNCTIONAL|   J. Phys. Chem. Lett. 11, 8208–8215 (2020), doi: 10.1021/acs.jpc
+ FUNCTIONAL| lett.0c02405                                                       
+ FUNCTIONAL| Optional external parameters:                                      
+ FUNCTIONAL|  * c1 parameter                                                    
+ FUNCTIONAL|  * c2 parameter                                                    
+ FUNCTIONAL|  * d parameter                                                     
+ FUNCTIONAL|  * k1 parameter                                                    
+ FUNCTIONAL|  * eta parameter                                                   
+ FUNCTIONAL|  * dp2 parameter                                                   
+ FUNCTIONAL| {scale=1.000, spin-polarized}                                      
+ FUNCTIONAL| MGGA_C_R2SCAN:
+ FUNCTIONAL| [1] J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun,
+ FUNCTIONAL|   J. Phys. Chem. Lett. 11, 8208–8215 (2020), doi: 10.1021/acs.jpc
+ FUNCTIONAL| lett.0c02405                                                       
+ FUNCTIONAL| Optional external parameters:                                      
+ FUNCTIONAL|  * Regularization parameter                                        
+ FUNCTIONAL| {scale=1.000, spin-polarized}                                      
+
+
+ QS| Method:                                                                GAPW
+ QS| Density plane wave grid type                        NON-SPHERICAL FULLSPACE
+ QS| Number of grid levels:                                                    4
+ QS| Density cutoff [a.u.]:                                                200.0
+ QS| Multi grid cutoff [a.u.]: 1) grid level                               200.0
+ QS|                           2) grid level                                66.7
+ QS|                           3) grid level                                22.2
+ QS|                           4) grid level                                 7.4
+ QS| Grid level progression factor:                                          3.0
+ QS| Relative density cutoff [a.u.]:                                        25.0
+ QS| Interaction thresholds: eps_pgf_orb:                                1.0E-05
+ QS|                         eps_filter_matrix:                          0.0E+00
+ QS|                         eps_core_charge:                            1.0E-12
+ QS|                         eps_rho_gspace:                             1.0E-10
+ QS|                         eps_rho_rspace:                             1.0E-10
+ QS|                         eps_gvg_rspace:                             1.0E-05
+ QS|                         eps_ppl:                                    1.0E-02
+ QS|                         eps_ppnl:                                   1.0E-07
+ QS| GAPW|      One center basis from orbital basis primitives
+ QS| GAPW|                   eps_fit:                                    1.0E-04
+ QS| GAPW|                   eps_iso:                                    1.0E-12
+ QS| GAPW|                   eps_svd:                                    1.0E-08
+ QS| GAPW|                   eps_cpc:                                    1.0E-10
+ QS| GAPW|   atom-r-grid: quadrature:                                     GC_LOG
+ QS| GAPW|      atom-s-grid:  max l :                                          8
+ QS| GAPW|      max_l_rho0 :                                                   2
+
+
+ ATOMIC KIND INFORMATION
+
+  1. Atomic kind: C                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               29
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s            33980.000000       0.163451
+                                                      5089.000000       0.304421
+                                                      1157.000000       0.525784
+                                                       326.600000       0.846898
+                                                       106.100000       1.255764
+                                                        38.110000       1.618645
+                                                        14.750000       1.650895
+                                                         6.035000       1.103530
+                                                         2.530000       0.312486
+
+                          1       2    2s            33980.000000      -0.099372
+                                                      5089.000000      -0.190127
+                                                      1157.000000      -0.325433
+                                                       326.600000      -0.533661
+                                                       106.100000      -0.795298
+                                                        38.110000      -1.094938
+                                                        14.750000      -1.213813
+                                                         6.035000      -1.138506
+                                                         2.530000      -0.494749
+
+                          2       1    1s                0.735500       0.566040
+
+                          3       1    1s                0.290500       0.282013
+
+                          4       1    1s                0.111100       0.137150
+
+                          5       1    1px              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+                          5       1    1py              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+                          5       1    1pz              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+
+                          6       1    1px               0.813200       1.100745
+                          6       1    1py               0.813200       1.100745
+                          6       1    1pz               0.813200       1.100745
+
+                          7       1    1px               0.289000       0.302039
+                          7       1    1py               0.289000       0.302039
+                          7       1    1pz               0.289000       0.302039
+
+                          8       1    1px               0.100700       0.080859
+                          8       1    1py               0.100700       0.080859
+                          8       1    1pz               0.100700       0.080859
+
+                          9       1    1dx2              1.848000       4.821009
+                          9       1    1dxy              1.848000       8.350232
+                          9       1    1dxz              1.848000       8.350232
+                          9       1    1dy2              1.848000       4.821009
+                          9       1    1dyz              1.848000       8.350232
+                          9       1    1dz2              1.848000       4.821009
+
+                         10       1    1dx2              0.649000       0.772392
+                         10       1    1dxy              0.649000       1.337822
+                         10       1    1dxz              0.649000       1.337822
+                         10       1    1dy2              0.649000       0.772392
+                         10       1    1dyz              0.649000       1.337822
+                         10       1    1dz2              0.649000       0.772392
+
+                         11       1    1dx2              0.228000       0.123821
+                         11       1    1dxy              0.228000       0.214465
+                         11       1    1dxz              0.228000       0.214465
+                         11       1    1dy2              0.228000       0.123821
+                         11       1    1dyz              0.228000       0.214465
+                         11       1    1dz2              0.228000       0.123821
+
+                         12       1    1fx3              1.419000       3.235302
+                         12       1    1fx2y             1.419000       7.234355
+                         12       1    1fx2z             1.419000       7.234355
+                         12       1    1fxy2             1.419000       7.234355
+                         12       1    1fxyz             1.419000      12.530271
+                         12       1    1fxz2             1.419000       7.234355
+                         12       1    1fy3              1.419000       3.235302
+                         12       1    1fy2z             1.419000       7.234355
+                         12       1    1fyz2             1.419000       7.234355
+                         12       1    1fz3              1.419000       3.235302
+
+                         13       1    1fx3              0.485000       0.288984
+                         13       1    1fx2y             0.485000       0.646187
+                         13       1    1fx2z             0.485000       0.646187
+                         13       1    1fxy2             0.485000       0.646187
+                         13       1    1fxyz             0.485000       1.119229
+                         13       1    1fxz2             0.485000       0.646187
+                         13       1    1fy3              0.485000       0.288984
+                         13       1    1fy2z             0.485000       0.646187
+                         13       1    1fyz2             0.485000       0.646187
+                         13       1    1fz3              0.485000       0.288984
+
+                         14       1    1gx4              1.011000       1.146835
+                         14       1    1gx3y             1.011000       3.034241
+                         14       1    1gx3z             1.011000       3.034241
+                         14       1    1gx2y2            1.011000       3.917189
+                         14       1    1gx2yz            1.011000       6.784770
+                         14       1    1gx2z2            1.011000       3.917189
+                         14       1    1gxy3             1.011000       3.034241
+                         14       1    1gxy2z            1.011000       6.784770
+                         14       1    1gxyz2            1.011000       6.784770
+                         14       1    1gxz3             1.011000       3.034241
+                         14       1    1gy4              1.011000       1.146835
+                         14       1    1gy3z             1.011000       3.034241
+                         14       1    1gy2z2            1.011000       3.917189
+                         14       1    1gyz3             1.011000       3.034241
+                         14       1    1gz4              1.011000       1.146835
+
+                         15       1    1s                0.041450       0.065472
+
+                         16       1    1px               0.032180       0.019428
+                         16       1    1py               0.032180       0.019428
+                         16       1    1pz               0.032180       0.019428
+
+                         17       1    1dx2              0.076600       0.018357
+                         17       1    1dxy              0.076600       0.031796
+                         17       1    1dxz              0.076600       0.031796
+                         17       1    1dy2              0.076600       0.018357
+                         17       1    1dyz              0.076600       0.031796
+                         17       1    1dz2              0.076600       0.018357
+
+                         18       1    1fx3              0.187000       0.033853
+                         18       1    1fx2y             0.187000       0.075698
+                         18       1    1fx2z             0.187000       0.075698
+                         18       1    1fxy2             0.187000       0.075698
+                         18       1    1fxyz             0.187000       0.131112
+                         18       1    1fxz2             0.187000       0.075698
+                         18       1    1fy3              0.187000       0.033853
+                         18       1    1fy2z             0.187000       0.075698
+                         18       1    1fyz2             0.187000       0.075698
+                         18       1    1fz3              0.187000       0.033853
+
+                         19       1    1gx4              0.424000       0.105121
+                         19       1    1gx3y             0.424000       0.278125
+                         19       1    1gx3z             0.424000       0.278125
+                         19       1    1gx2y2            0.424000       0.359058
+                         19       1    1gx2yz            0.424000       0.621907
+                         19       1    1gx2z2            0.424000       0.359058
+                         19       1    1gxy3             0.424000       0.278125
+                         19       1    1gxy2z            0.424000       0.621907
+                         19       1    1gxyz2            0.424000       0.621907
+                         19       1    1gxz3             0.424000       0.278125
+                         19       1    1gy4              0.424000       0.105121
+                         19       1    1gy3z             0.424000       0.278125
+                         19       1    1gy2z2            0.424000       0.359058
+                         19       1    1gyz3             0.424000       0.278125
+                         19       1    1gz4              0.424000       0.105121
+
+       Atomic covalent radius [Angstrom]:                                  0.770
+
+       Atomic van der Waals radius [Angstrom]:                             1.700
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               19
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                2.530000       0.312486
+
+                          1       2    2s                2.530000      -0.494749
+
+                          2       1    1s                0.735500       0.566040
+
+                          3       1    1s                0.290500       0.282013
+
+                          4       1    1s                0.111100       0.137150
+
+                          5       1    1px               2.368000       3.515465
+                          5       1    1py               2.368000       3.515465
+                          5       1    1pz               2.368000       3.515465
+
+                          6       1    1px               0.813200       1.100745
+                          6       1    1py               0.813200       1.100745
+                          6       1    1pz               0.813200       1.100745
+
+                          7       1    1px               0.289000       0.302039
+                          7       1    1py               0.289000       0.302039
+                          7       1    1pz               0.289000       0.302039
+
+                          8       1    1px               0.100700       0.080859
+                          8       1    1py               0.100700       0.080859
+                          8       1    1pz               0.100700       0.080859
+
+                          9       1    1dx2              1.848000       4.821009
+                          9       1    1dxy              1.848000       8.350232
+                          9       1    1dxz              1.848000       8.350232
+                          9       1    1dy2              1.848000       4.821009
+                          9       1    1dyz              1.848000       8.350232
+                          9       1    1dz2              1.848000       4.821009
+
+                         10       1    1dx2              0.649000       0.772392
+                         10       1    1dxy              0.649000       1.337822
+                         10       1    1dxz              0.649000       1.337822
+                         10       1    1dy2              0.649000       0.772392
+                         10       1    1dyz              0.649000       1.337822
+                         10       1    1dz2              0.649000       0.772392
+
+                         11       1    1dx2              0.228000       0.123821
+                         11       1    1dxy              0.228000       0.214465
+                         11       1    1dxz              0.228000       0.214465
+                         11       1    1dy2              0.228000       0.123821
+                         11       1    1dyz              0.228000       0.214465
+                         11       1    1dz2              0.228000       0.123821
+
+                         12       1    1fx3              1.419000       3.235302
+                         12       1    1fx2y             1.419000       7.234355
+                         12       1    1fx2z             1.419000       7.234355
+                         12       1    1fxy2             1.419000       7.234355
+                         12       1    1fxyz             1.419000      12.530271
+                         12       1    1fxz2             1.419000       7.234355
+                         12       1    1fy3              1.419000       3.235302
+                         12       1    1fy2z             1.419000       7.234355
+                         12       1    1fyz2             1.419000       7.234355
+                         12       1    1fz3              1.419000       3.235302
+
+                         13       1    1fx3              0.485000       0.288984
+                         13       1    1fx2y             0.485000       0.646187
+                         13       1    1fx2z             0.485000       0.646187
+                         13       1    1fxy2             0.485000       0.646187
+                         13       1    1fxyz             0.485000       1.119229
+                         13       1    1fxz2             0.485000       0.646187
+                         13       1    1fy3              0.485000       0.288984
+                         13       1    1fy2z             0.485000       0.646187
+                         13       1    1fyz2             0.485000       0.646187
+                         13       1    1fz3              0.485000       0.288984
+
+                         14       1    1gx4              1.011000       1.146835
+                         14       1    1gx3y             1.011000       3.034241
+                         14       1    1gx3z             1.011000       3.034241
+                         14       1    1gx2y2            1.011000       3.917189
+                         14       1    1gx2yz            1.011000       6.784770
+                         14       1    1gx2z2            1.011000       3.917189
+                         14       1    1gxy3             1.011000       3.034241
+                         14       1    1gxy2z            1.011000       6.784770
+                         14       1    1gxyz2            1.011000       6.784770
+                         14       1    1gxz3             1.011000       3.034241
+                         14       1    1gy4              1.011000       1.146835
+                         14       1    1gy3z             1.011000       3.034241
+                         14       1    1gy2z2            1.011000       3.917189
+                         14       1    1gyz3             1.011000       3.034241
+                         14       1    1gz4              1.011000       1.146835
+
+                         15       1    1s                0.041450       0.065472
+
+                         16       1    1px               0.032180       0.019428
+                         16       1    1py               0.032180       0.019428
+                         16       1    1pz               0.032180       0.019428
+
+                         17       1    1dx2              0.076600       0.018357
+                         17       1    1dxy              0.076600       0.031796
+                         17       1    1dxz              0.076600       0.031796
+                         17       1    1dy2              0.076600       0.018357
+                         17       1    1dyz              0.076600       0.031796
+                         17       1    1dz2              0.076600       0.018357
+
+                         18       1    1fx3              0.187000       0.033853
+                         18       1    1fx2y             0.187000       0.075698
+                         18       1    1fx2z             0.187000       0.075698
+                         18       1    1fxy2             0.187000       0.075698
+                         18       1    1fxyz             0.187000       0.131112
+                         18       1    1fxz2             0.187000       0.075698
+                         18       1    1fy3              0.187000       0.033853
+                         18       1    1fy2z             0.187000       0.075698
+                         18       1    1fyz2             0.187000       0.075698
+                         18       1    1fz3              0.187000       0.033853
+
+                         19       1    1gx4              0.424000       0.105121
+                         19       1    1gx3y             0.424000       0.278125
+                         19       1    1gx3z             0.424000       0.278125
+                         19       1    1gx2y2            0.424000       0.359058
+                         19       1    1gx2yz            0.424000       0.621907
+                         19       1    1gx2z2            0.424000       0.359058
+                         19       1    1gxy3             0.424000       0.278125
+                         19       1    1gxy2z            0.424000       0.621907
+                         19       1    1gxyz2            0.424000       0.621907
+                         19       1    1gxz3             0.424000       0.278125
+                         19       1    1gy4              0.424000       0.105121
+                         19       1    1gy3z             0.424000       0.278125
+                         19       1    1gy2z2            0.424000       0.359058
+                         19       1    1gyz3             0.424000       0.278125
+                         19       1    1gz4              0.424000       0.105121
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               4.109048
+       Electronic configuration (s p d ...):                           4   2   0
+
+  2. Atomic kind: O                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               29
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s            61420.000000       0.252311
+                                                      9199.000000       0.471110
+                                                      2091.000000       0.814108
+                                                       590.900000       1.310552
+                                                       192.300000       1.945215
+                                                        69.320000       2.518970
+                                                        26.970000       2.595906
+                                                        11.100000       1.741368
+                                                         4.682000       0.496255
+
+                          1       2    2s            61420.000000      -0.156011
+                                                      9199.000000      -0.298604
+                                                      2091.000000      -0.512522
+                                                       590.900000      -0.840596
+                                                       192.300000      -1.255069
+                                                        69.320000      -1.741711
+                                                        26.970000      -1.963764
+                                                        11.100000      -1.849206
+                                                         4.682000      -0.733942
+
+                          2       1    1s                1.428000       0.931014
+
+                          3       1    1s                0.554700       0.458093
+
+                          4       1    1s                0.206700       0.218482
+
+                          5       1    1px              63.420000       7.991875
+                                                        14.660000       8.858797
+                                                         4.459000       7.714356
+                          5       1    1py              63.420000       7.991875
+                                                        14.660000       8.858797
+                                                         4.459000       7.714356
+                          5       1    1pz              63.420000       7.991875
+                                                        14.660000       8.858797
+                                                         4.459000       7.714356
+
+                          6       1    1px               1.531000       2.427499
+                          6       1    1py               1.531000       2.427499
+                          6       1    1pz               1.531000       2.427499
+
+                          7       1    1px               0.530200       0.644896
+                          7       1    1py               0.530200       0.644896
+                          7       1    1pz               0.530200       0.644896
+
+                          8       1    1px               0.175000       0.161338
+                          8       1    1py               0.175000       0.161338
+                          8       1    1pz               0.175000       0.161338
+
+                          9       1    1dx2              3.775000      16.827288
+                          9       1    1dxy              3.775000      29.145718
+                          9       1    1dxz              3.775000      29.145718
+                          9       1    1dy2              3.775000      16.827288
+                          9       1    1dyz              3.775000      29.145718
+                          9       1    1dz2              3.775000      16.827288
+
+                         10       1    1dx2              1.300000       2.605016
+                         10       1    1dxy              1.300000       4.512019
+                         10       1    1dxz              1.300000       4.512019
+                         10       1    1dy2              1.300000       2.605016
+                         10       1    1dyz              1.300000       4.512019
+                         10       1    1dz2              1.300000       2.605016
+
+                         11       1    1dx2              0.444000       0.397493
+                         11       1    1dxy              0.444000       0.688478
+                         11       1    1dxz              0.444000       0.688478
+                         11       1    1dy2              0.444000       0.397493
+                         11       1    1dyz              0.444000       0.688478
+                         11       1    1dz2              0.444000       0.397493
+
+                         12       1    1fx3              2.666000      13.370258
+                         12       1    1fx2y             2.666000      29.896805
+                         12       1    1fx2z             2.666000      29.896805
+                         12       1    1fxy2             2.666000      29.896805
+                         12       1    1fxyz             2.666000      51.782785
+                         12       1    1fxz2             2.666000      29.896805
+                         12       1    1fy3              2.666000      13.370258
+                         12       1    1fy2z             2.666000      29.896805
+                         12       1    1fyz2             2.666000      29.896805
+                         12       1    1fz3              2.666000      13.370258
+
+                         13       1    1fx3              0.859000       1.045777
+                         13       1    1fx2y             0.859000       2.338428
+                         13       1    1fx2z             0.859000       2.338428
+                         13       1    1fxy2             0.859000       2.338428
+                         13       1    1fxyz             0.859000       4.050277
+                         13       1    1fxz2             0.859000       2.338428
+                         13       1    1fy3              0.859000       1.045777
+                         13       1    1fy2z             0.859000       2.338428
+                         13       1    1fyz2             0.859000       2.338428
+                         13       1    1fz3              0.859000       1.045777
+
+                         14       1    1gx4              1.846000       6.005824
+                         14       1    1gx3y             1.846000      15.889916
+                         14       1    1gx3z             1.846000      15.889916
+                         14       1    1gx2y2            1.846000      20.513794
+                         14       1    1gx2yz            1.846000      35.530933
+                         14       1    1gx2z2            1.846000      20.513794
+                         14       1    1gxy3             1.846000      15.889916
+                         14       1    1gxy2z            1.846000      35.530933
+                         14       1    1gxyz2            1.846000      35.530933
+                         14       1    1gxz3             1.846000      15.889916
+                         14       1    1gy4              1.846000       6.005824
+                         14       1    1gy3z             1.846000      15.889916
+                         14       1    1gy2z2            1.846000      20.513794
+                         14       1    1gyz3             1.846000      15.889916
+                         14       1    1gz4              1.846000       6.005824
+
+                         15       1    1s                0.069590       0.096565
+
+                         16       1    1px               0.053480       0.036659
+                         16       1    1py               0.053480       0.036659
+                         16       1    1pz               0.053480       0.036659
+
+                         17       1    1dx2              0.154000       0.062312
+                         17       1    1dxy              0.154000       0.107927
+                         17       1    1dxz              0.154000       0.107927
+                         17       1    1dy2              0.154000       0.062312
+                         17       1    1dyz              0.154000       0.107927
+                         17       1    1dz2              0.154000       0.062312
+
+                         18       1    1fx3              0.324000       0.116595
+                         18       1    1fx2y             0.324000       0.260715
+                         18       1    1fx2z             0.324000       0.260715
+                         18       1    1fxy2             0.324000       0.260715
+                         18       1    1fxyz             0.324000       0.451571
+                         18       1    1fxz2             0.324000       0.260715
+                         18       1    1fy3              0.324000       0.116595
+                         18       1    1fy2z             0.324000       0.260715
+                         18       1    1fyz2             0.324000       0.260715
+                         18       1    1fz3              0.324000       0.116595
+
+                         19       1    1gx4              0.714000       0.440662
+                         19       1    1gx3y             0.714000       1.165882
+                         19       1    1gx3z             0.714000       1.165882
+                         19       1    1gx2y2            0.714000       1.505147
+                         19       1    1gx2yz            0.714000       2.606991
+                         19       1    1gx2z2            0.714000       1.505147
+                         19       1    1gxy3             0.714000       1.165882
+                         19       1    1gxy2z            0.714000       2.606991
+                         19       1    1gxyz2            0.714000       2.606991
+                         19       1    1gxz3             0.714000       1.165882
+                         19       1    1gy4              0.714000       0.440662
+                         19       1    1gy3z             0.714000       1.165882
+                         19       1    1gy2z2            0.714000       1.505147
+                         19       1    1gyz3             0.714000       1.165882
+                         19       1    1gz4              0.714000       0.440662
+
+       Atomic covalent radius [Angstrom]:                                  0.730
+
+       Atomic van der Waals radius [Angstrom]:                             1.520
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               17
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s         
+
+                          1       2    2s         
+
+                          2       1    1s                1.428000       0.931014
+
+                          3       1    1s                0.554700       0.458093
+
+                          4       1    1s                0.206700       0.218482
+
+                          5       1    1px        
+                          5       1    1py        
+                          5       1    1pz        
+
+                          6       1    1px               1.531000       2.427499
+                          6       1    1py               1.531000       2.427499
+                          6       1    1pz               1.531000       2.427499
+
+                          7       1    1px               0.530200       0.644896
+                          7       1    1py               0.530200       0.644896
+                          7       1    1pz               0.530200       0.644896
+
+                          8       1    1px               0.175000       0.161338
+                          8       1    1py               0.175000       0.161338
+                          8       1    1pz               0.175000       0.161338
+
+                          9       1    1dx2              3.775000      16.827288
+                          9       1    1dxy              3.775000      29.145718
+                          9       1    1dxz              3.775000      29.145718
+                          9       1    1dy2              3.775000      16.827288
+                          9       1    1dyz              3.775000      29.145718
+                          9       1    1dz2              3.775000      16.827288
+
+                         10       1    1dx2              1.300000       2.605016
+                         10       1    1dxy              1.300000       4.512019
+                         10       1    1dxz              1.300000       4.512019
+                         10       1    1dy2              1.300000       2.605016
+                         10       1    1dyz              1.300000       4.512019
+                         10       1    1dz2              1.300000       2.605016
+
+                         11       1    1dx2              0.444000       0.397493
+                         11       1    1dxy              0.444000       0.688478
+                         11       1    1dxz              0.444000       0.688478
+                         11       1    1dy2              0.444000       0.397493
+                         11       1    1dyz              0.444000       0.688478
+                         11       1    1dz2              0.444000       0.397493
+
+                         12       1    1fx3              2.666000      13.370258
+                         12       1    1fx2y             2.666000      29.896805
+                         12       1    1fx2z             2.666000      29.896805
+                         12       1    1fxy2             2.666000      29.896805
+                         12       1    1fxyz             2.666000      51.782785
+                         12       1    1fxz2             2.666000      29.896805
+                         12       1    1fy3              2.666000      13.370258
+                         12       1    1fy2z             2.666000      29.896805
+                         12       1    1fyz2             2.666000      29.896805
+                         12       1    1fz3              2.666000      13.370258
+
+                         13       1    1fx3              0.859000       1.045777
+                         13       1    1fx2y             0.859000       2.338428
+                         13       1    1fx2z             0.859000       2.338428
+                         13       1    1fxy2             0.859000       2.338428
+                         13       1    1fxyz             0.859000       4.050277
+                         13       1    1fxz2             0.859000       2.338428
+                         13       1    1fy3              0.859000       1.045777
+                         13       1    1fy2z             0.859000       2.338428
+                         13       1    1fyz2             0.859000       2.338428
+                         13       1    1fz3              0.859000       1.045777
+
+                         14       1    1gx4              1.846000       6.005824
+                         14       1    1gx3y             1.846000      15.889916
+                         14       1    1gx3z             1.846000      15.889916
+                         14       1    1gx2y2            1.846000      20.513794
+                         14       1    1gx2yz            1.846000      35.530933
+                         14       1    1gx2z2            1.846000      20.513794
+                         14       1    1gxy3             1.846000      15.889916
+                         14       1    1gxy2z            1.846000      35.530933
+                         14       1    1gxyz2            1.846000      35.530933
+                         14       1    1gxz3             1.846000      15.889916
+                         14       1    1gy4              1.846000       6.005824
+                         14       1    1gy3z             1.846000      15.889916
+                         14       1    1gy2z2            1.846000      20.513794
+                         14       1    1gyz3             1.846000      15.889916
+                         14       1    1gz4              1.846000       6.005824
+
+                         15       1    1s                0.069590       0.096565
+
+                         16       1    1px               0.053480       0.036659
+                         16       1    1py               0.053480       0.036659
+                         16       1    1pz               0.053480       0.036659
+
+                         17       1    1dx2              0.154000       0.062312
+                         17       1    1dxy              0.154000       0.107927
+                         17       1    1dxz              0.154000       0.107927
+                         17       1    1dy2              0.154000       0.062312
+                         17       1    1dyz              0.154000       0.107927
+                         17       1    1dz2              0.154000       0.062312
+
+                         18       1    1fx3              0.324000       0.116595
+                         18       1    1fx2y             0.324000       0.260715
+                         18       1    1fx2z             0.324000       0.260715
+                         18       1    1fxy2             0.324000       0.260715
+                         18       1    1fxyz             0.324000       0.451571
+                         18       1    1fxz2             0.324000       0.260715
+                         18       1    1fy3              0.324000       0.116595
+                         18       1    1fy2z             0.324000       0.260715
+                         18       1    1fyz2             0.324000       0.260715
+                         18       1    1fz3              0.324000       0.116595
+
+                         19       1    1gx4              0.714000       0.440662
+                         19       1    1gx3y             0.714000       1.165882
+                         19       1    1gx3z             0.714000       1.165882
+                         19       1    1gx2y2            0.714000       1.505147
+                         19       1    1gx2yz            0.714000       2.606991
+                         19       1    1gx2z2            0.714000       1.505147
+                         19       1    1gxy3             0.714000       1.165882
+                         19       1    1gxy2z            0.714000       2.606991
+                         19       1    1gxyz2            0.714000       2.606991
+                         19       1    1gxz3             0.714000       1.165882
+                         19       1    1gy4              0.714000       0.440662
+                         19       1    1gy3z             0.714000       1.165882
+                         19       1    1gy2z2            0.714000       1.505147
+                         19       1    1gyz3             0.714000       1.165882
+                         19       1    1gz4              0.714000       0.440662
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               8.154466
+       Electronic configuration (s p d ...):                           4   4   0
+
+  3. Atomic kind: H                                     Number of atoms:       2
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          14
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               16
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s               82.640000       0.448332
+                                                        12.410000       0.827209
+                                                         2.824000       1.342536
+
+                          2       1    1s                0.797700       0.601575
+
+                          3       1    1s                0.258100       0.258078
+
+                          4       1    1s                0.089890       0.117002
+
+                          5       1    1px               2.292000       4.019836
+                          5       1    1py               2.292000       4.019836
+                          5       1    1pz               2.292000       4.019836
+
+                          6       1    1px               0.838000       1.142865
+                          6       1    1py               0.838000       1.142865
+                          6       1    1pz               0.838000       1.142865
+
+                          7       1    1px               0.292000       0.305963
+                          7       1    1py               0.292000       0.305963
+                          7       1    1pz               0.292000       0.305963
+
+                          8       1    1dx2              2.062000       5.840024
+                          8       1    1dxy              2.062000      10.115218
+                          8       1    1dxz              2.062000      10.115218
+                          8       1    1dy2              2.062000       5.840024
+                          8       1    1dyz              2.062000      10.115218
+                          8       1    1dz2              2.062000       5.840024
+
+                          9       1    1dx2              0.662000       0.799670
+                          9       1    1dxy              0.662000       1.385069
+                          9       1    1dxz              0.662000       1.385069
+                          9       1    1dy2              0.662000       0.799670
+                          9       1    1dyz              0.662000       1.385069
+                          9       1    1dz2              0.662000       0.799670
+
+                         10       1    1fx3              1.397000       3.123535
+                         10       1    1fx2y             1.397000       6.984436
+                         10       1    1fx2z             1.397000       6.984436
+                         10       1    1fxy2             1.397000       6.984436
+                         10       1    1fxyz             1.397000      12.097399
+                         10       1    1fxz2             1.397000       6.984436
+                         10       1    1fy3              1.397000       3.123535
+                         10       1    1fy2z             1.397000       6.984436
+                         10       1    1fyz2             1.397000       6.984436
+                         10       1    1fz3              1.397000       3.123535
+
+                         11       1    1s                0.023630       0.042954
+
+                         12       1    1px               0.084800       0.065228
+                         12       1    1py               0.084800       0.065228
+                         12       1    1pz               0.084800       0.065228
+
+                         13       1    1dx2              0.190000       0.089997
+                         13       1    1dxy              0.190000       0.155879
+                         13       1    1dxz              0.190000       0.155879
+                         13       1    1dy2              0.190000       0.089997
+                         13       1    1dyz              0.190000       0.155879
+                         13       1    1dz2              0.190000       0.089997
+
+                         14       1    1fx3              0.360000       0.147787
+                         14       1    1fx2y             0.360000       0.330461
+                         14       1    1fx2z             0.360000       0.330461
+                         14       1    1fxy2             0.360000       0.330461
+                         14       1    1fxyz             0.360000       0.572375
+                         14       1    1fxz2             0.360000       0.330461
+                         14       1    1fy3              0.360000       0.147787
+                         14       1    1fy2z             0.360000       0.330461
+                         14       1    1fyz2             0.360000       0.330461
+                         14       1    1fz3              0.360000       0.147787
+
+       Atomic covalent radius [Angstrom]:                                  0.320
+
+       Atomic van der Waals radius [Angstrom]:                             1.090
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.200
+       Rho0 radius:                                                        1.200
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          14
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               14
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                2.824000       1.342536
+
+                          2       1    1s                0.797700       0.601575
+
+                          3       1    1s                0.258100       0.258078
+
+                          4       1    1s                0.089890       0.117002
+
+                          5       1    1px               2.292000       4.019836
+                          5       1    1py               2.292000       4.019836
+                          5       1    1pz               2.292000       4.019836
+
+                          6       1    1px               0.838000       1.142865
+                          6       1    1py               0.838000       1.142865
+                          6       1    1pz               0.838000       1.142865
+
+                          7       1    1px               0.292000       0.305963
+                          7       1    1py               0.292000       0.305963
+                          7       1    1pz               0.292000       0.305963
+
+                          8       1    1dx2              2.062000       5.840024
+                          8       1    1dxy              2.062000      10.115218
+                          8       1    1dxz              2.062000      10.115218
+                          8       1    1dy2              2.062000       5.840024
+                          8       1    1dyz              2.062000      10.115218
+                          8       1    1dz2              2.062000       5.840024
+
+                          9       1    1dx2              0.662000       0.799670
+                          9       1    1dxy              0.662000       1.385069
+                          9       1    1dxz              0.662000       1.385069
+                          9       1    1dy2              0.662000       0.799670
+                          9       1    1dyz              0.662000       1.385069
+                          9       1    1dz2              0.662000       0.799670
+
+                         10       1    1fx3              1.397000       3.123535
+                         10       1    1fx2y             1.397000       6.984436
+                         10       1    1fx2z             1.397000       6.984436
+                         10       1    1fxy2             1.397000       6.984436
+                         10       1    1fxyz             1.397000      12.097399
+                         10       1    1fxz2             1.397000       6.984436
+                         10       1    1fy3              1.397000       3.123535
+                         10       1    1fy2z             1.397000       6.984436
+                         10       1    1fyz2             1.397000       6.984436
+                         10       1    1fz3              1.397000       3.123535
+
+                         11       1    1s                0.023630       0.042954
+
+                         12       1    1px               0.084800       0.065228
+                         12       1    1py               0.084800       0.065228
+                         12       1    1pz               0.084800       0.065228
+
+                         13       1    1dx2              0.190000       0.089997
+                         13       1    1dxy              0.190000       0.155879
+                         13       1    1dxz              0.190000       0.155879
+                         13       1    1dy2              0.190000       0.089997
+                         13       1    1dyz              0.190000       0.155879
+                         13       1    1dz2              0.190000       0.089997
+
+                         14       1    1fx3              0.360000       0.147787
+                         14       1    1fx2y             0.360000       0.330461
+                         14       1    1fx2z             0.360000       0.330461
+                         14       1    1fxy2             0.360000       0.330461
+                         14       1    1fxyz             0.360000       0.572375
+                         14       1    1fxz2             0.360000       0.330461
+                         14       1    1fy3              0.360000       0.147787
+                         14       1    1fy2z             0.360000       0.330461
+                         14       1    1fyz2             0.360000       0.330461
+                         14       1    1fz3              0.360000       0.147787
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:              12.500000
+       Electronic configuration (s p d ...):                           1   0   0
+
+
+ MOLECULE KIND INFORMATION
+
+
+ All atoms are their own molecule, skipping detailed information
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   3
+                             - Atoms:                                          4
+                             - Shell sets:                                    66
+                             - Shells:                                        68
+                             - Primitive Cartesian functions:                 90
+                             - Cartesian basis functions:                    320
+                             - Spherical basis functions:                    252
+
+  Maximum angular momentum of the orbital basis functions:                     4
+
+
+ MODULE QUICKSTEP: ATOMIC COORDINATES IN ANGSTROM
+
+   Atom Kind Element         X             Y             Z       Z(eff)     Mass
+      1    1 C     6      7.500000      7.500000      7.185405   6.0000  12.0107
+      2    2 O     8      7.500000      7.500000      8.393784   8.0000  15.9994
+      3    3 H     1      7.500000      8.434673      6.606216   1.0000   1.0079
+      4    3 H     1      7.500000      6.565327      6.606216   1.0000   1.0079
+
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-05
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        SCF update method:                                MIXING
+                        added MOs                                       243  245
+                        MOM enabled
+                        --------------------------------------------------------
+                        Mixing method:                           DIRECT_P_MIXING
+                        --------------------------------------------------------
+                        No outer SCF
+
+ PW_GRID| Information for grid number                                          1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    400.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1           -128     127                Points:         256
+ PW_GRID|   Bounds   2           -128     127                Points:         256
+ PW_GRID|   Bounds   3           -128     127                Points:         256
+ PW_GRID| Volume element (a.u.^3)  0.1358E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           524288.0      524288      524288
+ PW_GRID|   G-Rays                                2048.0        2048        2048
+ PW_GRID|   Real Space Points                   524288.0      524288      524288
+
+ PW_GRID| Information for grid number                                          2
+ PW_GRID| Number of the reference grid                                         1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    200.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -96      95                Points:         192
+ PW_GRID|   Bounds   2            -96      95                Points:         192
+ PW_GRID|   Bounds   3            -96      95                Points:         192
+ PW_GRID| Volume element (a.u.^3)  0.3218E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           221184.0      221376      220992
+ PW_GRID|   G-Rays                                1152.0        1153        1151
+ PW_GRID|   Real Space Points                   221184.0      221184      221184
+
+ PW_GRID| Information for grid number                                          3
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     66.7
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -54      53                Points:         108
+ PW_GRID|   Bounds   2            -54      53                Points:         108
+ PW_GRID|   Bounds   3            -54      53                Points:         108
+ PW_GRID| Volume element (a.u.^3)  0.1808E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                            39366.0       39420       39312
+ PW_GRID|   G-Rays                                 364.5         365         364
+ PW_GRID|   Real Space Points                    39366.0       46656       34992
+
+ PW_GRID| Information for grid number                                          4
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     22.2
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -32      31                Points:          64
+ PW_GRID|   Bounds   2            -32      31                Points:          64
+ PW_GRID|   Bounds   3            -32      31                Points:          64
+ PW_GRID| Volume element (a.u.^3)  0.8688E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             8192.0        8256        8128
+ PW_GRID|   G-Rays                                 128.0         129         127
+ PW_GRID|   Real Space Points                     8192.0        8192        8192
+
+ PW_GRID| Information for grid number                                          5
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                      7.4
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -18      17                Points:          36
+ PW_GRID|   Bounds   2            -18      17                Points:          36
+ PW_GRID|   Bounds   3            -18      17                Points:          36
+ PW_GRID| Volume element (a.u.^3)  0.4882         Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             1458.0        1548        1368
+ PW_GRID|   G-Rays                                  40.5          43          38
+ PW_GRID|   Real Space Points                     1458.0        2592        1296
+
+ POISSON| Solver                                          Martyna-Tuckerman (MT)
+ POISSON| MT| Alpha                                                        7.000
+ POISSON| MT| Relative cutoff                                                2.0
+ POISSON| Periodicity                                                       NONE
+
+ RS_GRID| Information for grid number                                          2
+ RS_GRID|   Bounds   1            -96      95                Points:         192
+ RS_GRID|   Bounds   2            -96      95                Points:         192
+ RS_GRID|   Bounds   3            -96      95                Points:         192
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         26
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         26
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                 100.0         100         100
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  76.0          76          76
+
+ RS_GRID| Information for grid number                                          3
+ RS_GRID|   Bounds   1            -54      53                Points:         108
+ RS_GRID|   Bounds   2            -54      53                Points:         108
+ RS_GRID|   Bounds   3            -54      53                Points:         108
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         27
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         27
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  81.0          81          81
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  67.5          68          67
+
+ RS_GRID| Information for grid number                                          4
+ RS_GRID|   Bounds   1            -32      31                Points:          64
+ RS_GRID|   Bounds   2            -32      31                Points:          64
+ RS_GRID|   Bounds   3            -32      31                Points:          64
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ RS_GRID| Information for grid number                                          5
+ RS_GRID|   Bounds   1            -18      17                Points:          36
+ RS_GRID|   Bounds   2            -18      17                Points:          36
+ RS_GRID|   Bounds   3            -18      17                Points:          36
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ Extrapolation method: initial_guess
+
+ MO| EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -18.831811            -512.439628               1.000000
+ MO|      2              -9.937076            -270.401581               1.000000
+ MO|      3              -1.028412             -27.984521               1.000000
+ MO|      4              -0.595403             -16.201738               1.000000
+ MO|      5              -0.485581             -13.213337               1.000000
+ MO|      6              -0.441690             -12.018983               1.000000
+ MO|      7              -0.398971             -10.856557               1.000000
+ MO|      8              -0.306387              -8.337205               1.000000
+ MO|      9              -0.120035              -3.266317               1.000000
+ MO|     10              -0.021853              -0.594656               0.000000
+ MO|     11               0.007833               0.213158               0.000000
+ MO|     12               0.013599               0.370045               0.000000
+ MO|     13               0.024905               0.677699               0.000000
+ MO|     14               0.057834               1.573735               0.000000
+ MO|     15               0.072353               1.968814               0.000000
+ MO|     16               0.080940               2.202489               0.000000
+ MO|     17               0.096328               2.621224               0.000000
+ MO|     18               0.099693               2.712773               0.000000
+ MO|     19               0.110686               3.011906               0.000000
+ MO|     20               0.116973               3.183000               0.000000
+ MO|     21               0.129124               3.513648               0.000000
+ MO|     22               0.159867               4.350212               0.000000
+ MO|     23               0.170809               4.647939               0.000000
+ MO|     24               0.200001               5.442307               0.000000
+ MO|     25               0.206091               5.608009               0.000000
+ MO|     26               0.224419               6.106749               0.000000
+ MO|     27               0.226297               6.157848               0.000000
+ MO|     28               0.228440               6.216173               0.000000
+ MO|     29               0.238328               6.485246               0.000000
+ MO|     30               0.257215               6.999166               0.000000
+ MO|     31               0.295795               8.048990               0.000000
+ MO|     32               0.296713               8.073981               0.000000
+ MO|     33               0.321364               8.744763               0.000000
+ MO|     34               0.338952               9.223349               0.000000
+ MO|     35               0.355040               9.661121               0.000000
+ MO|     36               0.391771              10.660638               0.000000
+ MO|     37               0.409465              11.142098               0.000000
+ MO|     38               0.416199              11.325361               0.000000
+ MO|     39               0.432590              11.771370               0.000000
+ MO|     40               0.464420              12.637505               0.000000
+ MO|     41               0.481703              13.107793               0.000000
+ MO|     42               0.521022              14.177737               0.000000
+ MO|     43               0.528126              14.371038               0.000000
+ MO|     44               0.530525              14.436319               0.000000
+ MO|     45               0.541473              14.734231               0.000000
+ MO|     46               0.597454              16.257552               0.000000
+ MO|     47               0.602374              16.391428               0.000000
+ MO|     48               0.604092              16.438192               0.000000
+ MO|     49               0.613952              16.706494               0.000000
+ MO|     50               0.618592              16.832736               0.000000
+ MO|     51               0.621251              16.905109               0.000000
+ MO|     52               0.640456              17.427696               0.000000
+ MO|     53               0.644755              17.544680               0.000000
+ MO|     54               0.650985              17.714197               0.000000
+ MO|     55               0.694402              18.895649               0.000000
+ MO|     56               0.725045              19.729490               0.000000
+ MO|     57               0.740930              20.161721               0.000000
+ MO|     58               0.780205              21.230468               0.000000
+ MO|     59               0.815272              22.184673               0.000000
+ MO|     60               0.837842              22.798840               0.000000
+ MO|     61               0.845412              23.004831               0.000000
+ MO|     62               0.889936              24.216381               0.000000
+ MO|     63               0.904783              24.620396               0.000000
+ MO|     64               0.919551              25.022249               0.000000
+ MO|     65               0.953533              25.946957               0.000000
+ MO|     66               0.972747              26.469791               0.000000
+ MO|     67               0.978474              26.625629               0.000000
+ MO|     68               1.090329              29.669369               0.000000
+ MO|     69               1.096941              29.849278               0.000000
+ MO|     70               1.166737              31.748539               0.000000
+ MO|     71               1.204406              32.773558               0.000000
+ MO|     72               1.222472              33.265166               0.000000
+ MO|     73               1.257402              34.215643               0.000000
+ MO|     74               1.279882              34.827348               0.000000
+ MO|     75               1.295795              35.260382               0.000000
+ MO|     76               1.325068              36.056944               0.000000
+ MO|     77               1.329557              36.179089               0.000000
+ MO|     78               1.330738              36.211211               0.000000
+ MO|     79               1.335483              36.340336               0.000000
+ MO|     80               1.409925              38.366010               0.000000
+ MO|     81               1.418747              38.606068               0.000000
+ MO|     82               1.424354              38.758639               0.000000
+ MO|     83               1.438742              39.150153               0.000000
+ MO|     84               1.482497              40.340796               0.000000
+ MO|     85               1.514693              41.216905               0.000000
+ MO|     86               1.584571              43.118378               0.000000
+ MO|     87               1.601440              43.577391               0.000000
+ MO|     88               1.604019              43.647567               0.000000
+ MO|     89               1.614306              43.927512               0.000000
+ MO|     90               1.656217              45.067957               0.000000
+ MO|     91               1.668718              45.408114               0.000000
+ MO|     92               1.682620              45.786432               0.000000
+ MO|     93               1.708794              46.498644               0.000000
+ MO|     94               1.751663              47.665173               0.000000
+ MO|     95               1.760306              47.900361               0.000000
+ MO|     96               1.806147              49.147756               0.000000
+ MO|     97               1.813383              49.344657               0.000000
+ MO|     98               1.820775              49.545804               0.000000
+ MO|     99               1.822796              49.600797               0.000000
+ MO|    100               1.834132              49.909265               0.000000
+ MO|    101               1.895758              51.586203               0.000000
+ MO|    102               1.896740              51.612930               0.000000
+ MO|    103               1.903782              51.804545               0.000000
+ MO|    104               1.945083              52.928402               0.000000
+ MO|    105               1.955434              53.210072               0.000000
+ MO|    106               1.989442              54.135462               0.000000
+ MO|    107               2.050598              55.799619               0.000000
+ MO|    108               2.092635              56.943482               0.000000
+ MO|    109               2.199563              59.853140               0.000000
+ MO|    110               2.206442              60.040336               0.000000
+ MO|    111               2.217423              60.339138               0.000000
+ MO|    112               2.222451              60.475975               0.000000
+ MO|    113               2.254094              61.337008               0.000000
+ MO|    114               2.316490              63.034891               0.000000
+ MO|    115               2.351477              63.986943               0.000000
+ MO|    116               2.435184              66.264728               0.000000
+ MO|    117               2.450904              66.692477               0.000000
+ MO|    118               2.466110              67.106264               0.000000
+ MO|    119               2.495094              67.894952               0.000000
+ MO|    120               2.503365              68.120038               0.000000
+ MO|    121               2.536294              69.016083               0.000000
+ MO|    122               2.601421              70.788267               0.000000
+ MO|    123               2.625163              71.434325               0.000000
+ MO|    124               2.666926              72.570747               0.000000
+ MO|    125               2.749859              74.827458               0.000000
+ MO|    126               2.770673              75.393845               0.000000
+ MO|    127               2.916674              79.366738               0.000000
+ MO|    128               2.986588              81.269198               0.000000
+ MO|    129               3.019595              82.167348               0.000000
+ MO|    130               3.073647              83.638177               0.000000
+ MO|    131               3.159124              85.964146               0.000000
+ MO|    132               3.229026              87.866271               0.000000
+ MO|    133               3.372473              91.769644               0.000000
+ MO|    134               3.380998              92.001625               0.000000
+ MO|    135               3.428576              93.296304               0.000000
+ MO|    136               3.480292              94.703566               0.000000
+ MO|    137               3.496307              95.139359               0.000000
+ MO|    138               3.528687              96.020443               0.000000
+ MO|    139               3.557271              96.798266               0.000000
+ MO|    140               3.586274              97.587481               0.000000
+ MO|    141               3.647048              99.241224               0.000000
+ MO|    142               3.647794              99.261528               0.000000
+ MO|    143               3.716231             101.123792               0.000000
+ MO|    144               3.763315             102.405007               0.000000
+ MO|    145               3.771889             102.638310               0.000000
+ MO|    146               3.804069             103.513972               0.000000
+ MO|    147               3.842221             104.552153               0.000000
+ MO|    148               3.896452             106.027860               0.000000
+ MO|    149               3.899793             106.118763               0.000000
+ MO|    150               3.929178             106.918375               0.000000
+ MO|    151               3.949885             107.481850               0.000000
+ MO|    152               3.964682             107.884490               0.000000
+ MO|    153               4.028288             109.615291               0.000000
+ MO|    154               4.033603             109.759912               0.000000
+ MO|    155               4.112104             111.896035               0.000000
+ MO|    156               4.193445             114.109435               0.000000
+ MO|    157               4.223054             114.915153               0.000000
+ MO|    158               4.231716             115.150844               0.000000
+ MO|    159               4.241462             115.416053               0.000000
+ MO|    160               4.339109             118.073160               0.000000
+ MO|    161               4.476148             121.802190               0.000000
+ MO|    162               4.505055             122.588777               0.000000
+ MO|    163               4.685895             127.509694               0.000000
+ MO|    164               4.726405             128.612012               0.000000
+ MO|    165               4.897796             133.275814               0.000000
+ MO|    166               4.962660             135.040833               0.000000
+ MO|    167               5.008696             136.293561               0.000000
+ MO|    168               5.068232             137.913616               0.000000
+ MO|    169               5.271069             143.433081               0.000000
+ MO|    170               5.275907             143.564742               0.000000
+ MO|    171               5.549196             151.001301               0.000000
+ MO|    172               5.579956             151.838315               0.000000
+ MO|    173               5.600381             152.394129               0.000000
+ MO|    174               5.725702             155.804281               0.000000
+ MO|    175               5.779205             157.260175               0.000000
+ MO|    176               5.810045             158.099371               0.000000
+ MO|    177               5.821921             158.422539               0.000000
+ MO|    178               5.944257             161.751456               0.000000
+ MO|    179               6.027620             164.019894               0.000000
+ MO|    180               6.152636             167.421729               0.000000
+ MO|    181               6.156554             167.528352               0.000000
+ MO|    182               6.337423             172.450057               0.000000
+ MO|    183               6.364014             173.173631               0.000000
+ MO|    184               6.407483             174.356486               0.000000
+ MO|    185               6.459056             175.759840               0.000000
+ MO|    186               6.509307             177.127245               0.000000
+ MO|    187               6.515944             177.307844               0.000000
+ MO|    188               6.655741             181.111923               0.000000
+ MO|    189               6.701664             182.361558               0.000000
+ MO|    190               6.745234             183.547140               0.000000
+ MO|    191               6.867761             186.881287               0.000000
+ MO|    192               6.879537             187.201726               0.000000
+ MO|    193               6.925770             188.459785               0.000000
+ MO|    194               7.119180             193.722730               0.000000
+ MO|    195               7.285653             198.252702               0.000000
+ MO|    196               7.420869             201.932112               0.000000
+ MO|    197               7.470647             203.286648               0.000000
+ MO|    198               7.764579             211.284932               0.000000
+ MO|    199               7.783349             211.795707               0.000000
+ MO|    200               7.805671             212.403116               0.000000
+ MO|    201               7.806165             212.416559               0.000000
+ MO|    202               7.855774             213.766468               0.000000
+ MO|    203               8.080139             219.871775               0.000000
+ MO|    204               8.085342             220.013356               0.000000
+ MO|    205               8.108409             220.641029               0.000000
+ MO|    206               8.114488             220.806453               0.000000
+ MO|    207               8.401208             228.608498               0.000000
+ MO|    208               8.417046             229.039460               0.000000
+ MO|    209               8.561078             232.958782               0.000000
+ MO|    210               8.668913             235.893116               0.000000
+ MO|    211               8.690411             236.478112               0.000000
+ MO|    212               8.764573             238.496163               0.000000
+ MO|    213               8.919603             242.714744               0.000000
+ MO|    214               9.164786             249.386518               0.000000
+ MO|    215               9.176061             249.693320               0.000000
+ MO|    216               9.225087             251.027390               0.000000
+ MO|    217               9.568003             260.358601               0.000000
+ MO|    218               9.646619             262.497840               0.000000
+ MO|    219               9.671196             263.166628               0.000000
+ MO|    220               9.677965             263.350819               0.000000
+ MO|    221               9.864165             268.417573               0.000000
+ MO|    222              10.017638             272.593799               0.000000
+ MO|    223              10.031159             272.961709               0.000000
+ MO|    224              10.119498             275.365551               0.000000
+ MO|    225              10.207481             277.759676               0.000000
+ MO|    226              10.312359             280.613561               0.000000
+ MO|    227              10.385589             282.606244               0.000000
+ MO|    228              10.428807             283.782280               0.000000
+ MO|    229              10.574870             287.756850               0.000000
+ MO|    230              10.622004             289.039420               0.000000
+ MO|    231              10.634950             289.391698               0.000000
+ MO|    232              10.663416             290.166298               0.000000
+ MO|    233              10.773415             293.159543               0.000000
+ MO|    234              10.923537             297.244569               0.000000
+ MO|    235              11.214612             305.165104               0.000000
+ MO|    236              11.227386             305.512698               0.000000
+ MO|    237              11.339397             308.560684               0.000000
+ MO|    238              11.365978             309.283984               0.000000
+ MO|    239              11.739599             319.450735               0.000000
+ MO|    240              11.828605             321.872705               0.000000
+ MO|    241              11.982780             326.068027               0.000000
+ MO|    242              12.074910             328.575004               0.000000
+ MO|    243              12.076864             328.628174               0.000000
+ MO|    244              12.212055             332.306923               0.000000
+ MO|    245              12.417421             337.895212               0.000000
+ MO|    246              12.606520             343.040866               0.000000
+ MO|    247              13.102091             356.526031               0.000000
+ MO|    248              13.132059             357.341487               0.000000
+ MO|    249              13.876193             377.590402               0.000000
+ MO|    250              14.041127             382.078496               0.000000
+ MO|    251              25.696152             699.227869               0.000000
+ MO|    252              41.586942            1131.638234               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.098182 a.u.          2.671661 eV
+
+
+ MO| EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -18.807065            -511.766276               1.000000
+ MO|      2              -9.927905            -270.152024               1.000000
+ MO|      3              -0.983375             -26.758998               1.000000
+ MO|      4              -0.554002             -15.075148               1.000000
+ MO|      5              -0.440213             -11.978795               1.000000
+ MO|      6              -0.414246             -11.272212               1.000000
+ MO|      7              -0.350305              -9.532280               1.000000
+ MO|      8              -0.227440              -6.188966               0.000000
+ MO|      9              -0.054579              -1.485184               0.000000
+ MO|     10              -0.005248              -0.142801               0.000000
+ MO|     11               0.019407               0.528087               0.000000
+ MO|     12               0.024101               0.655823               0.000000
+ MO|     13               0.048753               1.326630               0.000000
+ MO|     14               0.071848               1.955087               0.000000
+ MO|     15               0.080473               2.189785               0.000000
+ MO|     16               0.091694               2.495120               0.000000
+ MO|     17               0.114858               3.125438               0.000000
+ MO|     18               0.117830               3.206319               0.000000
+ MO|     19               0.121129               3.296090               0.000000
+ MO|     20               0.137297               3.736046               0.000000
+ MO|     21               0.140275               3.817089               0.000000
+ MO|     22               0.171665               4.671243               0.000000
+ MO|     23               0.196115               5.336569               0.000000
+ MO|     24               0.211882               5.765599               0.000000
+ MO|     25               0.218932               5.957450               0.000000
+ MO|     26               0.241053               6.559380               0.000000
+ MO|     27               0.241163               6.562383               0.000000
+ MO|     28               0.243432               6.624128               0.000000
+ MO|     29               0.253951               6.910365               0.000000
+ MO|     30               0.274347               7.465363               0.000000
+ MO|     31               0.312888               8.514107               0.000000
+ MO|     32               0.313937               8.542651               0.000000
+ MO|     33               0.349469               9.509548               0.000000
+ MO|     34               0.354633               9.650046               0.000000
+ MO|     35               0.383417              10.433311               0.000000
+ MO|     36               0.409588              11.145467               0.000000
+ MO|     37               0.419578              11.417295               0.000000
+ MO|     38               0.441044              12.001429               0.000000
+ MO|     39               0.445071              12.110988               0.000000
+ MO|     40               0.477847              13.002875               0.000000
+ MO|     41               0.499192              13.583710               0.000000
+ MO|     42               0.541054              14.722841               0.000000
+ MO|     43               0.544655              14.820827               0.000000
+ MO|     44               0.550014              14.966654               0.000000
+ MO|     45               0.568443              15.468131               0.000000
+ MO|     46               0.610030              16.599762               0.000000
+ MO|     47               0.616915              16.787103               0.000000
+ MO|     48               0.617922              16.814507               0.000000
+ MO|     49               0.629163              17.120400               0.000000
+ MO|     50               0.636884              17.330499               0.000000
+ MO|     51               0.641485              17.455698               0.000000
+ MO|     52               0.655136              17.827146               0.000000
+ MO|     53               0.659343              17.941639               0.000000
+ MO|     54               0.670796              18.253293               0.000000
+ MO|     55               0.714291              19.436852               0.000000
+ MO|     56               0.748546              20.368968               0.000000
+ MO|     57               0.757591              20.615097               0.000000
+ MO|     58               0.792265              21.558639               0.000000
+ MO|     59               0.832123              22.643219               0.000000
+ MO|     60               0.858196              23.352709               0.000000
+ MO|     61               0.880187              23.951109               0.000000
+ MO|     62               0.902706              24.563879               0.000000
+ MO|     63               0.920662              25.052494               0.000000
+ MO|     64               0.939850              25.574621               0.000000
+ MO|     65               0.971126              26.425689               0.000000
+ MO|     66               0.990166              26.943793               0.000000
+ MO|     67               1.002888              27.289979               0.000000
+ MO|     68               1.111210              30.237575               0.000000
+ MO|     69               1.123795              30.580017               0.000000
+ MO|     70               1.188888              32.351277               0.000000
+ MO|     71               1.233391              33.562263               0.000000
+ MO|     72               1.248967              33.986118               0.000000
+ MO|     73               1.276638              34.739100               0.000000
+ MO|     74               1.310349              35.656400               0.000000
+ MO|     75               1.321999              35.973416               0.000000
+ MO|     76               1.343728              36.564708               0.000000
+ MO|     77               1.352669              36.808001               0.000000
+ MO|     78               1.355905              36.896057               0.000000
+ MO|     79               1.360498              37.021046               0.000000
+ MO|     80               1.423521              38.735963               0.000000
+ MO|     81               1.438799              39.151713               0.000000
+ MO|     82               1.443944              39.291703               0.000000
+ MO|     83               1.452761              39.531649               0.000000
+ MO|     84               1.510831              41.111809               0.000000
+ MO|     85               1.534193              41.747505               0.000000
+ MO|     86               1.601743              43.585656               0.000000
+ MO|     87               1.624982              44.217997               0.000000
+ MO|     88               1.626608              44.262256               0.000000
+ MO|     89               1.632798              44.430701               0.000000
+ MO|     90               1.678989              45.687612               0.000000
+ MO|     91               1.686991              45.905369               0.000000
+ MO|     92               1.708600              46.493375               0.000000
+ MO|     93               1.732940              47.155687               0.000000
+ MO|     94               1.774233              48.279338               0.000000
+ MO|     95               1.779476              48.421997               0.000000
+ MO|     96               1.828639              49.759806               0.000000
+ MO|     97               1.840254              50.075865               0.000000
+ MO|     98               1.841079              50.098300               0.000000
+ MO|     99               1.844384              50.188230               0.000000
+ MO|    100               1.855319              50.485811               0.000000
+ MO|    101               1.912938              52.053692               0.000000
+ MO|    102               1.925584              52.397816               0.000000
+ MO|    103               1.943875              52.895521               0.000000
+ MO|    104               1.968820              53.574304               0.000000
+ MO|    105               1.975721              53.762096               0.000000
+ MO|    106               2.015596              54.847159               0.000000
+ MO|    107               2.081232              56.633194               0.000000
+ MO|    108               2.115185              57.557102               0.000000
+ MO|    109               2.228303              60.635206               0.000000
+ MO|    110               2.228583              60.642832               0.000000
+ MO|    111               2.244245              61.069016               0.000000
+ MO|    112               2.256248              61.395625               0.000000
+ MO|    113               2.287818              62.254703               0.000000
+ MO|    114               2.349269              63.926868               0.000000
+ MO|    115               2.386964              64.952585               0.000000
+ MO|    116               2.466990              67.130203               0.000000
+ MO|    117               2.471944              67.265027               0.000000
+ MO|    118               2.490715              67.775801               0.000000
+ MO|    119               2.526138              68.739704               0.000000
+ MO|    120               2.531260              68.879084               0.000000
+ MO|    121               2.558066              69.608528               0.000000
+ MO|    122               2.635361              71.711820               0.000000
+ MO|    123               2.650979              72.136800               0.000000
+ MO|    124               2.688711              73.163548               0.000000
+ MO|    125               2.771993              75.429756               0.000000
+ MO|    126               2.804078              76.302855               0.000000
+ MO|    127               2.947029              80.192735               0.000000
+ MO|    128               3.019918              82.176145               0.000000
+ MO|    129               3.057252              83.192055               0.000000
+ MO|    130               3.107425              84.557324               0.000000
+ MO|    131               3.187973              86.749153               0.000000
+ MO|    132               3.265588              88.861172               0.000000
+ MO|    133               3.397424              92.448620               0.000000
+ MO|    134               3.419869              93.059361               0.000000
+ MO|    135               3.463533              94.247520               0.000000
+ MO|    136               3.515249              95.654777               0.000000
+ MO|    137               3.528491              96.015113               0.000000
+ MO|    138               3.561978              96.926355               0.000000
+ MO|    139               3.591469              97.728828               0.000000
+ MO|    140               3.612987              98.314369               0.000000
+ MO|    141               3.681972             100.191544               0.000000
+ MO|    142               3.682679             100.210783               0.000000
+ MO|    143               3.743383             101.862636               0.000000
+ MO|    144               3.822612             104.018572               0.000000
+ MO|    145               3.823047             104.030396               0.000000
+ MO|    146               3.833198             104.306610               0.000000
+ MO|    147               3.887845             105.793653               0.000000
+ MO|    148               3.941696             107.258994               0.000000
+ MO|    149               3.947922             107.428429               0.000000
+ MO|    150               3.968046             107.976031               0.000000
+ MO|    151               3.969700             108.021021               0.000000
+ MO|    152               3.988259             108.526033               0.000000
+ MO|    153               4.056465             110.382035               0.000000
+ MO|    154               4.069248             110.729877               0.000000
+ MO|    155               4.141499             112.695908               0.000000
+ MO|    156               4.226752             115.015784               0.000000
+ MO|    157               4.252120             115.706063               0.000000
+ MO|    158               4.271605             116.236280               0.000000
+ MO|    159               4.274837             116.324225               0.000000
+ MO|    160               4.378073             119.133420               0.000000
+ MO|    161               4.506092             122.616988               0.000000
+ MO|    162               4.534369             123.386462               0.000000
+ MO|    163               4.725109             128.576757               0.000000
+ MO|    164               4.761857             129.576731               0.000000
+ MO|    165               4.938501             134.383437               0.000000
+ MO|    166               4.995385             135.931351               0.000000
+ MO|    167               5.034153             136.986267               0.000000
+ MO|    168               5.109552             139.037968               0.000000
+ MO|    169               5.308238             144.444514               0.000000
+ MO|    170               5.309916             144.490163               0.000000
+ MO|    171               5.584851             151.971525               0.000000
+ MO|    172               5.615734             152.811882               0.000000
+ MO|    173               5.648119             153.693127               0.000000
+ MO|    174               5.762331             156.800992               0.000000
+ MO|    175               5.846401             159.088666               0.000000
+ MO|    176               5.862851             159.536286               0.000000
+ MO|    177               5.870877             159.754686               0.000000
+ MO|    178               5.997430             163.198374               0.000000
+ MO|    179               6.073841             165.277631               0.000000
+ MO|    180               6.182035             168.221718               0.000000
+ MO|    181               6.194654             168.565115               0.000000
+ MO|    182               6.381975             173.662361               0.000000
+ MO|    183               6.388374             173.836499               0.000000
+ MO|    184               6.435310             175.113700               0.000000
+ MO|    185               6.502386             176.938911               0.000000
+ MO|    186               6.545115             178.101648               0.000000
+ MO|    187               6.550155             178.238781               0.000000
+ MO|    188               6.675743             181.656202               0.000000
+ MO|    189               6.738958             183.376382               0.000000
+ MO|    190               6.776253             184.391233               0.000000
+ MO|    191               6.906870             187.945479               0.000000
+ MO|    192               6.907032             187.949897               0.000000
+ MO|    193               6.948418             189.076069               0.000000
+ MO|    194               7.172217             195.165955               0.000000
+ MO|    195               7.322796             199.263411               0.000000
+ MO|    196               7.454493             202.847078               0.000000
+ MO|    197               7.498988             204.057832               0.000000
+ MO|    198               7.789364             211.959377               0.000000
+ MO|    199               7.825461             212.941619               0.000000
+ MO|    200               7.840988             213.364147               0.000000
+ MO|    201               7.850330             213.618355               0.000000
+ MO|    202               7.883574             214.522948               0.000000
+ MO|    203               8.117490             220.888142               0.000000
+ MO|    204               8.129394             221.212053               0.000000
+ MO|    205               8.143589             221.598320               0.000000
+ MO|    206               8.146248             221.670682               0.000000
+ MO|    207               8.433917             229.498547               0.000000
+ MO|    208               8.442984             229.745269               0.000000
+ MO|    209               8.600063             234.019616               0.000000
+ MO|    210               8.710277             237.018704               0.000000
+ MO|    211               8.726619             237.463371               0.000000
+ MO|    212               8.808217             239.683762               0.000000
+ MO|    213               8.957782             243.753651               0.000000
+ MO|    214               9.199391             250.328168               0.000000
+ MO|    215               9.219399             250.872601               0.000000
+ MO|    216               9.259538             251.964845               0.000000
+ MO|    217               9.600671             261.247540               0.000000
+ MO|    218               9.695103             263.817174               0.000000
+ MO|    219               9.711051             264.251139               0.000000
+ MO|    220               9.715969             264.384962               0.000000
+ MO|    221               9.897881             269.335040               0.000000
+ MO|    222              10.104304             274.952108               0.000000
+ MO|    223              10.118423             275.336284               0.000000
+ MO|    224              10.156799             276.380561               0.000000
+ MO|    225              10.256942             279.105582               0.000000
+ MO|    226              10.364976             282.045342               0.000000
+ MO|    227              10.427596             283.749323               0.000000
+ MO|    228              10.483341             285.266212               0.000000
+ MO|    229              10.622524             289.053578               0.000000
+ MO|    230              10.660199             290.078767               0.000000
+ MO|    231              10.661373             290.110712               0.000000
+ MO|    232              10.761139             292.825483               0.000000
+ MO|    233              10.803639             293.981967               0.000000
+ MO|    234              10.980310             298.789423               0.000000
+ MO|    235              11.282243             307.005443               0.000000
+ MO|    236              11.326555             308.211236               0.000000
+ MO|    237              11.399273             310.189982               0.000000
+ MO|    238              11.440114             311.301341               0.000000
+ MO|    239              11.811358             321.403398               0.000000
+ MO|    240              11.879315             323.252604               0.000000
+ MO|    241              12.011549             326.850869               0.000000
+ MO|    242              12.119670             329.792993               0.000000
+ MO|    243              12.158251             330.842836               0.000000
+ MO|    244              12.328098             335.464618               0.000000
+ MO|    245              12.522172             340.745643               0.000000
+ MO|    246              12.651032             344.252087               0.000000
+ MO|    247              13.119482             356.999262               0.000000
+ MO|    248              13.173212             358.461316               0.000000
+ MO|    249              13.952560             379.668462               0.000000
+ MO|    250              14.073521             382.959981               0.000000
+ MO|    251              25.714039             699.714584               0.000000
+ MO|    252              41.621169            1132.569611               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.122865 a.u.          3.343314 eV
+
+
+ Spin 1
+
+ Number of electrons:                                                          9
+ Number of occupied orbitals:                                                  9
+ Number of molecular orbitals:                                               252
+
+ Spin 2
+
+ Number of electrons:                                                          7
+ Number of occupied orbitals:                                                  7
+ Number of molecular orbitals:                                               252
+
+ Number of orbital functions:                                                252
+ Number of independent orbital functions:                                    252
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+     1 P_Mix/Diag. 0.40E+00    2.3     0.04782994      -114.3769826865 -1.14E+02
+     2 P_Mix/Diag. 0.40E+00    2.6     0.02933448      -114.3780360057 -1.05E-03
+     3 DIIS/Diag.  0.22E-02    2.6     0.01785057      -114.3787299290 -6.94E-04
+     4 DIIS/Diag.  0.40E-02    2.6     0.00224922      -114.3798964477 -1.17E-03
+     5 DIIS/Diag.  0.82E-02    2.6     0.00292660      -114.3797649428  1.32E-04
+     6 DIIS/Diag.  0.31E-02    2.6     0.00156336      -114.3799125751 -1.48E-04
+     7 DIIS/Diag.  0.31E-03    2.6     0.00020248      -114.3799361380 -2.36E-05
+     8 DIIS/Diag.  0.56E-04    2.5     0.00001300      -114.3799364218 -2.84E-07
+     9 DIIS/Diag.  0.66E-04    2.6     0.00000679      -114.3799364208  9.16E-10
+
+  *** SCF run converged in     9 steps ***
+
+
+  Electronic density on regular grids:        -11.5595690691        4.4404309309
+  Core density on regular grids:               16.0000000000       -0.0000000000
+  Hard and soft densities (Lebedev):          -93.2000709321      -88.7596414659
+  Total Rho_soft + Rho1_hard - Rho1_soft      -15.9999985353
+  Total charge density (r-space):               0.0000014647
+  Total Rho_soft + Rho0_soft (g-space):         0.0000014152
+
+  Overlap energy of the core charge distribution:               0.00000334447503
+  Self energy of the core charge distribution:               -104.84381476465852
+  Core Hamiltonian energy:                                    -12.66570476802401
+  Hartree energy:                                              31.09589151301494
+  Exchange-correlation energy:                                 -5.45313991788794
+
+  GAPW| Exc from hard and soft atomic rho1:                    -9.20769632465923
+  GAPW| local Eh = 1 center integrals:                        -13.30547550310660
+
+  Total energy:                                              -114.37993642084631
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -19.040568            -518.120206               1.000000
+ MO|      2             -10.087275            -274.488702               1.000000
+ MO|      3              -1.085398             -29.535184               1.000000
+ MO|      4              -0.625883             -17.031132               1.000000
+ MO|      5              -0.505850             -13.764877               1.000000
+ MO|      6              -0.460051             -12.518629               1.000000
+ MO|      7              -0.420577             -11.444484               1.000000
+ MO|      8              -0.325936              -8.869161               1.000000
+ MO|      9              -0.132565              -3.607267               1.000000
+ MO|     10               0.005002               0.136122               0.000000
+ MO|     11               0.029309               0.797539               0.000000
+ MO|     12               0.039179               1.066128               0.000000
+ MO|     13               0.064401               1.752446               0.000000
+ MO|     14               0.080294               2.184922               0.000000
+ MO|     15               0.094535               2.572417               0.000000
+ MO|     16               0.108446               2.950958               0.000000
+ MO|     17               0.123317               3.355632               0.000000
+ MO|     18               0.128003               3.483141               0.000000
+ MO|     19               0.143655               3.909060               0.000000
+ MO|     20               0.155440               4.229735               0.000000
+ MO|     21               0.158301               4.307587               0.000000
+ MO|     22               0.190369               5.180194               0.000000
+ MO|     23               0.222963               6.067140               0.000000
+ MO|     24               0.231316               6.294439               0.000000
+ MO|     25               0.244996               6.666677               0.000000
+ MO|     26               0.250800               6.824609               0.000000
+ MO|     27               0.271378               7.384565               0.000000
+ MO|     28               0.274251               7.462741               0.000000
+ MO|     29               0.282090               7.676061               0.000000
+ MO|     30               0.284744               7.748288               0.000000
+ MO|     31               0.325606               8.860188               0.000000
+ MO|     32               0.328096               8.927959               0.000000
+ MO|     33               0.368064              10.015541               0.000000
+ MO|     34               0.381706              10.386750               0.000000
+ MO|     35               0.401831              10.934380               0.000000
+ MO|     36               0.439126              11.949224               0.000000
+ MO|     37               0.455768              12.402078               0.000000
+ MO|     38               0.466582              12.696348               0.000000
+ MO|     39               0.474475              12.911132               0.000000
+ MO|     40               0.519920              14.147734               0.000000
+ MO|     41               0.533539              14.518333               0.000000
+ MO|     42               0.577789              15.722446               0.000000
+ MO|     43               0.581218              15.815739               0.000000
+ MO|     44               0.586672              15.964154               0.000000
+ MO|     45               0.607730              16.537180               0.000000
+ MO|     46               0.654022              17.796834               0.000000
+ MO|     47               0.664283              18.076050               0.000000
+ MO|     48               0.666821              18.145125               0.000000
+ MO|     49               0.674640              18.357882               0.000000
+ MO|     50               0.684031              18.613428               0.000000
+ MO|     51               0.703312              19.138097               0.000000
+ MO|     52               0.714996              19.456025               0.000000
+ MO|     53               0.715503              19.469834               0.000000
+ MO|     54               0.716231              19.489628               0.000000
+ MO|     55               0.755296              20.552659               0.000000
+ MO|     56               0.806540              21.947072               0.000000
+ MO|     57               0.817866              22.255262               0.000000
+ MO|     58               0.838802              22.824954               0.000000
+ MO|     59               0.889539              24.205587               0.000000
+ MO|     60               0.924092              25.145829               0.000000
+ MO|     61               0.924598              25.159587               0.000000
+ MO|     62               0.958331              26.077522               0.000000
+ MO|     63               0.970528              26.409403               0.000000
+ MO|     64               1.007912              27.426683               0.000000
+ MO|     65               1.017870              27.697644               0.000000
+ MO|     66               1.037571              28.233731               0.000000
+ MO|     67               1.061932              28.896643               0.000000
+ MO|     68               1.172635              31.909030               0.000000
+ MO|     69               1.191819              32.431054               0.000000
+ MO|     70               1.255247              34.157005               0.000000
+ MO|     71               1.313356              35.738236               0.000000
+ MO|     72               1.321755              35.966786               0.000000
+ MO|     73               1.342920              36.542724               0.000000
+ MO|     74               1.360630              37.024632               0.000000
+ MO|     75               1.384356              37.670249               0.000000
+ MO|     76               1.416868              38.554952               0.000000
+ MO|     77               1.431429              38.951153               0.000000
+ MO|     78               1.431762              38.960231               0.000000
+ MO|     79               1.439492              39.170569               0.000000
+ MO|     80               1.523036              41.443921               0.000000
+ MO|     81               1.539027              41.879041               0.000000
+ MO|     82               1.541104              41.935581               0.000000
+ MO|     83               1.556199              42.346338               0.000000
+ MO|     84               1.598552              43.498812               0.000000
+ MO|     85               1.627391              44.283568               0.000000
+ MO|     86               1.681427              45.753967               0.000000
+ MO|     87               1.726714              46.986270               0.000000
+ MO|     88               1.734181              47.189453               0.000000
+ MO|     89               1.760777              47.913184               0.000000
+ MO|     90               1.768157              48.113990               0.000000
+ MO|     91               1.808615              49.214906               0.000000
+ MO|     92               1.823797              49.628032               0.000000
+ MO|     93               1.839433              50.053508               0.000000
+ MO|     94               1.890427              51.441124               0.000000
+ MO|     95               1.897899              51.644446               0.000000
+ MO|     96               1.930656              52.535819               0.000000
+ MO|     97               1.952461              53.129168               0.000000
+ MO|     98               1.978230              53.830372               0.000000
+ MO|     99               1.978552              53.839128               0.000000
+ MO|    100               2.007013              54.613597               0.000000
+ MO|    101               2.049810              55.778169               0.000000
+ MO|    102               2.055999              55.946578               0.000000
+ MO|    103               2.063351              56.146635               0.000000
+ MO|    104               2.099003              57.116786               0.000000
+ MO|    105               2.117002              57.606553               0.000000
+ MO|    106               2.163292              58.866179               0.000000
+ MO|    107               2.203930              59.971987               0.000000
+ MO|    108               2.216623              60.317375               0.000000
+ MO|    109               2.349247              63.926257               0.000000
+ MO|    110               2.356479              64.123046               0.000000
+ MO|    111               2.393800              65.138606               0.000000
+ MO|    112               2.403456              65.401361               0.000000
+ MO|    113               2.403987              65.415812               0.000000
+ MO|    114               2.458275              66.893068               0.000000
+ MO|    115               2.515276              68.444153               0.000000
+ MO|    116               2.583961              70.313142               0.000000
+ MO|    117               2.613916              71.128284               0.000000
+ MO|    118               2.625655              71.447693               0.000000
+ MO|    119               2.670352              72.663979               0.000000
+ MO|    120               2.683836              73.030879               0.000000
+ MO|    121               2.711062              73.771746               0.000000
+ MO|    122               2.769396              75.359085               0.000000
+ MO|    123               2.800875              76.215690               0.000000
+ MO|    124               2.851240              77.586198               0.000000
+ MO|    125               2.926303              79.628747               0.000000
+ MO|    126               2.961167              80.577441               0.000000
+ MO|    127               3.106136              84.522262               0.000000
+ MO|    128               3.172206              86.320123               0.000000
+ MO|    129               3.192132              86.862321               0.000000
+ MO|    130               3.284112              89.365220               0.000000
+ MO|    131               3.363977              91.538467               0.000000
+ MO|    132               3.459101              94.126923               0.000000
+ MO|    133               3.571728              97.191656               0.000000
+ MO|    134               3.615713              98.388543               0.000000
+ MO|    135               3.623658              98.604755               0.000000
+ MO|    136               3.697591             100.616567               0.000000
+ MO|    137               3.712599             101.024964               0.000000
+ MO|    138               3.750274             102.050149               0.000000
+ MO|    139               3.757100             102.235903               0.000000
+ MO|    140               3.779364             102.841733               0.000000
+ MO|    141               3.867295             105.234445               0.000000
+ MO|    142               3.884271             105.696400               0.000000
+ MO|    143               3.950799             107.506717               0.000000
+ MO|    144               3.972899             108.108087               0.000000
+ MO|    145               3.974355             108.147706               0.000000
+ MO|    146               4.035369             109.807978               0.000000
+ MO|    147               4.075328             110.895319               0.000000
+ MO|    148               4.099906             111.564107               0.000000
+ MO|    149               4.106759             111.750595               0.000000
+ MO|    150               4.156129             113.094028               0.000000
+ MO|    151               4.174528             113.594685               0.000000
+ MO|    152               4.188492             113.974665               0.000000
+ MO|    153               4.274135             116.305121               0.000000
+ MO|    154               4.289877             116.733485               0.000000
+ MO|    155               4.307022             117.200019               0.000000
+ MO|    156               4.428661             120.509985               0.000000
+ MO|    157               4.458554             121.323430               0.000000
+ MO|    158               4.469991             121.634630               0.000000
+ MO|    159               4.482058             121.963003               0.000000
+ MO|    160               4.581155             124.659561               0.000000
+ MO|    161               4.739283             128.962438               0.000000
+ MO|    162               4.744025             129.091473               0.000000
+ MO|    163               4.930229             134.158341               0.000000
+ MO|    164               4.950293             134.704325               0.000000
+ MO|    165               5.149866             140.134979               0.000000
+ MO|    166               5.213107             141.855851               0.000000
+ MO|    167               5.237923             142.531127               0.000000
+ MO|    168               5.317693             144.701772               0.000000
+ MO|    169               5.520976             150.233384               0.000000
+ MO|    170               5.532400             150.544258               0.000000
+ MO|    171               5.797093             157.746926               0.000000
+ MO|    172               5.858252             159.411155               0.000000
+ MO|    173               5.874114             159.842774               0.000000
+ MO|    174               6.001223             163.301585               0.000000
+ MO|    175               6.038277             164.309887               0.000000
+ MO|    176               6.088487             165.676165               0.000000
+ MO|    177               6.092261             165.778856               0.000000
+ MO|    178               6.227121             169.448588               0.000000
+ MO|    179               6.302810             171.508175               0.000000
+ MO|    180               6.459091             175.760811               0.000000
+ MO|    181               6.468472             176.016062               0.000000
+ MO|    182               6.631091             180.441172               0.000000
+ MO|    183               6.681630             181.816387               0.000000
+ MO|    184               6.726593             183.039906               0.000000
+ MO|    185               6.757655             183.885155               0.000000
+ MO|    186               6.848262             186.350678               0.000000
+ MO|    187               6.862967             186.750833               0.000000
+ MO|    188               6.939813             188.841924               0.000000
+ MO|    189               7.054415             191.960400               0.000000
+ MO|    190               7.115775             193.630082               0.000000
+ MO|    191               7.168862             195.074659               0.000000
+ MO|    192               7.204187             196.035896               0.000000
+ MO|    193               7.255741             197.438749               0.000000
+ MO|    194               7.432819             202.257289               0.000000
+ MO|    195               7.676554             208.889657               0.000000
+ MO|    196               7.774910             211.566061               0.000000
+ MO|    197               7.796840             212.162815               0.000000
+ MO|    198               8.096506             220.317120               0.000000
+ MO|    199               8.116010             220.847867               0.000000
+ MO|    200               8.182156             222.647793               0.000000
+ MO|    201               8.198251             223.085754               0.000000
+ MO|    202               8.252744             224.568582               0.000000
+ MO|    203               8.465531             230.358803               0.000000
+ MO|    204               8.506137             231.463772               0.000000
+ MO|    205               8.510103             231.571674               0.000000
+ MO|    206               8.521775             231.889296               0.000000
+ MO|    207               8.749444             238.084492               0.000000
+ MO|    208               8.787663             239.124472               0.000000
+ MO|    209               8.984843             244.490019               0.000000
+ MO|    210               9.065248             246.677949               0.000000
+ MO|    211               9.104258             247.739466               0.000000
+ MO|    212               9.206904             250.532609               0.000000
+ MO|    213               9.362851             254.776136               0.000000
+ MO|    214               9.607411             261.430948               0.000000
+ MO|    215               9.627690             261.982762               0.000000
+ MO|    216               9.651641             262.634500               0.000000
+ MO|    217              10.014004             272.494920               0.000000
+ MO|    218              10.084130             274.403121               0.000000
+ MO|    219              10.108532             275.067152               0.000000
+ MO|    220              10.130307             275.659660               0.000000
+ MO|    221              10.315211             280.691153               0.000000
+ MO|    222              10.418646             283.505766               0.000000
+ MO|    223              10.435390             283.961411               0.000000
+ MO|    224              10.547903             287.023035               0.000000
+ MO|    225              10.623734             289.086515               0.000000
+ MO|    226              10.635631             289.410247               0.000000
+ MO|    227              10.809758             294.148487               0.000000
+ MO|    228              10.812690             294.228262               0.000000
+ MO|    229              10.996699             299.235398               0.000000
+ MO|    230              10.998681             299.289339               0.000000
+ MO|    231              11.039017             300.386923               0.000000
+ MO|    232              11.083835             301.606491               0.000000
+ MO|    233              11.184391             304.342744               0.000000
+ MO|    234              11.339024             308.550540               0.000000
+ MO|    235              11.587310             315.306742               0.000000
+ MO|    236              11.670911             317.581653               0.000000
+ MO|    237              11.725202             319.058960               0.000000
+ MO|    238              11.732891             319.268188               0.000000
+ MO|    239              12.135320             330.218860               0.000000
+ MO|    240              12.254052             333.449714               0.000000
+ MO|    241              12.373463             336.699055               0.000000
+ MO|    242              12.493684             339.970435               0.000000
+ MO|    243              12.500064             340.144044               0.000000
+ MO|    244              12.566668             341.956430               0.000000
+ MO|    245              12.817818             348.790576               0.000000
+ MO|    246              13.044397             354.956092               0.000000
+ MO|    247              13.497967             367.298364               0.000000
+ MO|    248              13.540452             368.454437               0.000000
+ MO|    249              14.323501             389.762277               0.000000
+ MO|    250              14.459964             393.475635               0.000000
+ MO|    251              26.063271             709.217674               0.000000
+ MO|    252              42.062793            1144.586794               0.000000
+ MO| Sum:                                                               9.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.137567 a.u.          3.743389 eV
+
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -19.004919            -517.150142               1.000000
+ MO|      2             -10.075402            -274.165627               1.000000
+ MO|      3              -1.022908             -27.834750               1.000000
+ MO|      4              -0.572405             -15.575944               1.000000
+ MO|      5              -0.446161             -12.140650               1.000000
+ MO|      6              -0.428790             -11.667963               1.000000
+ MO|      7              -0.358555              -9.756791               1.000000
+ MO|      8              -0.202908              -5.521417               0.000000
+ MO|      9              -0.026786              -0.728891               0.000000
+ MO|     10               0.019946               0.542766               0.000000
+ MO|     11               0.039928               1.086505               0.000000
+ MO|     12               0.050264               1.367743               0.000000
+ MO|     13               0.062276               1.694605               0.000000
+ MO|     14               0.095425               2.596652               0.000000
+ MO|     15               0.100913               2.745989               0.000000
+ MO|     16               0.125188               3.406549               0.000000
+ MO|     17               0.150213               4.087498               0.000000
+ MO|     18               0.150297               4.089788               0.000000
+ MO|     19               0.163541               4.450165               0.000000
+ MO|     20               0.165265               4.497092               0.000000
+ MO|     21               0.181940               4.950831               0.000000
+ MO|     22               0.204464               5.563743               0.000000
+ MO|     23               0.243550               6.627328               0.000000
+ MO|     24               0.245144               6.670717               0.000000
+ MO|     25               0.261498               7.115728               0.000000
+ MO|     26               0.276160               7.514697               0.000000
+ MO|     27               0.291204               7.924060               0.000000
+ MO|     28               0.292110               7.948714               0.000000
+ MO|     29               0.317891               8.650261               0.000000
+ MO|     30               0.353171               9.610263               0.000000
+ MO|     31               0.356909               9.711999               0.000000
+ MO|     32               0.366762               9.980107               0.000000
+ MO|     33               0.396709              10.795008               0.000000
+ MO|     34               0.402878              10.962880               0.000000
+ MO|     35               0.446060              12.137905               0.000000
+ MO|     36               0.467380              12.718045               0.000000
+ MO|     37               0.478085              13.009345               0.000000
+ MO|     38               0.482384              13.126345               0.000000
+ MO|     39               0.511638              13.922385               0.000000
+ MO|     40               0.551448              15.005662               0.000000
+ MO|     41               0.557532              15.171218               0.000000
+ MO|     42               0.601731              16.373937               0.000000
+ MO|     43               0.624421              16.991371               0.000000
+ MO|     44               0.630793              17.164758               0.000000
+ MO|     45               0.631694              17.189278               0.000000
+ MO|     46               0.686546              18.681874               0.000000
+ MO|     47               0.701311              19.083631               0.000000
+ MO|     48               0.711421              19.358762               0.000000
+ MO|     49               0.717901              19.535071               0.000000
+ MO|     50               0.731968              19.917865               0.000000
+ MO|     51               0.758254              20.633138               0.000000
+ MO|     52               0.763107              20.765201               0.000000
+ MO|     53               0.769522              20.939751               0.000000
+ MO|     54               0.804310              21.886389               0.000000
+ MO|     55               0.829552              22.573251               0.000000
+ MO|     56               0.880402              23.956945               0.000000
+ MO|     57               0.887687              24.155181               0.000000
+ MO|     58               0.903624              24.588872               0.000000
+ MO|     59               0.969723              26.387494               0.000000
+ MO|     60               0.978565              26.628114               0.000000
+ MO|     61               0.984503              26.789695               0.000000
+ MO|     62               1.035869              28.187430               0.000000
+ MO|     63               1.050045              28.573175               0.000000
+ MO|     64               1.068596              29.077967               0.000000
+ MO|     65               1.081957              29.441557               0.000000
+ MO|     66               1.092583              29.730698               0.000000
+ MO|     67               1.150510              31.306970               0.000000
+ MO|     68               1.218323              33.152247               0.000000
+ MO|     69               1.286990              35.020770               0.000000
+ MO|     70               1.318577              35.880314               0.000000
+ MO|     71               1.375994              37.442705               0.000000
+ MO|     72               1.424287              38.756813               0.000000
+ MO|     73               1.426211              38.809182               0.000000
+ MO|     74               1.436458              39.088022               0.000000
+ MO|     75               1.477665              40.209297               0.000000
+ MO|     76               1.477837              40.213985               0.000000
+ MO|     77               1.491123              40.575523               0.000000
+ MO|     78               1.497753              40.755930               0.000000
+ MO|     79               1.533439              41.726991               0.000000
+ MO|     80               1.567765              42.661068               0.000000
+ MO|     81               1.604121              43.650364               0.000000
+ MO|     82               1.605138              43.678025               0.000000
+ MO|     83               1.628038              44.301171               0.000000
+ MO|     84               1.683587              45.812738               0.000000
+ MO|     85               1.695433              46.135091               0.000000
+ MO|     86               1.770042              48.165305               0.000000
+ MO|     87               1.789282              48.688832               0.000000
+ MO|     88               1.808455              49.210570               0.000000
+ MO|     89               1.812861              49.330455               0.000000
+ MO|     90               1.858802              50.580577               0.000000
+ MO|     91               1.871039              50.913561               0.000000
+ MO|     92               1.904924              51.835618               0.000000
+ MO|     93               1.921389              52.283656               0.000000
+ MO|     94               1.984099              53.990067               0.000000
+ MO|     95               1.994743              54.279707               0.000000
+ MO|     96               2.011109              54.725047               0.000000
+ MO|     97               2.033366              55.330703               0.000000
+ MO|     98               2.051420              55.821984               0.000000
+ MO|     99               2.056913              55.971444               0.000000
+ MO|    100               2.108797              57.383296               0.000000
+ MO|    101               2.142683              58.305377               0.000000
+ MO|    102               2.150697              58.523433               0.000000
+ MO|    103               2.162016              58.831436               0.000000
+ MO|    104               2.207481              60.068611               0.000000
+ MO|    105               2.221339              60.445700               0.000000
+ MO|    106               2.267129              61.691705               0.000000
+ MO|    107               2.281365              62.079090               0.000000
+ MO|    108               2.286922              62.230315               0.000000
+ MO|    109               2.436082              66.289162               0.000000
+ MO|    110               2.467794              67.152103               0.000000
+ MO|    111               2.491355              67.793214               0.000000
+ MO|    112               2.494155              67.869418               0.000000
+ MO|    113               2.499216              68.007136               0.000000
+ MO|    114               2.553053              69.472094               0.000000
+ MO|    115               2.591467              70.517403               0.000000
+ MO|    116               2.660761              72.402993               0.000000
+ MO|    117               2.697701              73.408184               0.000000
+ MO|    118               2.708881              73.712405               0.000000
+ MO|    119               2.736260              74.457432               0.000000
+ MO|    120               2.785723              75.803371               0.000000
+ MO|    121               2.813346              76.555035               0.000000
+ MO|    122               2.861946              77.877500               0.000000
+ MO|    123               2.915642              79.338659               0.000000
+ MO|    124               2.934880              79.862135               0.000000
+ MO|    125               3.010651              81.923969               0.000000
+ MO|    126               3.032698              82.523911               0.000000
+ MO|    127               3.182730              86.606477               0.000000
+ MO|    128               3.270744              89.001484               0.000000
+ MO|    129               3.272537              89.050264               0.000000
+ MO|    130               3.354787              91.288388               0.000000
+ MO|    131               3.442867              93.685178               0.000000
+ MO|    132               3.553351              96.691588               0.000000
+ MO|    133               3.652319              99.384642               0.000000
+ MO|    134               3.687652             100.346106               0.000000
+ MO|    135               3.713698             101.054869               0.000000
+ MO|    136               3.780297             102.867124               0.000000
+ MO|    137               3.791064             103.160091               0.000000
+ MO|    138               3.819055             103.921778               0.000000
+ MO|    139               3.834499             104.342027               0.000000
+ MO|    140               3.840435             104.503550               0.000000
+ MO|    141               3.923969             106.776616               0.000000
+ MO|    142               3.952772             107.560390               0.000000
+ MO|    143               4.047253             110.131364               0.000000
+ MO|    144               4.047277             110.132011               0.000000
+ MO|    145               4.065860             110.637673               0.000000
+ MO|    146               4.119056             112.085223               0.000000
+ MO|    147               4.163517             113.295056               0.000000
+ MO|    148               4.184503             113.866120               0.000000
+ MO|    149               4.190009             114.015940               0.000000
+ MO|    150               4.224061             114.942546               0.000000
+ MO|    151               4.243277             115.465442               0.000000
+ MO|    152               4.252514             115.716793               0.000000
+ MO|    153               4.351350             118.406264               0.000000
+ MO|    154               4.369939             118.912086               0.000000
+ MO|    155               4.383659             119.285434               0.000000
+ MO|    156               4.497484             122.382762               0.000000
+ MO|    157               4.540750             123.560104               0.000000
+ MO|    158               4.545114             123.678843               0.000000
+ MO|    159               4.551909             123.863741               0.000000
+ MO|    160               4.681650             127.394168               0.000000
+ MO|    161               4.809820             130.881846               0.000000
+ MO|    162               4.839631             131.693070               0.000000
+ MO|    163               5.020629             136.618275               0.000000
+ MO|    164               5.022739             136.675680               0.000000
+ MO|    165               5.238408             142.544328               0.000000
+ MO|    166               5.293906             144.054519               0.000000
+ MO|    167               5.315579             144.644267               0.000000
+ MO|    168               5.402438             147.007814               0.000000
+ MO|    169               5.598852             152.352513               0.000000
+ MO|    170               5.632057             153.256056               0.000000
+ MO|    171               5.860687             159.477409               0.000000
+ MO|    172               5.923655             161.190849               0.000000
+ MO|    173               5.937221             161.559993               0.000000
+ MO|    174               6.056628             164.809230               0.000000
+ MO|    175               6.099697             165.981210               0.000000
+ MO|    176               6.152380             167.414787               0.000000
+ MO|    177               6.159752             167.615366               0.000000
+ MO|    178               6.302818             171.508401               0.000000
+ MO|    179               6.373989             173.445059               0.000000
+ MO|    180               6.510046             177.147357               0.000000
+ MO|    181               6.516662             177.327399               0.000000
+ MO|    182               6.687674             181.980861               0.000000
+ MO|    183               6.719279             182.840883               0.000000
+ MO|    184               6.781062             184.522083               0.000000
+ MO|    185               6.821235             185.615231               0.000000
+ MO|    186               6.894691             187.614087               0.000000
+ MO|    187               6.906521             187.936002               0.000000
+ MO|    188               6.995527             190.357972               0.000000
+ MO|    189               7.108100             193.421240               0.000000
+ MO|    190               7.163755             194.935679               0.000000
+ MO|    191               7.221883             196.517436               0.000000
+ MO|    192               7.257310             197.481454               0.000000
+ MO|    193               7.319117             199.163293               0.000000
+ MO|    194               7.520804             204.651489               0.000000
+ MO|    195               7.708348             209.754805               0.000000
+ MO|    196               7.814354             212.639400               0.000000
+ MO|    197               7.842601             213.408018               0.000000
+ MO|    198               8.145215             221.642584               0.000000
+ MO|    199               8.180679             222.607587               0.000000
+ MO|    200               8.240229             224.228032               0.000000
+ MO|    201               8.241004             224.249116               0.000000
+ MO|    202               8.304845             225.986323               0.000000
+ MO|    203               8.506293             231.467994               0.000000
+ MO|    204               8.550665             232.675415               0.000000
+ MO|    205               8.562252             232.990733               0.000000
+ MO|    206               8.569680             233.192862               0.000000
+ MO|    207               8.792714             239.261920               0.000000
+ MO|    208               8.833072             240.360116               0.000000
+ MO|    209               9.020287             245.454482               0.000000
+ MO|    210               9.100953             247.649520               0.000000
+ MO|    211               9.143838             248.816474               0.000000
+ MO|    212               9.248185             251.655906               0.000000
+ MO|    213               9.398501             255.746218               0.000000
+ MO|    214               9.664306             262.979141               0.000000
+ MO|    215               9.675021             263.270722               0.000000
+ MO|    216               9.708087             264.170487               0.000000
+ MO|    217              10.065407             273.893650               0.000000
+ MO|    218              10.116017             275.270811               0.000000
+ MO|    219              10.164209             276.582206               0.000000
+ MO|    220              10.169718             276.732097               0.000000
+ MO|    221              10.377162             282.376938               0.000000
+ MO|    222              10.541667             286.853361               0.000000
+ MO|    223              10.552876             287.158356               0.000000
+ MO|    224              10.602102             288.497856               0.000000
+ MO|    225              10.706131             291.328632               0.000000
+ MO|    226              10.708427             291.391107               0.000000
+ MO|    227              10.880881             296.083828               0.000000
+ MO|    228              10.902598             296.674786               0.000000
+ MO|    229              11.075722             301.385713               0.000000
+ MO|    230              11.080335             301.511237               0.000000
+ MO|    231              11.080690             301.520908               0.000000
+ MO|    232              11.137576             303.068850               0.000000
+ MO|    233              11.232826             305.660745               0.000000
+ MO|    234              11.414220             310.596724               0.000000
+ MO|    235              11.726313             319.089192               0.000000
+ MO|    236              11.746107             319.627817               0.000000
+ MO|    237              11.785541             320.700876               0.000000
+ MO|    238              11.858086             322.674927               0.000000
+ MO|    239              12.241310             333.102973               0.000000
+ MO|    240              12.318433             335.201611               0.000000
+ MO|    241              12.415483             337.842472               0.000000
+ MO|    242              12.550323             341.511648               0.000000
+ MO|    243              12.591292             342.626493               0.000000
+ MO|    244              12.720424             346.140341               0.000000
+ MO|    245              12.931552             351.885423               0.000000
+ MO|    246              13.102081             356.525745               0.000000
+ MO|    247              13.533646             368.269246               0.000000
+ MO|    248              13.582111             369.588026               0.000000
+ MO|    249              14.421375             392.425564               0.000000
+ MO|    250              14.481158             394.052338               0.000000
+ MO|    251              26.069447             709.385739               0.000000
+ MO|    252              42.084301            1145.172056               0.000000
+ MO| Sum:                                                               7.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+ MO| Band gap:            0.155647 a.u.          4.235374 eV
+
+
+  Integrated spin density:                                          1.9999992726
+  Integrated absolute spin density:                                 2.0580909144
+  Ideal and single determinant S**2 :                    2.000000       2.009298
+
+ !-----------------------------------------------------------------------------!
+                     Mulliken Population Analysis
+
+ #  Atom  Element  Kind  Atomic population (alpha,beta) Net charge  Spin moment
+       1     C        1         3.572151     2.820731    -0.392881     0.751420
+       2     O        2         4.701337     3.677048    -0.378386     1.024289
+       3     H        3         0.363256     0.251110     0.385633     0.112146
+       4     H        3         0.363256     0.251111     0.385633     0.112145
+ # Total charge and spin        9.000000     7.000000     0.000000     2.000000
+
+ !-----------------------------------------------------------------------------!
+
+ !-----------------------------------------------------------------------------!
+                           Hirshfeld Charges
+
+  #Atom  Element  Kind  Ref Charge     Population       Spin moment  Net charge
+      1       C      1       6.000    3.856   2.983            0.873     -0.839
+      2       O      2       8.000    4.582   3.608            0.974     -0.190
+      3       H      3       1.000    0.272   0.203            0.070      0.525
+      4       H      3       1.000    0.272   0.203            0.070      0.525
+
+  Total Charge                                                            0.021
+ !-----------------------------------------------------------------------------!
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [hartree]           -114.379936420846306
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                DBCSR STATISTICS                             -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ COUNTER                                    TOTAL       BLAS       SMM       ACC
+ flops    46 x    46 x    28              7820736       0.0%    100.0%      0.0%     
+ flops    46 x    28 x    46              9005696       0.0%    100.0%      0.0%     
+ flops    46 x    80 x    28              9067520       0.0%    100.0%      0.0%     
+ flops    80 x    46 x    28              9067520       0.0%    100.0%      0.0%     
+ flops    46 x    28 x    80             15662080       0.0%    100.0%      0.0%     
+ flops    80 x    28 x    46             15662080       0.0%    100.0%      0.0%     
+ flops    80 x    80 x    28             23654400       0.0%    100.0%      0.0%     
+ flops    80 x    28 x    80             27238400       0.0%    100.0%      0.0%     
+ flops    46 x    46 x    32             62565888       0.0%    100.0%      0.0%     
+ flops    46 x    80 x    32             72540160       0.0%    100.0%      0.0%     
+ flops    80 x    46 x    32             72540160       0.0%    100.0%      0.0%     
+ flops    46 x    32 x    46             73128960       0.0%    100.0%      0.0%     
+ flops    80 x    32 x    46            127180800       0.0%    100.0%      0.0%     
+ flops    46 x    32 x    80            127180800       0.0%    100.0%      0.0%     
+ flops    80 x    80 x    32            189235200       0.0%    100.0%      0.0%     
+ flops    80 x    32 x    80            221184000       0.0%    100.0%      0.0%     
+ flops inhomo. stacks                           0       0.0%      0.0%      0.0%
+ flops total                         1.062734E+09       0.0%    100.0%      0.0%
+ flops max/rank                    190.955520E+06       0.0%    100.0%      0.0%
+ matmuls inhomo. stacks                         0       0.0%      0.0%      0.0%
+ matmuls total                               4224       0.0%    100.0%      0.0%
+ number of processed stacks                  3432       0.0%    100.0%      0.0%
+ average stack size                                     0.0       1.2       0.0
+ marketing flops                   632.499840E+06
+ -------------------------------------------------------------------------------
+ # multiplications                             43
+ max memory usage/rank               2.048508E+09
+ # max total images/rank                        2
+ # max 3D layers                                1
+ # MPI messages exchanged                   17888
+ MPI messages size (bytes):
+  total size                       215.792640E+06
+  min size                           0.000000E+00
+  max size                         102.400000E+03
+  average size                      12.063542E+03
+ MPI breakdown and total messages size (bytes):
+             size <=      128                8468                        0
+       128 < size <=     8192                   0                        0
+      8192 < size <=    32768                7600                118702080
+     32768 < size <=   131072                1820                 97090560
+    131072 < size <=  4194304                   0                        0
+   4194304 < size <= 16777216                   0                        0
+  16777216 < size                               0                        0
+ -------------------------------------------------------------------------------
+
+ *** WARNING in dbcsr_mm.F:301 :: Using a non-square number of MPI ranks ***
+ *** might lead to poor performance. Used ranks: 32 Suggested: 36 64     ***
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                      DBCSR MESSAGE PASSING PERFORMANCE                      -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Bcast               17                     12.
+ MP_Allreduce          224                     12.
+ MP_Alltoall           688                  13450.
+ MP_ISend             1334                  13869.
+ MP_IRecv             1334                  12476.
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                GRID STATISTICS                              -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ LP    KERNEL             BACKEND                              COUNT     PERCENT
+ 4     collocate ortho    CPU                                   3760      10.05%
+ 3     collocate ortho    CPU                                   3520       9.41%
+ 4     integrate ortho    CPU                                   3384       9.05%
+ 5     collocate ortho    CPU                                   3340       8.93%
+ 3     integrate ortho    CPU                                   3168       8.47%
+ 5     integrate ortho    CPU                                   3006       8.04%
+ 2     collocate ortho    CPU                                   2440       6.52%
+ 6     collocate ortho    CPU                                   2340       6.26%
+ 2     integrate ortho    CPU                                   2196       5.87%
+ 6     integrate ortho    CPU                                   2106       5.63%
+ 7     collocate ortho    CPU                                   1460       3.90%
+ 1     collocate ortho    CPU                                   1340       3.58%
+ 7     integrate ortho    CPU                                   1314       3.51%
+ 1     integrate ortho    CPU                                   1206       3.22%
+ 8     collocate ortho    CPU                                    640       1.71%
+ 8     integrate ortho    CPU                                    576       1.54%
+ 0     collocate ortho    CPU                                    440       1.18%
+ 0     integrate ortho    CPU                                    396       1.06%
+ 9     collocate ortho    CPU                                    300       0.80%
+ 9     integrate ortho    CPU                                    270       0.72%
+ 10    collocate ortho    CPU                                     60       0.16%
+ 10    integrate ortho    CPU                                     54       0.14%
+ 2     collocate general  CPU                                     36       0.10%
+ 2     integrate general  CPU                                     36       0.10%
+ 0     integrate general  CPU                                      8       0.02%
+ 0     collocate general  CPU                                      4       0.01%
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                          OFFLOAD MEMPOOL STATISTICS                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ Memory consumption                Number of allocations  Used [MiB]  Size [MiB]
+ Host                                                  7          29          30
+ -------------------------------------------------------------------------------
+
+ MEMORY| Estimated peak process memory [MiB]                                 523
+
+ -------------------------------------------------------------------------------
+ ----                             MULTIGRID INFO                            ----
+ -------------------------------------------------------------------------------
+ count for grid        1:         837794          cutoff [a.u.]          200.00
+ count for grid        2:         146919          cutoff [a.u.]           66.67
+ count for grid        3:          84494          cutoff [a.u.]           22.22
+ count for grid        4:          28626          cutoff [a.u.]            7.41
+ total gridlevel count  :        1097833
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                         MESSAGE PASSING PERFORMANCE                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Group               32
+ MP_Bcast             1234                 155636.
+ MP_Allreduce          651                  74062.
+ MP_Sync                22
+ MP_Alltoall           622                6400077.
+ MP_SendRecv          2480                  43136.
+ MP_ISendRecv         2232                  43136.
+ MP_Wait              9726
+ MP_comm_split          18
+ MP_ISend             6726                 220461.
+ MP_IRecv             6726                 220364.
+ -------------------------------------------------------------------------------
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                           R E F E R E N C E S                               -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ 
+ CP2K version 2026.2 (Development Version), the CP2K developers group (2026).
+ CP2K is freely available from https://www.cp2k.org/ .
+ 
+ M. Iannuzzi, J. Wilhelm, F. Stein, A. Bussy, H. Elgabarty, D. Golze, A. Hehn, 
+ M. Graml, S. Marek, B. Sertcan Gökmen, C. Schran, H. Forbert, R. Z. 
+ Khaliullin, A. Kozhevnikov, M. Taillefumier, R. Meli, V. V. Rybkin, M. Brehm, 
+ R. Schade, O. Schütt, J. V. Pototschnig, H. Mirhosseini, A. Knüpfer, D. Marx, 
+ M. Krack, J. Hutter, T. D. Kühne.
+ J. Phys. Chem. B 130, 1237-1310 (2026).
+ The CP2K Program Package Made Simple.
+ https://doi.org/10.1021/acs.jpcb.5c05851
+
+ T. D. Kühne, M. Iannuzzi, M. Del Ben, V. V. Rybkin, P. Seewald, F. Stein, T. 
+ Laino, R. Z. Khaliullin, O. Schütt, F. Schiffmann, D. Golze, J. Wilhelm, S. 
+ Chulkov, M. H. Bani-Hashemian, V. Weber, U. Borstnik, M. Taillefumier, A. S. 
+ Jakobovits, A. Lazzaro, H. Pabst, T. Müller, R. Schade, M. Guidon, S. 
+ Andermatt, N. Holmberg, G. K. Schenter, A. Hehn, A. Bussy, F. Belleflamme, G. 
+ Tabacchi, A. Glöß, M. Lass, I. Bethune, C. J. Mundy, C. Plessl, M. Watkins, 
+ J. VandeVondele, M. Krack, J. Hutter.
+ J. Chem. Phys. 152, 194103 (2020).
+ CP2K: An electronic structure and molecular dynamics software package - 
+ Quickstep: Efficient and accurate electronic structure calculations.
+ https://doi.org/10.1063/5.0007045
+
+ S. Lehtola, C. Steigemann, M. J. T. Oliveira, M. A. L. Marques.
+ SoftwareX 7, 1-5 (2018).
+ Recent developments in libxc - A comprehensive library of functionals for 
+ density functional theory.
+ https://doi.org/10.1016/j.softx.2017.11.002
+
+ G. M. J. Barca, A. T. B. Gilbert, P. M. W. Gill.
+ J. Chem. Theory Comput. 14, 1501-1509 (2018).
+ Simple models for difficult electronic excitations.
+ https://doi.org/10.1021/acs.jctc.7b00994
+
+ O. Schuett, P. Messmer, J. Hutter, J. VandeVondele.
+ Electronic Structure Calculations on Graphics Processing Units, 173-190 (2016).
+ GPU-Accelerated Sparse Matrix-Matrix Multiplication for Linear Scaling Density 
+ Functional Theory.
+ https://doi.org/10.1002/9781118670712.ch8
+
+ A. Heinecke, G. Henry, M. Hutchinson, H. Pabst.
+ Proceedings of Intl. Supercomputing Conference, 981-991 (2016).
+ LIBXSMM: Accelerating Small Matrix Multiplications by Runtime Code Generation.
+ https://doi.org/10.1109/SC.2016.83
+
+ U. Borstnik, J. VandeVondele, V. Weber, J. Hutter.
+ Parallel Comput. 40, 47-58 (2014).
+ Sparse matrix multiplication: The distributed block-compressed sparse row 
+ library.
+ https://doi.org/10.1016/j.parco.2014.03.012
+
+ M. A. L. Marques, M. J. T. Oliveira, T. Burnus.
+ Comput. Phys. Commun. 183, 2272-2281 (2012).
+ LIBXC: A library of exchange and correlation functionals for density functional 
+ theory.
+ https://doi.org/10.1016/j.cpc.2012.05.007
+
+ M. Frigo, S. G. Johnson.
+ Proc. IEEE 93, 216-231 (2005).
+ The design and implementation of FFTW3.
+ https://doi.org/10.1109/JPROC.2004.840301
+
+ M. Krack, M. Parrinello.
+ Phys. Chem. Chem. Phys. 2, 2105-2112 (2000).
+ All-electron ab-initio molecular dynamics.
+ https://doi.org/10.1039/b001167n
+
+ G. Lippert, J. Hutter, M. Parrinello.
+ Theor. Chem. Acc. 103, 124-140 (1999).
+ The Gaussian and augmented-plane-wave density functional method for ab initio 
+ molecular dynamics simulations.
+ https://doi.org/10.1007/s002140050523
+
+ G. J. Martyna, M. E. Tuckerman.
+ J. Chem. Phys. 110, 2810-2821 (1999).
+ A reciprocal space based method for treating long range interactions in ab 
+ initio and force-field-based calculations in clusters.
+ https://doi.org/10.1063/1.477923
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                T I M I N G                                  -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ SUBROUTINE                       CALLS  ASD         SELF TIME        TOTAL TIME
+                                MAXIMUM       AVERAGE  MAXIMUM  AVERAGE  MAXIMUM
+ CP2K                                 1  1.0    0.056    0.076   24.755   24.756
+ qs_energies                          1  2.0    0.000    0.000   23.925   23.925
+ scf_env_do_scf                       1  3.0    0.000    0.000   23.274   23.274
+ scf_env_do_scf_inner_loop            9  4.0    0.001    0.003   23.274   23.274
+ qs_ks_update_qs_env                  9  5.0    0.000    0.000   18.851   18.865
+ rebuild_ks_matrix                    9  6.0    0.000    0.000   18.850   18.864
+ qs_ks_build_kohn_sham_matrix         9  7.0    0.004    0.005   18.850   18.864
+ fft_wrap_pw1pw2                    489  9.9    0.012    0.015    8.068   10.155
+ qs_vxc_create                        9  8.0    0.000    0.001    9.791    9.803
+ xc_vxc_pw_create                     9  9.0    0.067    0.074    9.791    9.803
+ fft_wrap_pw1pw2_200                260 11.4    0.343    0.366    7.650    9.712
+ fft3d_ps                           489 11.9    3.550    3.644    6.455    8.565
+ xc_rho_set_and_dset_create           9 10.0    0.095    0.100    6.569    7.466
+ xc_pw_derive                       108 11.0    0.002    0.003    4.186    6.370
+ xc_functional_eval                  90 10.8    0.000    0.001    4.709    5.584
+ libxc_spin_polarized_eval           90 11.8    4.708    5.583    4.709    5.583
+ xc_pw_divergence                    18 10.0    0.001    0.001    3.069    5.261
+ qs_rho_update_rho_low               10  5.0    0.000    0.000    4.599    4.600
+ calculate_rho_elec                  40  6.0    0.044    0.045    4.557    4.557
+ mp_alltoall_z22v                   489 13.9    2.177    4.301    2.177    4.301
+ yz_to_x                            260 12.3    0.362    0.396    2.136    4.234
+ density_rs2pw                       40  7.0    0.003    0.003    3.971    4.192
+ sum_up_and_integrate                 9  8.0    0.001    0.001    3.661    3.859
+ integrate_v_rspace                  36  9.0    0.001    0.001    3.629    3.831
+ potential_pw2rs                     36 10.0    0.003    0.003    3.095    3.466
+ mp_waitany                        6726 11.4    1.942    2.493    1.942    2.493
+ transfer_pw2rs                     155 10.8    0.002    0.003    2.250    2.421
+ mp_sum_d                           628  2.9    2.104    2.246    2.104    2.246
+ calculate_vxc_atom                   9  8.0    0.099    0.122    2.172    2.172
+ transfer_rs2pw                     170  8.1    0.003    0.005    1.834    2.045
+ transfer_pw2rs_200                  47 11.4    0.741    0.775    1.720    1.907
+ prepare_gapw_den                     9  8.0    0.000    0.000    1.746    1.755
+ transfer_rs2pw_200                  50  9.3    0.462    0.604    1.406    1.631
+ grid_collocate_task_list            40  7.0    0.521    1.281    0.521    1.281
+ grid_integrate_task_list            36 10.0    0.201    1.162    0.201    1.162
+ calculate_rho_atom                  27  9.0    0.187    1.081    0.187    1.081
+ mp_alltoall_d11v                   369 10.1    0.338    1.056    0.338    1.056
+ rs_gather_matrices                  36 10.0    0.001    0.002    0.332    1.049
+ gaVxcgb_GC                          18  9.0    0.039    0.981    0.039    0.981
+ x_to_yz                            229 13.6    0.346    0.366    0.750    0.852
+ integrate_vhg0_rspace                9  8.0    0.079    0.107    0.669    0.837
+ mp_sum_dv                           70  8.7    0.517    0.670    0.517    0.670
+ pw_derive                          135 11.6    0.584    0.608    0.584    0.608
+ put_rho0_on_grid                     9  9.0    0.011    0.014    0.556    0.565
+ pw_gather_p                        260 11.3    0.444    0.546    0.444    0.546
+ calculate_rho0_atom                 27  9.0    0.489    0.539    0.489    0.539
+ init_scf_run                         1  3.0    0.000    0.000    0.517    0.517
+ scf_env_initial_rho_setup            1  4.0    0.000    0.000    0.513    0.513
+ -------------------------------------------------------------------------------
+
+ The number of warnings for this run is : 1
+ 
+ -------------------------------------------------------------------------------
+  **** **** ******  **  PROGRAM ENDED AT                 2026-11-08 22:20:55.879
+ ***** ** ***  *** **   PROGRAM RAN ON                                    cro015
+ **    ****   ******    PROGRAM RAN BY                                  trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               3060379
+  **** **  *******  **  PROGRAM STOPPED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVQZ/QUEST1
+                                           /uks/r2scan/Formaldehyde

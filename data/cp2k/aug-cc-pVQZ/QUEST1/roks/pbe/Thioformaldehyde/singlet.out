@@ -1,0 +1,3037 @@
+ DBCSR| CPU Multiplication driver                                           XSMM (U)
+ DBCSR| Multrec recursion limit                                              512 (U)
+ DBCSR| Multiplication stack size                                           1000 (D)
+ DBCSR| Maximum elements for images                                    UNLIMITED (U)
+ DBCSR| Multiplicative factor virtual images                                   1 (U)
+ DBCSR| Use multiplication densification                                       T (D)
+ DBCSR| Multiplication size stacks                                             3 (U)
+ DBCSR| Use memory pool for CPU allocation                                     F (U)
+ DBCSR| Number of 3D layers                                               SINGLE (U)
+ DBCSR| Use MPI memory allocation                                              F (U)
+ DBCSR| Use RMA algorithm                                                      F (U)
+ DBCSR| Use Communication thread                                               T (U)
+ DBCSR| Communication thread load                                             87 (D)
+ DBCSR| MPI: My process id                                                     0
+ DBCSR| MPI: Number of processes                                              32
+ DBCSR| OMP: Current number of threads                                         1
+ DBCSR| OMP: Max number of threads                                             1
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2026-11-08 17:17:30.972
+ ***** ** ***  *** **   PROGRAM STARTED ON                                cro024
+ **    ****   ******    PROGRAM STARTED BY                              trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               1161937
+  **** **  *******  **  PROGRAM STARTED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVQZ/QUEST1
+                                           /roks/pbe/Thioformaldehyde
+
+ CP2K| version string:                 CP2K version 2026.2 (Development Version)
+ CP2K| source code revision number:                                   d1d1a05c28
+ CP2K| cp2kflags: omp libint fftw3 libxc libxc_gpu gauxc gauxc_mpi gauxc_onedft 
+ CP2K|            gauxc_onedft_gradients gauxc_host skala parallel scalapack mpi
+ CP2K|            i_f08 libxs libxsmm spglib openblas libtorch libwignernj
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                                   2026-11-08 13:59:08
+ CP2K| Program compiled on                                                csk007
+ CP2K| Program compiled with                                  GCC version 14.3.0
+ CP2K| Program compiled for                                               x86_64
+ CP2K| Program compiled in     /data/home2/trushi79/software/src/cp2k/main/build
+ CP2K| Program executable       /data/home2/trushi79/opt/cp2k/main/bin/cp2k.psmp
+ CP2K| Data directory path    /data/home2/trushi79/opt/cp2k/main/bin/../share/cp
+ CP2K|                        2k/data
+ CP2K| Input file name                                               singlet.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                     EMSL_BASIS_SETS
+ GLOBAL| Potential file name                                           POTENTIAL
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                          Thioformaldehyde_PBE_ROKS_SINGLET
+ GLOBAL| Run type                                                         ENERGY
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                       ScaLAPACK
+ GLOBAL| Cholesky decomposition library                                ScaLAPACK
+ GLOBAL| DGEMM library                                                      BLAS
+ GLOBAL| Direct generalized diagonalization requested                          F
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                 ScaLAPACK
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                               MEDIUM
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                            32
+ GLOBAL| Number of distributed systems (nodes)                                 1
+ GLOBAL| Number of threads for this process                                    1
+ GLOBAL| This output is from process                                           0
+ GLOBAL| OpenMP stack size per thread (OMP_STACKSIZE)                    default
+ GLOBAL| CPU model name                          AMD EPYC 7702 64-Core Processor
+ GLOBAL| CPUID                                                              1002
+ GLOBAL| Compiled for CPUID                                                    0
+
+ *** HINT in environment.F:1020 :: The compiler target (generic) used to ***
+ *** build this binary does not enable all instruction-set extensions    ***
+ *** available on this CPU (x86_avx2). Consider reconfiguring and        ***
+ *** rebuilding CP2K for this target system to enable them.              ***
+
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal            528183744     528183744     528183744     528183744
+ MEMORY| MemFree             444398764     444398764     444398764     444398764
+ MEMORY| Buffers                     0             0             0             0
+ MEMORY| Cached               19856824      19856824      19856824      19856824
+ MEMORY| Slab                  2073296       2073296       2073296       2073296
+ MEMORY| SReclaimable           495604        495604        495604        495604
+ MEMORY| MemLikelyFree       445598472     445598472     445598472     445598472
+
+
+ *** Fundamental physical constants (SI units) ***
+
+ *** Literature: B. J. Mohr and B. N. Taylor,
+ ***             CODATA recommended values of the fundamental physical
+ ***             constants: 2006, Web Version 5.1
+ ***             http://physics.nist.gov/constants
+
+ Speed of light in vacuum [m/s]                             2.99792458000000E+08
+ Magnetic constant or permeability of vacuum [N/A**2]       1.25663706143592E-06
+ Electric constant or permittivity of vacuum [F/m]          8.85418781762039E-12
+ Planck constant (h) [J*s]                                  6.62606896000000E-34
+ Planck constant (h-bar) [J*s]                              1.05457162825177E-34
+ Elementary charge [C]                                      1.60217648700000E-19
+ Electron mass [kg]                                         9.10938215000000E-31
+ Electron g factor [ ]                                     -2.00231930436220E+00
+ Proton mass [kg]                                           1.67262163700000E-27
+ Fine-structure constant                                    7.29735253760000E-03
+ Rydberg constant [1/m]                                     1.09737315685270E+07
+ Avogadro constant [1/mol]                                  6.02214179000000E+23
+ Boltzmann constant [J/K]                                   1.38065040000000E-23
+ Atomic mass unit [kg]                                      1.66053878200000E-27
+ Bohr radius [m]                                            5.29177208590000E-11
+
+ *** Conversion factors ***
+
+ [u] -> [a.u.]                                              1.82288848426455E+03
+ [Angstrom] -> [Bohr] = [a.u.]                              1.88972613288564E+00
+ [a.u.] = [Bohr] -> [Angstrom]                              5.29177208590000E-01
+ [a.u.] -> [s]                                              2.41888432650478E-17
+ [a.u.] -> [fs]                                             2.41888432650478E-02
+ [a.u.] -> [J]                                              4.35974393937059E-18
+ [a.u.] -> [N]                                              8.23872205491840E-08
+ [a.u.] -> [K]                                              3.15774647902944E+05
+ [a.u.] -> [kJ/mol]                                         2.62549961709828E+03
+ [a.u.] -> [kcal/mol]                                       6.27509468713739E+02
+ [a.u.] -> [Pa]                                             2.94210107994716E+13
+ [a.u.] -> [bar]                                            2.94210107994716E+08
+ [a.u.] -> [atm]                                            2.90362800883016E+08
+ [a.u.] -> [eV]                                             2.72113838565563E+01
+ [a.u.] -> [Hz]                                             6.57968392072181E+15
+ [a.u.] -> [1/cm] (wave numbers)                            2.19474631370540E+05
+ [a.u./Bohr**2] -> [1/cm]                                   5.14048714338585E+03
+ 
+
+ CELL| Volume [angstrom^3]:                                          3375.000000
+ CELL| Vector a [angstrom]:      15.000     0.000     0.000   |a| =    15.000000
+ CELL| Vector b [angstrom]:       0.000    15.000     0.000   |b| =    15.000000
+ CELL| Vector c [angstrom]:       0.000     0.000    15.000   |c| =    15.000000
+ CELL| Angle (b,c), alpha [degree]:                                    90.000000
+ CELL| Angle (a,c), beta  [degree]:                                    90.000000
+ CELL| Angle (a,b), gamma [degree]:                                    90.000000
+ CELL| Numerically orthorhombic:                                             YES
+ CELL| Periodicity                                                          NONE
+
+ CELL_REF| Volume [angstrom^3]:                                      3375.000000
+ CELL_REF| Vector a [angstrom    15.000     0.000     0.000   |a| =    15.000000
+ CELL_REF| Vector b [angstrom     0.000    15.000     0.000   |b| =    15.000000
+ CELL_REF| Vector c [angstrom     0.000     0.000    15.000   |c| =    15.000000
+ CELL_REF| Angle (b,c), alpha [degree]:                                90.000000
+ CELL_REF| Angle (a,c), beta  [degree]:                                90.000000
+ CELL_REF| Angle (a,b), gamma [degree]:                                90.000000
+ CELL_REF| Numerically orthorhombic:                                         YES
+ CELL_REF| Periodicity                                                      NONE
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2026)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+ 
+  **************************************
+  restricted calculation cutting corners
+  experimental feature, check code      
+  **************************************
+
+ DFT| Spin restricted open Kohn-Sham calculation                            ROKS
+ DFT| Multiplicity                                                             3
+ DFT| Number of spin states                                                    2
+ DFT| Charge                                                                   0
+ DFT| Self-interaction correction (SIC)                                       NO
+ DFT| Cutoffs: density                                              1.000000E-10
+ DFT|          gradient                                             1.000000E-10
+ DFT|          tau                                                  1.000000E-10
+ DFT|          cutoff_smoothing_range                               0.000000E+00
+ DFT| XC density smoothing                                                  NONE
+ DFT| XC derivatives                                                          PW
+
+ FUNCTIONAL| PBE:
+ FUNCTIONAL| J.P.Perdew, K.Burke, M.Ernzerhof, Phys. Rev. Letter, vol. 77, n 18,
+ FUNCTIONAL|  pp. 3865-3868, (1996) {spin polarized}                            
+
+
+ QS| Method:                                                                GAPW
+ QS| Density plane wave grid type                        NON-SPHERICAL FULLSPACE
+ QS| Number of grid levels:                                                    4
+ QS| Density cutoff [a.u.]:                                                200.0
+ QS| Multi grid cutoff [a.u.]: 1) grid level                               200.0
+ QS|                           2) grid level                                66.7
+ QS|                           3) grid level                                22.2
+ QS|                           4) grid level                                 7.4
+ QS| Grid level progression factor:                                          3.0
+ QS| Relative density cutoff [a.u.]:                                        25.0
+ QS| Interaction thresholds: eps_pgf_orb:                                1.0E-05
+ QS|                         eps_filter_matrix:                          0.0E+00
+ QS|                         eps_core_charge:                            1.0E-12
+ QS|                         eps_rho_gspace:                             1.0E-10
+ QS|                         eps_rho_rspace:                             1.0E-10
+ QS|                         eps_gvg_rspace:                             1.0E-05
+ QS|                         eps_ppl:                                    1.0E-02
+ QS|                         eps_ppnl:                                   1.0E-07
+ QS| GAPW|      One center basis from orbital basis primitives
+ QS| GAPW|                   eps_fit:                                    1.0E-04
+ QS| GAPW|                   eps_iso:                                    1.0E-12
+ QS| GAPW|                   eps_svd:                                    1.0E-08
+ QS| GAPW|                   eps_cpc:                                    1.0E-10
+ QS| GAPW|   atom-r-grid: quadrature:                                     GC_LOG
+ QS| GAPW|      atom-s-grid:  max l :                                          8
+ QS| GAPW|      max_l_rho0 :                                                   2
+
+
+ ATOMIC KIND INFORMATION
+
+  1. Atomic kind: C                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               29
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s            33980.000000       0.163451
+                                                      5089.000000       0.304421
+                                                      1157.000000       0.525784
+                                                       326.600000       0.846898
+                                                       106.100000       1.255764
+                                                        38.110000       1.618645
+                                                        14.750000       1.650895
+                                                         6.035000       1.103530
+                                                         2.530000       0.312486
+
+                          1       2    2s            33980.000000      -0.099372
+                                                      5089.000000      -0.190127
+                                                      1157.000000      -0.325433
+                                                       326.600000      -0.533661
+                                                       106.100000      -0.795298
+                                                        38.110000      -1.094938
+                                                        14.750000      -1.213813
+                                                         6.035000      -1.138506
+                                                         2.530000      -0.494749
+
+                          2       1    1s                0.735500       0.566040
+
+                          3       1    1s                0.290500       0.282013
+
+                          4       1    1s                0.111100       0.137150
+
+                          5       1    1px              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+                          5       1    1py              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+                          5       1    1pz              34.510000       3.778019
+                                                         7.915000       4.028727
+                                                         2.368000       3.515465
+
+                          6       1    1px               0.813200       1.100745
+                          6       1    1py               0.813200       1.100745
+                          6       1    1pz               0.813200       1.100745
+
+                          7       1    1px               0.289000       0.302039
+                          7       1    1py               0.289000       0.302039
+                          7       1    1pz               0.289000       0.302039
+
+                          8       1    1px               0.100700       0.080859
+                          8       1    1py               0.100700       0.080859
+                          8       1    1pz               0.100700       0.080859
+
+                          9       1    1dx2              1.848000       4.821009
+                          9       1    1dxy              1.848000       8.350232
+                          9       1    1dxz              1.848000       8.350232
+                          9       1    1dy2              1.848000       4.821009
+                          9       1    1dyz              1.848000       8.350232
+                          9       1    1dz2              1.848000       4.821009
+
+                         10       1    1dx2              0.649000       0.772392
+                         10       1    1dxy              0.649000       1.337822
+                         10       1    1dxz              0.649000       1.337822
+                         10       1    1dy2              0.649000       0.772392
+                         10       1    1dyz              0.649000       1.337822
+                         10       1    1dz2              0.649000       0.772392
+
+                         11       1    1dx2              0.228000       0.123821
+                         11       1    1dxy              0.228000       0.214465
+                         11       1    1dxz              0.228000       0.214465
+                         11       1    1dy2              0.228000       0.123821
+                         11       1    1dyz              0.228000       0.214465
+                         11       1    1dz2              0.228000       0.123821
+
+                         12       1    1fx3              1.419000       3.235302
+                         12       1    1fx2y             1.419000       7.234355
+                         12       1    1fx2z             1.419000       7.234355
+                         12       1    1fxy2             1.419000       7.234355
+                         12       1    1fxyz             1.419000      12.530271
+                         12       1    1fxz2             1.419000       7.234355
+                         12       1    1fy3              1.419000       3.235302
+                         12       1    1fy2z             1.419000       7.234355
+                         12       1    1fyz2             1.419000       7.234355
+                         12       1    1fz3              1.419000       3.235302
+
+                         13       1    1fx3              0.485000       0.288984
+                         13       1    1fx2y             0.485000       0.646187
+                         13       1    1fx2z             0.485000       0.646187
+                         13       1    1fxy2             0.485000       0.646187
+                         13       1    1fxyz             0.485000       1.119229
+                         13       1    1fxz2             0.485000       0.646187
+                         13       1    1fy3              0.485000       0.288984
+                         13       1    1fy2z             0.485000       0.646187
+                         13       1    1fyz2             0.485000       0.646187
+                         13       1    1fz3              0.485000       0.288984
+
+                         14       1    1gx4              1.011000       1.146835
+                         14       1    1gx3y             1.011000       3.034241
+                         14       1    1gx3z             1.011000       3.034241
+                         14       1    1gx2y2            1.011000       3.917189
+                         14       1    1gx2yz            1.011000       6.784770
+                         14       1    1gx2z2            1.011000       3.917189
+                         14       1    1gxy3             1.011000       3.034241
+                         14       1    1gxy2z            1.011000       6.784770
+                         14       1    1gxyz2            1.011000       6.784770
+                         14       1    1gxz3             1.011000       3.034241
+                         14       1    1gy4              1.011000       1.146835
+                         14       1    1gy3z             1.011000       3.034241
+                         14       1    1gy2z2            1.011000       3.917189
+                         14       1    1gyz3             1.011000       3.034241
+                         14       1    1gz4              1.011000       1.146835
+
+                         15       1    1s                0.041450       0.065472
+
+                         16       1    1px               0.032180       0.019428
+                         16       1    1py               0.032180       0.019428
+                         16       1    1pz               0.032180       0.019428
+
+                         17       1    1dx2              0.076600       0.018357
+                         17       1    1dxy              0.076600       0.031796
+                         17       1    1dxz              0.076600       0.031796
+                         17       1    1dy2              0.076600       0.018357
+                         17       1    1dyz              0.076600       0.031796
+                         17       1    1dz2              0.076600       0.018357
+
+                         18       1    1fx3              0.187000       0.033853
+                         18       1    1fx2y             0.187000       0.075698
+                         18       1    1fx2z             0.187000       0.075698
+                         18       1    1fxy2             0.187000       0.075698
+                         18       1    1fxyz             0.187000       0.131112
+                         18       1    1fxz2             0.187000       0.075698
+                         18       1    1fy3              0.187000       0.033853
+                         18       1    1fy2z             0.187000       0.075698
+                         18       1    1fyz2             0.187000       0.075698
+                         18       1    1fz3              0.187000       0.033853
+
+                         19       1    1gx4              0.424000       0.105121
+                         19       1    1gx3y             0.424000       0.278125
+                         19       1    1gx3z             0.424000       0.278125
+                         19       1    1gx2y2            0.424000       0.359058
+                         19       1    1gx2yz            0.424000       0.621907
+                         19       1    1gx2z2            0.424000       0.359058
+                         19       1    1gxy3             0.424000       0.278125
+                         19       1    1gxy2z            0.424000       0.621907
+                         19       1    1gxyz2            0.424000       0.621907
+                         19       1    1gxz3             0.424000       0.278125
+                         19       1    1gy4              0.424000       0.105121
+                         19       1    1gy3z             0.424000       0.278125
+                         19       1    1gy2z2            0.424000       0.359058
+                         19       1    1gyz3             0.424000       0.278125
+                         19       1    1gz4              0.424000       0.105121
+
+       Atomic covalent radius [Angstrom]:                                  0.770
+
+       Atomic van der Waals radius [Angstrom]:                             1.700
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              20
+       Number of primitive Cartesian functions:                               19
+       Number of Cartesian basis functions:                                  105
+       Number of spherical basis functions:                                   80
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                2.530000       0.312486
+
+                          1       2    2s                2.530000      -0.494749
+
+                          2       1    1s                0.735500       0.566040
+
+                          3       1    1s                0.290500       0.282013
+
+                          4       1    1s                0.111100       0.137150
+
+                          5       1    1px               2.368000       3.515465
+                          5       1    1py               2.368000       3.515465
+                          5       1    1pz               2.368000       3.515465
+
+                          6       1    1px               0.813200       1.100745
+                          6       1    1py               0.813200       1.100745
+                          6       1    1pz               0.813200       1.100745
+
+                          7       1    1px               0.289000       0.302039
+                          7       1    1py               0.289000       0.302039
+                          7       1    1pz               0.289000       0.302039
+
+                          8       1    1px               0.100700       0.080859
+                          8       1    1py               0.100700       0.080859
+                          8       1    1pz               0.100700       0.080859
+
+                          9       1    1dx2              1.848000       4.821009
+                          9       1    1dxy              1.848000       8.350232
+                          9       1    1dxz              1.848000       8.350232
+                          9       1    1dy2              1.848000       4.821009
+                          9       1    1dyz              1.848000       8.350232
+                          9       1    1dz2              1.848000       4.821009
+
+                         10       1    1dx2              0.649000       0.772392
+                         10       1    1dxy              0.649000       1.337822
+                         10       1    1dxz              0.649000       1.337822
+                         10       1    1dy2              0.649000       0.772392
+                         10       1    1dyz              0.649000       1.337822
+                         10       1    1dz2              0.649000       0.772392
+
+                         11       1    1dx2              0.228000       0.123821
+                         11       1    1dxy              0.228000       0.214465
+                         11       1    1dxz              0.228000       0.214465
+                         11       1    1dy2              0.228000       0.123821
+                         11       1    1dyz              0.228000       0.214465
+                         11       1    1dz2              0.228000       0.123821
+
+                         12       1    1fx3              1.419000       3.235302
+                         12       1    1fx2y             1.419000       7.234355
+                         12       1    1fx2z             1.419000       7.234355
+                         12       1    1fxy2             1.419000       7.234355
+                         12       1    1fxyz             1.419000      12.530271
+                         12       1    1fxz2             1.419000       7.234355
+                         12       1    1fy3              1.419000       3.235302
+                         12       1    1fy2z             1.419000       7.234355
+                         12       1    1fyz2             1.419000       7.234355
+                         12       1    1fz3              1.419000       3.235302
+
+                         13       1    1fx3              0.485000       0.288984
+                         13       1    1fx2y             0.485000       0.646187
+                         13       1    1fx2z             0.485000       0.646187
+                         13       1    1fxy2             0.485000       0.646187
+                         13       1    1fxyz             0.485000       1.119229
+                         13       1    1fxz2             0.485000       0.646187
+                         13       1    1fy3              0.485000       0.288984
+                         13       1    1fy2z             0.485000       0.646187
+                         13       1    1fyz2             0.485000       0.646187
+                         13       1    1fz3              0.485000       0.288984
+
+                         14       1    1gx4              1.011000       1.146835
+                         14       1    1gx3y             1.011000       3.034241
+                         14       1    1gx3z             1.011000       3.034241
+                         14       1    1gx2y2            1.011000       3.917189
+                         14       1    1gx2yz            1.011000       6.784770
+                         14       1    1gx2z2            1.011000       3.917189
+                         14       1    1gxy3             1.011000       3.034241
+                         14       1    1gxy2z            1.011000       6.784770
+                         14       1    1gxyz2            1.011000       6.784770
+                         14       1    1gxz3             1.011000       3.034241
+                         14       1    1gy4              1.011000       1.146835
+                         14       1    1gy3z             1.011000       3.034241
+                         14       1    1gy2z2            1.011000       3.917189
+                         14       1    1gyz3             1.011000       3.034241
+                         14       1    1gz4              1.011000       1.146835
+
+                         15       1    1s                0.041450       0.065472
+
+                         16       1    1px               0.032180       0.019428
+                         16       1    1py               0.032180       0.019428
+                         16       1    1pz               0.032180       0.019428
+
+                         17       1    1dx2              0.076600       0.018357
+                         17       1    1dxy              0.076600       0.031796
+                         17       1    1dxz              0.076600       0.031796
+                         17       1    1dy2              0.076600       0.018357
+                         17       1    1dyz              0.076600       0.031796
+                         17       1    1dz2              0.076600       0.018357
+
+                         18       1    1fx3              0.187000       0.033853
+                         18       1    1fx2y             0.187000       0.075698
+                         18       1    1fx2z             0.187000       0.075698
+                         18       1    1fxy2             0.187000       0.075698
+                         18       1    1fxyz             0.187000       0.131112
+                         18       1    1fxz2             0.187000       0.075698
+                         18       1    1fy3              0.187000       0.033853
+                         18       1    1fy2z             0.187000       0.075698
+                         18       1    1fyz2             0.187000       0.075698
+                         18       1    1fz3              0.187000       0.033853
+
+                         19       1    1gx4              0.424000       0.105121
+                         19       1    1gx3y             0.424000       0.278125
+                         19       1    1gx3z             0.424000       0.278125
+                         19       1    1gx2y2            0.424000       0.359058
+                         19       1    1gx2yz            0.424000       0.621907
+                         19       1    1gx2z2            0.424000       0.359058
+                         19       1    1gxy3             0.424000       0.278125
+                         19       1    1gxy2z            0.424000       0.621907
+                         19       1    1gxyz2            0.424000       0.621907
+                         19       1    1gxz3             0.424000       0.278125
+                         19       1    1gy4              0.424000       0.105121
+                         19       1    1gy3z             0.424000       0.278125
+                         19       1    1gy2z2            0.424000       0.359058
+                         19       1    1gyz3             0.424000       0.278125
+                         19       1    1gz4              0.424000       0.105121
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               4.109048
+       Electronic configuration (s p d ...):                           4   2   0
+
+  2. Atomic kind: S                                     Number of atoms:       1
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              22
+       Number of primitive Cartesian functions:                               38
+       Number of Cartesian basis functions:                                  109
+       Number of spherical basis functions:                                   84
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s           727800.000000       0.419083
+                                                    109000.000000       0.784399
+                                                     24800.000000       1.358065
+                                                      7014.000000       2.220511
+                                                      2278.000000       3.453674
+                                                       814.700000       5.054234
+                                                       313.400000       6.662300
+                                                       127.700000       7.267040
+                                                        54.480000       5.499226
+                                                        23.850000       2.041032
+                                                         9.428000       0.167687
+                                                         4.290000      -0.008047
+                                                         1.909000       0.002524
+
+                          1       2    2s           727800.000000      -0.118550
+                                                    109000.000000      -0.221758
+                                                     24800.000000      -0.384784
+                                                      7014.000000      -0.629738
+                                                      2278.000000      -0.989343
+                                                       814.700000      -1.473862
+                                                       313.400000      -2.049102
+                                                       127.700000      -2.490753
+                                                        54.480000      -2.445076
+                                                        23.850000      -1.333691
+                                                         9.428000       0.501846
+                                                         4.290000       1.228651
+                                                         1.909000       0.511679
+
+                          1       3    3s           727800.000000       0.059481
+                                                    109000.000000       0.111301
+                                                     24800.000000       0.193565
+                                                      7014.000000       0.316066
+                                                      2278.000000       0.498443
+                                                       814.700000       0.741120
+                                                       313.400000       1.039911
+                                                       127.700000       1.269736
+                                                        54.480000       1.288566
+                                                        23.850000       0.722476
+                                                         9.428000      -0.289161
+                                                         4.290000      -0.944428
+                                                         1.909000      -0.683366
+
+                          2       1    1s                0.627000       0.502182
+
+                          3       1    1s                0.287300       0.279680
+
+                          4       1    1s                0.117200       0.142760
+
+                          5       1    1px            1546.000000       6.132475
+                                                       366.400000       8.678629
+                                                       118.400000      11.108409
+                                                        44.530000      12.239531
+                                                        18.380000      10.767789
+                                                         7.965000       6.750705
+                                                         3.541000       2.637521
+                                                         1.591000       0.437942
+                          5       1    1py            1546.000000       6.132475
+                                                       366.400000       8.678629
+                                                       118.400000      11.108409
+                                                        44.530000      12.239531
+                                                        18.380000      10.767789
+                                                         7.965000       6.750705
+                                                         3.541000       2.637521
+                                                         1.591000       0.437942
+                          5       1    1pz            1546.000000       6.132475
+                                                       366.400000       8.678629
+                                                       118.400000      11.108409
+                                                        44.530000      12.239531
+                                                        18.380000      10.767789
+                                                         7.965000       6.750705
+                                                         3.541000       2.637521
+                                                         1.591000       0.437942
+
+                          5       2    2px            1546.000000      -6.315927
+                                                       366.400000      -8.851093
+                                                       118.400000     -11.551271
+                                                        44.530000     -12.764060
+                                                        18.380000     -11.749103
+                                                         7.965000      -7.401646
+                                                         3.541000      -3.306638
+                                                         1.591000       0.095018
+                          5       2    2py            1546.000000      -6.315927
+                                                       366.400000      -8.851093
+                                                       118.400000     -11.551271
+                                                        44.530000     -12.764060
+                                                        18.380000     -11.749103
+                                                         7.965000      -7.401646
+                                                         3.541000      -3.306638
+                                                         1.591000       0.095018
+                          5       2    2pz            1546.000000      -6.315927
+                                                       366.400000      -8.851093
+                                                       118.400000     -11.551271
+                                                        44.530000     -12.764060
+                                                        18.380000     -11.749103
+                                                         7.965000      -7.401646
+                                                         3.541000      -3.306638
+                                                         1.591000       0.095018
+
+                          6       1    1px               0.620500       0.784996
+                          6       1    1py               0.620500       0.784996
+                          6       1    1pz               0.620500       0.784996
+
+                          7       1    1px               0.242000       0.241941
+                          7       1    1py               0.242000       0.241941
+                          7       1    1pz               0.242000       0.241941
+
+                          8       1    1px               0.090140       0.070402
+                          8       1    1py               0.090140       0.070402
+                          8       1    1pz               0.090140       0.070402
+
+                          9       1    1dx2              0.203000       0.101048
+                          9       1    1dxy              0.203000       0.175020
+                          9       1    1dxz              0.203000       0.175020
+                          9       1    1dy2              0.203000       0.101048
+                          9       1    1dyz              0.203000       0.175020
+                          9       1    1dz2              0.203000       0.101048
+
+                         10       1    1dx2              0.504000       0.496207
+                         10       1    1dxy              0.504000       0.859456
+                         10       1    1dxz              0.504000       0.859456
+                         10       1    1dy2              0.504000       0.496207
+                         10       1    1dyz              0.504000       0.859456
+                         10       1    1dz2              0.504000       0.496207
+
+                         11       1    1dx2              1.250000       2.432215
+                         11       1    1dxy              1.250000       4.212720
+                         11       1    1dxz              1.250000       4.212720
+                         11       1    1dy2              1.250000       2.432215
+                         11       1    1dyz              1.250000       4.212720
+                         11       1    1dz2              1.250000       2.432215
+
+                         12       1    1fx3              0.335000       0.125691
+                         12       1    1fx2y             0.335000       0.281054
+                         12       1    1fx2z             0.335000       0.281054
+                         12       1    1fxy2             0.335000       0.281054
+                         12       1    1fxyz             0.335000       0.486800
+                         12       1    1fxz2             0.335000       0.281054
+                         12       1    1fy3              0.335000       0.125691
+                         12       1    1fy2z             0.335000       0.281054
+                         12       1    1fyz2             0.335000       0.281054
+                         12       1    1fz3              0.335000       0.125691
+
+                         13       1    1fx3              0.869000       1.073369
+                         13       1    1fx2y             0.869000       2.400125
+                         13       1    1fx2z             0.869000       2.400125
+                         13       1    1fxy2             0.869000       2.400125
+                         13       1    1fxyz             0.869000       4.157139
+                         13       1    1fxz2             0.869000       2.400125
+                         13       1    1fy3              0.869000       1.073369
+                         13       1    1fy2z             0.869000       2.400125
+                         13       1    1fyz2             0.869000       2.400125
+                         13       1    1fz3              0.869000       1.073369
+
+                         14       1    1gx4              0.683000       0.390025
+                         14       1    1gx3y             0.683000       1.031909
+                         14       1    1gx3z             0.683000       1.031909
+                         14       1    1gx2y2            0.683000       1.332189
+                         14       1    1gx2yz            0.683000       2.307419
+                         14       1    1gx2z2            0.683000       1.332189
+                         14       1    1gxy3             0.683000       1.031909
+                         14       1    1gxy2z            0.683000       2.307419
+                         14       1    1gxyz2            0.683000       2.307419
+                         14       1    1gxz3             0.683000       1.031909
+                         14       1    1gy4              0.683000       0.390025
+                         14       1    1gy3z             0.683000       1.031909
+                         14       1    1gy2z2            0.683000       1.332189
+                         14       1    1gyz3             0.683000       1.031909
+                         14       1    1gz4              0.683000       0.390025
+
+                         15       1    1s                0.042800       0.067065
+
+                         16       1    1px               0.031700       0.019066
+                         16       1    1py               0.031700       0.019066
+                         16       1    1pz               0.031700       0.019066
+
+                         17       1    1dx2              0.074800       0.017609
+                         17       1    1dxy              0.074800       0.030500
+                         17       1    1dxz              0.074800       0.030500
+                         17       1    1dy2              0.074800       0.017609
+                         17       1    1dyz              0.074800       0.030500
+                         17       1    1dz2              0.074800       0.017609
+
+                         18       1    1fx3              0.140000       0.017650
+                         18       1    1fx2y             0.140000       0.039466
+                         18       1    1fx2z             0.140000       0.039466
+                         18       1    1fxy2             0.140000       0.039466
+                         18       1    1fxyz             0.140000       0.068358
+                         18       1    1fxz2             0.140000       0.039466
+                         18       1    1fy3              0.140000       0.017650
+                         18       1    1fy2z             0.140000       0.039466
+                         18       1    1fyz2             0.140000       0.039466
+                         18       1    1fz3              0.140000       0.017650
+
+                         19       1    1gx4              0.297000       0.039493
+                         19       1    1gx3y             0.297000       0.104488
+                         19       1    1gx3z             0.297000       0.104488
+                         19       1    1gx2y2            0.297000       0.134893
+                         19       1    1gx2yz            0.297000       0.233641
+                         19       1    1gx2z2            0.297000       0.134893
+                         19       1    1gxy3             0.297000       0.104488
+                         19       1    1gxy2z            0.297000       0.233641
+                         19       1    1gxyz2            0.297000       0.233641
+                         19       1    1gxz3             0.297000       0.104488
+                         19       1    1gy4              0.297000       0.039493
+                         19       1    1gy3z             0.297000       0.104488
+                         19       1    1gy2z2            0.297000       0.134893
+                         19       1    1gyz3             0.297000       0.104488
+                         19       1    1gz4              0.297000       0.039493
+
+       Atomic covalent radius [Angstrom]:                                  1.020
+
+       Atomic van der Waals radius [Angstrom]:                             1.800
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.512
+       Rho0 radius:                                                        1.512
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          19
+       Number of orbital shells:                                              22
+       Number of primitive Cartesian functions:                               20
+       Number of Cartesian basis functions:                                  109
+       Number of spherical basis functions:                                   84
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                1.909000       0.002524
+
+                          1       2    2s                1.909000       0.511679
+
+                          1       3    3s                1.909000      -0.683366
+
+                          2       1    1s                0.627000       0.502182
+
+                          3       1    1s                0.287300       0.279680
+
+                          4       1    1s                0.117200       0.142760
+
+                          5       1    1px               3.541000       2.637521
+                                                         1.591000       0.437942
+                          5       1    1py               3.541000       2.637521
+                                                         1.591000       0.437942
+                          5       1    1pz               3.541000       2.637521
+                                                         1.591000       0.437942
+
+                          5       2    2px               3.541000      -3.306638
+                                                         1.591000       0.095018
+                          5       2    2py               3.541000      -3.306638
+                                                         1.591000       0.095018
+                          5       2    2pz               3.541000      -3.306638
+                                                         1.591000       0.095018
+
+                          6       1    1px               0.620500       0.784996
+                          6       1    1py               0.620500       0.784996
+                          6       1    1pz               0.620500       0.784996
+
+                          7       1    1px               0.242000       0.241941
+                          7       1    1py               0.242000       0.241941
+                          7       1    1pz               0.242000       0.241941
+
+                          8       1    1px               0.090140       0.070402
+                          8       1    1py               0.090140       0.070402
+                          8       1    1pz               0.090140       0.070402
+
+                          9       1    1dx2              0.203000       0.101048
+                          9       1    1dxy              0.203000       0.175020
+                          9       1    1dxz              0.203000       0.175020
+                          9       1    1dy2              0.203000       0.101048
+                          9       1    1dyz              0.203000       0.175020
+                          9       1    1dz2              0.203000       0.101048
+
+                         10       1    1dx2              0.504000       0.496207
+                         10       1    1dxy              0.504000       0.859456
+                         10       1    1dxz              0.504000       0.859456
+                         10       1    1dy2              0.504000       0.496207
+                         10       1    1dyz              0.504000       0.859456
+                         10       1    1dz2              0.504000       0.496207
+
+                         11       1    1dx2              1.250000       2.432215
+                         11       1    1dxy              1.250000       4.212720
+                         11       1    1dxz              1.250000       4.212720
+                         11       1    1dy2              1.250000       2.432215
+                         11       1    1dyz              1.250000       4.212720
+                         11       1    1dz2              1.250000       2.432215
+
+                         12       1    1fx3              0.335000       0.125691
+                         12       1    1fx2y             0.335000       0.281054
+                         12       1    1fx2z             0.335000       0.281054
+                         12       1    1fxy2             0.335000       0.281054
+                         12       1    1fxyz             0.335000       0.486800
+                         12       1    1fxz2             0.335000       0.281054
+                         12       1    1fy3              0.335000       0.125691
+                         12       1    1fy2z             0.335000       0.281054
+                         12       1    1fyz2             0.335000       0.281054
+                         12       1    1fz3              0.335000       0.125691
+
+                         13       1    1fx3              0.869000       1.073369
+                         13       1    1fx2y             0.869000       2.400125
+                         13       1    1fx2z             0.869000       2.400125
+                         13       1    1fxy2             0.869000       2.400125
+                         13       1    1fxyz             0.869000       4.157139
+                         13       1    1fxz2             0.869000       2.400125
+                         13       1    1fy3              0.869000       1.073369
+                         13       1    1fy2z             0.869000       2.400125
+                         13       1    1fyz2             0.869000       2.400125
+                         13       1    1fz3              0.869000       1.073369
+
+                         14       1    1gx4              0.683000       0.390025
+                         14       1    1gx3y             0.683000       1.031909
+                         14       1    1gx3z             0.683000       1.031909
+                         14       1    1gx2y2            0.683000       1.332189
+                         14       1    1gx2yz            0.683000       2.307419
+                         14       1    1gx2z2            0.683000       1.332189
+                         14       1    1gxy3             0.683000       1.031909
+                         14       1    1gxy2z            0.683000       2.307419
+                         14       1    1gxyz2            0.683000       2.307419
+                         14       1    1gxz3             0.683000       1.031909
+                         14       1    1gy4              0.683000       0.390025
+                         14       1    1gy3z             0.683000       1.031909
+                         14       1    1gy2z2            0.683000       1.332189
+                         14       1    1gyz3             0.683000       1.031909
+                         14       1    1gz4              0.683000       0.390025
+
+                         15       1    1s                0.042800       0.067065
+
+                         16       1    1px               0.031700       0.019066
+                         16       1    1py               0.031700       0.019066
+                         16       1    1pz               0.031700       0.019066
+
+                         17       1    1dx2              0.074800       0.017609
+                         17       1    1dxy              0.074800       0.030500
+                         17       1    1dxz              0.074800       0.030500
+                         17       1    1dy2              0.074800       0.017609
+                         17       1    1dyz              0.074800       0.030500
+                         17       1    1dz2              0.074800       0.017609
+
+                         18       1    1fx3              0.140000       0.017650
+                         18       1    1fx2y             0.140000       0.039466
+                         18       1    1fx2z             0.140000       0.039466
+                         18       1    1fxy2             0.140000       0.039466
+                         18       1    1fxyz             0.140000       0.068358
+                         18       1    1fxz2             0.140000       0.039466
+                         18       1    1fy3              0.140000       0.017650
+                         18       1    1fy2z             0.140000       0.039466
+                         18       1    1fyz2             0.140000       0.039466
+                         18       1    1fz3              0.140000       0.017650
+
+                         19       1    1gx4              0.297000       0.039493
+                         19       1    1gx3y             0.297000       0.104488
+                         19       1    1gx3z             0.297000       0.104488
+                         19       1    1gx2y2            0.297000       0.134893
+                         19       1    1gx2yz            0.297000       0.233641
+                         19       1    1gx2z2            0.297000       0.134893
+                         19       1    1gxy3             0.297000       0.104488
+                         19       1    1gxy2z            0.297000       0.233641
+                         19       1    1gxyz2            0.297000       0.233641
+                         19       1    1gxz3             0.297000       0.104488
+                         19       1    1gy4              0.297000       0.039493
+                         19       1    1gy3z             0.297000       0.104488
+                         19       1    1gy2z2            0.297000       0.134893
+                         19       1    1gyz3             0.297000       0.104488
+                         19       1    1gz4              0.297000       0.039493
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:               2.834467
+       Electronic configuration (s p d ...):                           6  10   0
+
+  3. Atomic kind: H                                     Number of atoms:       2
+
+     Orbital Basis Set                                               aug-cc-pVQZ
+
+       Number of orbital shell sets:                                          14
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               16
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s               82.640000       0.448332
+                                                        12.410000       0.827209
+                                                         2.824000       1.342536
+
+                          2       1    1s                0.797700       0.601575
+
+                          3       1    1s                0.258100       0.258078
+
+                          4       1    1s                0.089890       0.117002
+
+                          5       1    1px               2.292000       4.019836
+                          5       1    1py               2.292000       4.019836
+                          5       1    1pz               2.292000       4.019836
+
+                          6       1    1px               0.838000       1.142865
+                          6       1    1py               0.838000       1.142865
+                          6       1    1pz               0.838000       1.142865
+
+                          7       1    1px               0.292000       0.305963
+                          7       1    1py               0.292000       0.305963
+                          7       1    1pz               0.292000       0.305963
+
+                          8       1    1dx2              2.062000       5.840024
+                          8       1    1dxy              2.062000      10.115218
+                          8       1    1dxz              2.062000      10.115218
+                          8       1    1dy2              2.062000       5.840024
+                          8       1    1dyz              2.062000      10.115218
+                          8       1    1dz2              2.062000       5.840024
+
+                          9       1    1dx2              0.662000       0.799670
+                          9       1    1dxy              0.662000       1.385069
+                          9       1    1dxz              0.662000       1.385069
+                          9       1    1dy2              0.662000       0.799670
+                          9       1    1dyz              0.662000       1.385069
+                          9       1    1dz2              0.662000       0.799670
+
+                         10       1    1fx3              1.397000       3.123535
+                         10       1    1fx2y             1.397000       6.984436
+                         10       1    1fx2z             1.397000       6.984436
+                         10       1    1fxy2             1.397000       6.984436
+                         10       1    1fxyz             1.397000      12.097399
+                         10       1    1fxz2             1.397000       6.984436
+                         10       1    1fy3              1.397000       3.123535
+                         10       1    1fy2z             1.397000       6.984436
+                         10       1    1fyz2             1.397000       6.984436
+                         10       1    1fz3              1.397000       3.123535
+
+                         11       1    1s                0.023630       0.042954
+
+                         12       1    1px               0.084800       0.065228
+                         12       1    1py               0.084800       0.065228
+                         12       1    1pz               0.084800       0.065228
+
+                         13       1    1dx2              0.190000       0.089997
+                         13       1    1dxy              0.190000       0.155879
+                         13       1    1dxz              0.190000       0.155879
+                         13       1    1dy2              0.190000       0.089997
+                         13       1    1dyz              0.190000       0.155879
+                         13       1    1dz2              0.190000       0.089997
+
+                         14       1    1fx3              0.360000       0.147787
+                         14       1    1fx2y             0.360000       0.330461
+                         14       1    1fx2z             0.360000       0.330461
+                         14       1    1fxy2             0.360000       0.330461
+                         14       1    1fxyz             0.360000       0.572375
+                         14       1    1fxz2             0.360000       0.330461
+                         14       1    1fy3              0.360000       0.147787
+                         14       1    1fy2z             0.360000       0.330461
+                         14       1    1fyz2             0.360000       0.330461
+                         14       1    1fz3              0.360000       0.147787
+
+       Atomic covalent radius [Angstrom]:                                  0.320
+
+       Atomic van der Waals radius [Angstrom]:                             1.090
+
+     The atoms of this atomic kind are PAW atoms (GAPW):
+       Hard Gaussian function radius:                                      1.200
+       Rho0 radius:                                                        1.200
+       Maximum GTO radius used for PAW projector construction:            24.566
+
+     GAPW Soft Basis Set                                        aug-cc-pVQZ_soft
+
+       Number of orbital shell sets:                                          14
+       Number of orbital shells:                                              14
+       Number of primitive Cartesian functions:                               14
+       Number of Cartesian basis functions:                                   55
+       Number of spherical basis functions:                                   46
+       Norm type:                                                              2
+
+       Normalised Cartesian orbitals:
+
+                        Set   Shell   Orbital            Exponent    Coefficient
+
+                          1       1    1s                2.824000       1.342536
+
+                          2       1    1s                0.797700       0.601575
+
+                          3       1    1s                0.258100       0.258078
+
+                          4       1    1s                0.089890       0.117002
+
+                          5       1    1px               2.292000       4.019836
+                          5       1    1py               2.292000       4.019836
+                          5       1    1pz               2.292000       4.019836
+
+                          6       1    1px               0.838000       1.142865
+                          6       1    1py               0.838000       1.142865
+                          6       1    1pz               0.838000       1.142865
+
+                          7       1    1px               0.292000       0.305963
+                          7       1    1py               0.292000       0.305963
+                          7       1    1pz               0.292000       0.305963
+
+                          8       1    1dx2              2.062000       5.840024
+                          8       1    1dxy              2.062000      10.115218
+                          8       1    1dxz              2.062000      10.115218
+                          8       1    1dy2              2.062000       5.840024
+                          8       1    1dyz              2.062000      10.115218
+                          8       1    1dz2              2.062000       5.840024
+
+                          9       1    1dx2              0.662000       0.799670
+                          9       1    1dxy              0.662000       1.385069
+                          9       1    1dxz              0.662000       1.385069
+                          9       1    1dy2              0.662000       0.799670
+                          9       1    1dyz              0.662000       1.385069
+                          9       1    1dz2              0.662000       0.799670
+
+                         10       1    1fx3              1.397000       3.123535
+                         10       1    1fx2y             1.397000       6.984436
+                         10       1    1fx2z             1.397000       6.984436
+                         10       1    1fxy2             1.397000       6.984436
+                         10       1    1fxyz             1.397000      12.097399
+                         10       1    1fxz2             1.397000       6.984436
+                         10       1    1fy3              1.397000       3.123535
+                         10       1    1fy2z             1.397000       6.984436
+                         10       1    1fyz2             1.397000       6.984436
+                         10       1    1fz3              1.397000       3.123535
+
+                         11       1    1s                0.023630       0.042954
+
+                         12       1    1px               0.084800       0.065228
+                         12       1    1py               0.084800       0.065228
+                         12       1    1pz               0.084800       0.065228
+
+                         13       1    1dx2              0.190000       0.089997
+                         13       1    1dxy              0.190000       0.155879
+                         13       1    1dxz              0.190000       0.155879
+                         13       1    1dy2              0.190000       0.089997
+                         13       1    1dyz              0.190000       0.155879
+                         13       1    1dz2              0.190000       0.089997
+
+                         14       1    1fx3              0.360000       0.147787
+                         14       1    1fx2y             0.360000       0.330461
+                         14       1    1fx2z             0.360000       0.330461
+                         14       1    1fxy2             0.360000       0.330461
+                         14       1    1fxyz             0.360000       0.572375
+                         14       1    1fxz2             0.360000       0.330461
+                         14       1    1fy3              0.360000       0.147787
+                         14       1    1fy2z             0.360000       0.330461
+                         14       1    1fyz2             0.360000       0.330461
+                         14       1    1fz3              0.360000       0.147787
+
+     AE Potential information for                                            ALL
+
+       Description:                                       All-electron potential
+                                          Krack, Parrinello, PCCP 2, 2105 (2000)
+
+       Gaussian exponent of the core charge distribution:              12.500000
+       Electronic configuration (s p d ...):                           1   0   0
+
+
+ MOLECULE KIND INFORMATION
+
+
+ All atoms are their own molecule, skipping detailed information
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   3
+                             - Atoms:                                          4
+                             - Shell sets:                                    66
+                             - Shells:                                        70
+                             - Primitive Cartesian functions:                 99
+                             - Cartesian basis functions:                    324
+                             - Spherical basis functions:                    256
+
+  Maximum angular momentum of the orbital basis functions:                     4
+
+
+ MODULE QUICKSTEP: ATOMIC COORDINATES IN ANGSTROM
+
+   Atom Kind Element         X             Y             Z       Z(eff)     Mass
+      1    1 C     6      7.500000      7.500000      6.977193   6.0000  12.0107
+      2    2 S    16      7.500000      7.500000      8.596097  16.0000  32.0650
+      3    3 H     1      7.500000      8.418957      6.403903   1.0000   1.0079
+      4    3 H     1      7.500000      6.581043      6.403903   1.0000   1.0079
+
+
+
+ SCF PARAMETERS         Density guess:                                   RESTART
+                        --------------------------------------------------------
+                        max_scf:                                             500
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-05
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       0.00E+00
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        --------------------------------------------------------
+                        No outer SCF
+
+ PW_GRID| Information for grid number                                          1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    400.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1           -128     127                Points:         256
+ PW_GRID|   Bounds   2           -128     127                Points:         256
+ PW_GRID|   Bounds   3           -128     127                Points:         256
+ PW_GRID| Volume element (a.u.^3)  0.1358E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           524288.0      524288      524288
+ PW_GRID|   G-Rays                                2048.0        2048        2048
+ PW_GRID|   Real Space Points                   524288.0      524288      524288
+
+ PW_GRID| Information for grid number                                          2
+ PW_GRID| Number of the reference grid                                         1
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                    200.0
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -96      95                Points:         192
+ PW_GRID|   Bounds   2            -96      95                Points:         192
+ PW_GRID|   Bounds   3            -96      95                Points:         192
+ PW_GRID| Volume element (a.u.^3)  0.3218E-02     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                           221184.0      221376      220992
+ PW_GRID|   G-Rays                                1152.0        1153        1151
+ PW_GRID|   Real Space Points                   221184.0      221184      221184
+
+ PW_GRID| Information for grid number                                          3
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     66.7
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -54      53                Points:         108
+ PW_GRID|   Bounds   2            -54      53                Points:         108
+ PW_GRID|   Bounds   3            -54      53                Points:         108
+ PW_GRID| Volume element (a.u.^3)  0.1808E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                            39366.0       39420       39312
+ PW_GRID|   G-Rays                                 364.5         365         364
+ PW_GRID|   Real Space Points                    39366.0       46656       34992
+
+ PW_GRID| Information for grid number                                          4
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                     22.2
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -32      31                Points:          64
+ PW_GRID|   Bounds   2            -32      31                Points:          64
+ PW_GRID|   Bounds   3            -32      31                Points:          64
+ PW_GRID| Volume element (a.u.^3)  0.8688E-01     Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             8192.0        8256        8128
+ PW_GRID|   G-Rays                                 128.0         129         127
+ PW_GRID|   Real Space Points                     8192.0        8192        8192
+
+ PW_GRID| Information for grid number                                          5
+ PW_GRID| Number of the reference grid                                         2
+ PW_GRID| Grid distributed over                                    32 processors
+ PW_GRID| Real space group dimensions                                    32    1
+ PW_GRID| the grid is blocked:                                                NO
+ PW_GRID| Cutoff [a.u.]                                                      7.4
+ PW_GRID| spherical cutoff:                                                   NO
+ PW_GRID|   Bounds   1            -18      17                Points:          36
+ PW_GRID|   Bounds   2            -18      17                Points:          36
+ PW_GRID|   Bounds   3            -18      17                Points:          36
+ PW_GRID| Volume element (a.u.^3)  0.4882         Volume (a.u.^3)     22775.6292
+ PW_GRID| Grid span                                                    FULLSPACE
+ PW_GRID|   Distribution                         Average         Max         Min
+ PW_GRID|   G-Vectors                             1458.0        1548        1368
+ PW_GRID|   G-Rays                                  40.5          43          38
+ PW_GRID|   Real Space Points                     1458.0        2592        1296
+
+ POISSON| Solver                                          Martyna-Tuckerman (MT)
+ POISSON| MT| Alpha                                                        7.000
+ POISSON| MT| Relative cutoff                                                2.0
+ POISSON| Periodicity                                                       NONE
+
+ RS_GRID| Information for grid number                                          2
+ RS_GRID|   Bounds   1            -96      95                Points:         192
+ RS_GRID|   Bounds   2            -96      95                Points:         192
+ RS_GRID|   Bounds   3            -96      95                Points:         192
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         25
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         25
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  98.0          98          98
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  74.0          74          74
+
+ RS_GRID| Information for grid number                                          3
+ RS_GRID|   Bounds   1            -54      53                Points:         108
+ RS_GRID|   Bounds   2            -54      53                Points:         108
+ RS_GRID|   Bounds   3            -54      53                Points:         108
+ RS_GRID| Real space distribution over                                  4 groups
+ RS_GRID| Real space distribution along direction                              2
+ RS_GRID| Border size                                                         27
+ RS_GRID| Real space distribution over                                  8 groups
+ RS_GRID| Real space distribution along direction                              3
+ RS_GRID| Border size                                                         27
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  81.0          81          81
+ RS_GRID|   Distribution                         Average         Max         Min
+ RS_GRID|   Planes                                  67.5          68          67
+
+ RS_GRID| Information for grid number                                          4
+ RS_GRID|   Bounds   1            -32      31                Points:          64
+ RS_GRID|   Bounds   2            -32      31                Points:          64
+ RS_GRID|   Bounds   3            -32      31                Points:          64
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ RS_GRID| Information for grid number                                          5
+ RS_GRID|   Bounds   1            -18      17                Points:          36
+ RS_GRID|   Bounds   2            -18      17                Points:          36
+ RS_GRID|   Bounds   3            -18      17                Points:          36
+ RS_GRID| Real space fully replicated
+ RS_GRID| Group size                                                           1
+
+ Extrapolation method: initial_guess
+
+ *** WARNING in qs_mo_io.F:822 :: The number of MOs on the restart unit is ***
+ *** greater than the number of the allocated MOs. The read MO set will be ***
+ *** truncated!                                                            ***
+
+
+ *** WARNING in qs_mo_io.F:822 :: The number of MOs on the restart unit is ***
+ *** greater than the number of the allocated MOs. The read MO set will be ***
+ *** truncated!                                                            ***
+
+
+ MO| EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -88.122116           -2397.924722               1.000000
+ MO|      2              -9.892513            -269.188962               1.000000
+ MO|      3              -7.715073            -209.937825               1.000000
+ MO|      4              -5.736914            -156.109366               1.000000
+ MO|      5              -5.732023            -155.976291               1.000000
+ MO|      6              -5.729055            -155.895527               1.000000
+ MO|      7              -0.704903             -19.181395               1.000000
+ MO|      8              -0.508102             -13.826168               1.000000
+ MO|      9              -0.389258             -10.592248               1.000000
+ MO|     10              -0.339320              -9.233364               1.000000
+ MO|     11              -0.252808              -6.879251               1.000000
+ MO|     12              -0.232359              -6.322805               1.000000
+ MO|     13              -0.115275              -3.136784               1.000000
+ MO| Sum:                                                              13.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+
+
+ MO| EIGENVALUES AND OCCUPATION NUMBERS AFTER SCF STEP 0
+
+ *** WARNING in qs_mo_io.F:1419 :: The last orbital index is larger than ***
+ *** the number of orbitals.                                             ***
+
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -88.122116           -2397.924722               1.000000
+ MO|      2              -9.892513            -269.188962               1.000000
+ MO|      3              -7.715073            -209.937825               1.000000
+ MO|      4              -5.736914            -156.109366               1.000000
+ MO|      5              -5.732023            -155.976291               1.000000
+ MO|      6              -5.729055            -155.895527               1.000000
+ MO|      7              -0.704903             -19.181395               1.000000
+ MO|      8              -0.508102             -13.826168               1.000000
+ MO|      9              -0.389258             -10.592248               1.000000
+ MO|     10              -0.339320              -9.233364               1.000000
+ MO|     11              -0.252808              -6.879251               1.000000
+ MO| Sum:                                                              11.000000
+ MO| E(Fermi):            0.000000 a.u.          0.000000 eV
+
+
+ Spin 1
+
+ Number of electrons:                                                         13
+ Number of occupied orbitals:                                                 13
+ Number of molecular orbitals:                                                13
+
+ Spin 2
+
+ Number of electrons:                                                         11
+ Number of occupied orbitals:                                                 11
+ Number of molecular orbitals:                                                11
+
+ Number of orbital functions:                                                256
+ Number of independent orbital functions:                                    256
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  ----------------------------------- OT ---------------------------------------
+  Allowing for rotations 
+  Minimizer      : DIIS                : direct inversion
+                                         in the iterative subspace
+                                         using  20 DIIS vectors
+                                         safer DIIS on
+  Preconditioner : FULL_SINGLE_INVERSE : inversion of 
+                                         H + eS - 2*(Sc)(c^T*H*c+const)(Sc)^T
+  Lattice FFT   : OFF
+  Precond_solver : DEFAULT
+  stepsize       :    0.00500000                  energy_gap     :    0.08000000
+  eps_taylor     :   0.10000E-15                  max_taylor     :             4
+  ----------------------------------- OT ---------------------------------------
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     1 OT DIIS     0.50E-02    4.6     0.00112258      -437.1985807253 -4.37E+02
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     2 OT DIIS     0.50E-02    4.6     0.00111098      -437.1986015861 -2.09E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     3 OT DIIS     0.50E-02    4.7     0.00063675      -437.1994608975 -8.59E-04
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     4 OT DIIS     0.50E-02    4.7     0.00070920      -437.1995153905 -5.45E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     5 OT DIIS     0.50E-02    4.7     0.00068717      -437.1995240609 -8.67E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     6 OT DIIS     0.50E-02    4.6     0.00097349      -437.1995525669 -2.85E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     7 OT DIIS     0.50E-02    4.7     0.00067014      -437.1995900915 -3.75E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     8 OT DIIS     0.50E-02    4.6     0.00065233      -437.1996072469 -1.72E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+     9 OT DIIS     0.50E-02    4.7     0.00079630      -437.1996354897 -2.82E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    10 OT DIIS     0.50E-02    4.6     0.00062148      -437.1996644819 -2.90E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    11 OT DIIS     0.50E-02    4.7     0.00046350      -437.1996766307 -1.21E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    12 OT DIIS     0.50E-02    4.7     0.00044748      -437.1996849601 -8.33E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    13 OT DIIS     0.50E-02    4.5     0.00043614      -437.1996965605 -1.16E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    14 OT DIIS     0.50E-02    4.2     0.00038851      -437.1997021635 -5.60E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    15 OT DIIS     0.50E-02    4.1     0.00038231      -437.1997069220 -4.76E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    16 OT DIIS     0.50E-02    4.1     0.00038694      -437.1997144889 -7.57E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    17 OT DIIS     0.50E-02    4.7     0.00036815      -437.1997246095 -1.01E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    18 OT DIIS     0.50E-02    4.7     0.00034954      -437.1997318736 -7.26E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    19 OT DIIS     0.50E-02    4.8     0.00034910      -437.1997448115 -1.29E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    20 OT DIIS     0.50E-02    4.7     0.00035064      -437.1997576455 -1.28E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    21 OT DIIS     0.50E-02    4.8     0.00033709      -437.1997641798 -6.53E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    22 OT DIIS     0.50E-02    4.7     0.00031885      -437.1997732301 -9.05E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    23 OT DIIS     0.50E-02    4.6     0.00031562      -437.1997835646 -1.03E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    24 OT DIIS     0.50E-02    4.6     0.00033589      -437.1997889854 -5.42E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    25 OT DIIS     0.50E-02    4.8     0.00032604      -437.1997943949 -5.41E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    26 OT DIIS     0.50E-02    4.7     0.00030922      -437.1998066096 -1.22E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    27 OT DIIS     0.50E-02    4.7     0.00034617      -437.1998126594 -6.05E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    28 OT DIIS     0.50E-02    4.8     0.00032361      -437.1998177536 -5.09E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    29 OT DIIS     0.50E-02    4.6     0.00033587      -437.1998261618 -8.41E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    30 OT DIIS     0.50E-02    4.7     0.00034047      -437.1998418073 -1.56E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    31 OT DIIS     0.50E-02    4.8     0.00031550      -437.1998503919 -8.58E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    32 OT DIIS     0.50E-02    4.6     0.00029940      -437.1998558309 -5.44E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    33 OT DIIS     0.50E-02    4.8     0.00029234      -437.1998659445 -1.01E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    34 OT DIIS     0.50E-02    4.7     0.00028403      -437.1998771739 -1.12E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    35 OT DIIS     0.50E-02    4.7     0.00028302      -437.1998845759 -7.40E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    36 OT DIIS     0.50E-02    4.6     0.00027272      -437.1998913958 -6.82E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    37 OT DIIS     0.50E-02    4.8     0.00026871      -437.1999021747 -1.08E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    38 OT DIIS     0.50E-02    4.7     0.00026334      -437.1999095715 -7.40E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    39 OT DIIS     0.50E-02    4.8     0.00025884      -437.1999151923 -5.62E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    40 OT DIIS     0.50E-02    4.8     0.00027310      -437.1999245459 -9.35E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    41 OT DIIS     0.50E-02    4.7     0.00026808      -437.1999329486 -8.40E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    42 OT DIIS     0.50E-02    4.8     0.00024637      -437.1999427804 -9.83E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    43 OT DIIS     0.50E-02    4.7     0.00024750      -437.1999531417 -1.04E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    44 OT DIIS     0.50E-02    4.7     0.00025220      -437.1999640458 -1.09E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    45 OT DIIS     0.50E-02    4.8     0.00023610      -437.1999745718 -1.05E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    46 OT DIIS     0.50E-02    4.7     0.00023397      -437.1999830882 -8.52E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    47 OT DIIS     0.50E-02    4.7     0.00022169      -437.1999962962 -1.32E-05
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    48 OT DIIS     0.50E-02    4.7     0.00024315      -437.2000040156 -7.72E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    49 OT DIIS     0.50E-02    4.1     0.00024404      -437.2000077272 -3.71E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    50 OT DIIS     0.50E-02    4.1     0.00025066      -437.2000143624 -6.64E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    51 OT DIIS     0.50E-02    4.1     0.00023259      -437.2000215364 -7.17E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    52 OT DIIS     0.50E-02    4.1     0.00024030      -437.2000274335 -5.90E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    53 OT DIIS     0.50E-02    4.1     0.00020881      -437.2000297990 -2.37E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    54 OT DIIS     0.50E-02    4.1     0.00020863      -437.2000345417 -4.74E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    55 OT DIIS     0.50E-02    4.1     0.00019916      -437.2000395422 -5.00E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    56 OT DIIS     0.50E-02    4.5     0.00020087      -437.2000419542 -2.41E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    57 OT DIIS     0.50E-02    4.7     0.00018525      -437.2000443869 -2.43E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    58 OT DIIS     0.50E-02    4.8     0.00018923      -437.2000482716 -3.88E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    59 OT DIIS     0.50E-02    4.8     0.00018748      -437.2000504557 -2.18E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    60 OT DIIS     0.50E-02    4.7     0.00017504      -437.2000521329 -1.68E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    61 OT DIIS     0.50E-02    4.8     0.00017742      -437.2000546751 -2.54E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    62 OT DIIS     0.50E-02    4.6     0.00017378      -437.2000568088 -2.13E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    63 OT DIIS     0.50E-02    4.8     0.00017100      -437.2000581101 -1.30E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    64 OT DIIS     0.50E-02    4.7     0.00017299      -437.2000594962 -1.39E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    65 OT DIIS     0.50E-02    4.8     0.00016601      -437.2000611591 -1.66E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    66 OT DIIS     0.50E-02    4.7     0.00016580      -437.2000624072 -1.25E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    67 OT DIIS     0.50E-02    4.8     0.00016141      -437.2000637038 -1.30E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    68 OT DIIS     0.50E-02    4.7     0.00016342      -437.2000652752 -1.57E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    69 OT DIIS     0.50E-02    4.9     0.00015551      -437.2000663330 -1.06E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    70 OT DIIS     0.50E-02    4.7     0.00015315      -437.2000673769 -1.04E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    71 OT DIIS     0.50E-02    4.8     0.00016075      -437.2000686419 -1.26E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    72 OT DIIS     0.50E-02    4.7     0.00015909      -437.2000697947 -1.15E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    73 OT DIIS     0.50E-02    4.8     0.00016345      -437.2000705382 -7.44E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    74 OT DIIS     0.50E-02    4.7     0.00015204      -437.2000707404 -2.02E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    75 OT DIIS     0.50E-02    4.8     0.00015257      -437.2000717844 -1.04E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    76 OT DIIS     0.50E-02    4.7     0.00015384      -437.2000730362 -1.25E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    77 OT DIIS     0.50E-02    4.8     0.00015087      -437.2000734485 -4.12E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    78 OT DIIS     0.50E-02    4.7     0.00014350      -437.2000741611 -7.13E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    79 OT DIIS     0.50E-02    4.8     0.00014545      -437.2000754362 -1.28E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    80 OT DIIS     0.50E-02    4.8     0.00014480      -437.2000761592 -7.23E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    81 OT DIIS     0.50E-02    4.7     0.00014125      -437.2000769028 -7.44E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    82 OT DIIS     0.50E-02    4.8     0.00014301      -437.2000781578 -1.26E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    83 OT DIIS     0.50E-02    4.8     0.00014309      -437.2000794126 -1.25E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    84 OT DIIS     0.50E-02    4.8     0.00013853      -437.2000806222 -1.21E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    85 OT DIIS     0.50E-02    4.7     0.00013694      -437.2000821583 -1.54E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    86 OT DIIS     0.50E-02    4.8     0.00013913      -437.2000835775 -1.42E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    87 OT DIIS     0.50E-02    4.7     0.00013536      -437.2000848192 -1.24E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    88 OT DIIS     0.50E-02    4.6     0.00013309      -437.2000863405 -1.52E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    89 OT DIIS     0.50E-02    4.7     0.00013685      -437.2000875244 -1.18E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    90 OT DIIS     0.50E-02    4.7     0.00013265      -437.2000888966 -1.37E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    91 OT DIIS     0.50E-02    4.7     0.00013165      -437.2000906018 -1.71E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    92 OT DIIS     0.50E-02    4.8     0.00012901      -437.2000922653 -1.66E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    93 OT DIIS     0.50E-02    4.7     0.00013307      -437.2000940312 -1.77E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    94 OT DIIS     0.50E-02    4.7     0.00013394      -437.2000957109 -1.68E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    95 OT DIIS     0.50E-02    4.8     0.00012774      -437.2000971640 -1.45E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    96 OT DIIS     0.50E-02    4.7     0.00012682      -437.2000987455 -1.58E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    97 OT DIIS     0.50E-02    4.7     0.00013482      -437.2001005397 -1.79E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    98 OT DIIS     0.50E-02    4.8     0.00012546      -437.2001021572 -1.62E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+    99 OT DIIS     0.50E-02    4.7     0.00011973      -437.2001044010 -2.24E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   100 OT DIIS     0.50E-02    4.7     0.00012784      -437.2001065119 -2.11E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   101 OT DIIS     0.50E-02    4.8     0.00012126      -437.2001083171 -1.81E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   102 OT DIIS     0.50E-02    4.7     0.00011925      -437.2001101163 -1.80E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   103 OT DIIS     0.50E-02    4.7     0.00012060      -437.2001118081 -1.69E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   104 OT DIIS     0.50E-02    4.8     0.00011615      -437.2001135523 -1.74E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   105 OT DIIS     0.50E-02    4.6     0.00011534      -437.2001156147 -2.06E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   106 OT DIIS     0.50E-02    4.7     0.00011744      -437.2001172100 -1.60E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   107 OT DIIS     0.50E-02    4.8     0.00010909      -437.2001187552 -1.55E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   108 OT DIIS     0.50E-02    4.7     0.00010896      -437.2001205455 -1.79E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   109 OT DIIS     0.50E-02    4.7     0.00010632      -437.2001220501 -1.50E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   110 OT DIIS     0.50E-02    4.8     0.00010517      -437.2001231537 -1.10E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   111 OT DIIS     0.50E-02    4.7     0.00010662      -437.2001240792 -9.25E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   112 OT DIIS     0.50E-02    4.7     0.00010227      -437.2001252916 -1.21E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   113 OT DIIS     0.50E-02    4.8     0.00010273      -437.2001264205 -1.13E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   114 OT DIIS     0.50E-02    4.7     0.00009586      -437.2001274641 -1.04E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   115 OT DIIS     0.50E-02    4.7     0.00010012      -437.2001286534 -1.19E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   116 OT DIIS     0.50E-02    4.8     0.00010013      -437.2001295728 -9.19E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   117 OT DIIS     0.50E-02    4.7     0.00009789      -437.2001303950 -8.22E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   118 OT DIIS     0.50E-02    4.7     0.00009397      -437.2001310225 -6.28E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   119 OT DIIS     0.50E-02    4.8     0.00010275      -437.2001316604 -6.38E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   120 OT DIIS     0.50E-02    4.7     0.00009098      -437.2001324316 -7.71E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   121 OT DIIS     0.50E-02    4.7     0.00008841      -437.2001334666 -1.03E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   122 OT DIIS     0.50E-02    4.8     0.00009214      -437.2001339484 -4.82E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   123 OT DIIS     0.50E-02    4.6     0.00009009      -437.2001346600 -7.12E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   124 OT DIIS     0.50E-02    4.7     0.00009244      -437.2001354295 -7.70E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   125 OT DIIS     0.50E-02    4.8     0.00008234      -437.2001359482 -5.19E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   126 OT DIIS     0.50E-02    4.7     0.00008307      -437.2001365324 -5.84E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   127 OT DIIS     0.50E-02    4.7     0.00009239      -437.2001372661 -7.34E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   128 OT DIIS     0.50E-02    4.8     0.00008118      -437.2001379551 -6.89E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   129 OT DIIS     0.50E-02    4.6     0.00007704      -437.2001387003 -7.45E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   130 OT DIIS     0.50E-02    4.7     0.00007969      -437.2001394292 -7.29E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   131 OT DIIS     0.50E-02    4.8     0.00008089      -437.2001402416 -8.12E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   132 OT DIIS     0.50E-02    4.7     0.00007803      -437.2001410102 -7.69E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   133 OT DIIS     0.50E-02    4.7     0.00007350      -437.2001416310 -6.21E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   134 OT DIIS     0.50E-02    4.8     0.00007561      -437.2001423251 -6.94E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   135 OT DIIS     0.50E-02    4.6     0.00006937      -437.2001430375 -7.12E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   136 OT DIIS     0.50E-02    4.7     0.00006977      -437.2001440100 -9.73E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   137 OT DIIS     0.50E-02    4.8     0.00007310      -437.2001446934 -6.83E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   138 OT DIIS     0.50E-02    4.6     0.00007575      -437.2001453529 -6.60E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   139 OT DIIS     0.50E-02    4.7     0.00006976      -437.2001462274 -8.75E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   140 OT DIIS     0.50E-02    4.8     0.00007581      -437.2001473197 -1.09E-06
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   141 OT DIIS     0.50E-02    4.6     0.00006676      -437.2001480328 -7.13E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   142 OT DIIS     0.50E-02    4.7     0.00006051      -437.2001489151 -8.82E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   143 OT DIIS     0.50E-02    4.8     0.00006495      -437.2001496393 -7.24E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   144 OT DIIS     0.50E-02    4.6     0.00006242      -437.2001504968 -8.58E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   145 OT DIIS     0.50E-02    4.7     0.00006522      -437.2001512073 -7.11E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   146 OT DIIS     0.50E-02    4.8     0.00005648      -437.2001517140 -5.07E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   147 OT DIIS     0.50E-02    4.6     0.00005568      -437.2001524806 -7.67E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   148 OT DIIS     0.50E-02    4.7     0.00006199      -437.2001533268 -8.46E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   149 OT DIIS     0.50E-02    4.8     0.00005485      -437.2001538735 -5.47E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   150 OT DIIS     0.50E-02    4.6     0.00004742      -437.2001544415 -5.68E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   151 OT DIIS     0.50E-02    4.7     0.00004825      -437.2001550176 -5.76E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   152 OT DIIS     0.50E-02    4.8     0.00005069      -437.2001555688 -5.51E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   153 OT DIIS     0.50E-02    4.6     0.00004659      -437.2001559649 -3.96E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   154 OT DIIS     0.50E-02    4.7     0.00004436      -437.2001562636 -2.99E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   155 OT DIIS     0.50E-02    4.8     0.00004299      -437.2001565860 -3.22E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   156 OT DIIS     0.50E-02    4.7     0.00003831      -437.2001569030 -3.17E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   157 OT DIIS     0.50E-02    4.7     0.00003876      -437.2001571996 -2.97E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   158 OT DIIS     0.50E-02    4.8     0.00003808      -437.2001573944 -1.95E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   159 OT DIIS     0.50E-02    4.6     0.00004182      -437.2001575450 -1.51E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   160 OT DIIS     0.50E-02    4.7     0.00003461      -437.2001577076 -1.63E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   161 OT DIIS     0.50E-02    4.8     0.00003643      -437.2001578424 -1.35E-07
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   162 OT DIIS     0.50E-02    4.7     0.00003085      -437.2001579134 -7.10E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   163 OT DIIS     0.50E-02    4.7     0.00002685      -437.2001579840 -7.06E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   164 OT DIIS     0.50E-02    4.8     0.00002891      -437.2001580511 -6.71E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   165 OT DIIS     0.50E-02    4.7     0.00002817      -437.2001581079 -5.68E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   166 OT DIIS     0.50E-02    4.7     0.00002749      -437.2001581534 -4.55E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   167 OT DIIS     0.50E-02    4.8     0.00002464      -437.2001581777 -2.43E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   168 OT DIIS     0.50E-02    4.7     0.00002324      -437.2001582179 -4.02E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   169 OT DIIS     0.50E-02    4.7     0.00002454      -437.2001582510 -3.31E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   170 OT DIIS     0.50E-02    4.8     0.00002211      -437.2001582669 -1.59E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   171 OT DIIS     0.50E-02    4.6     0.00001909      -437.2001582810 -1.41E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   172 OT DIIS     0.50E-02    4.7     0.00001905      -437.2001582961 -1.52E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   173 OT DIIS     0.50E-02    4.8     0.00001938      -437.2001583067 -1.06E-08
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   174 OT DIIS     0.50E-02    4.6     0.00001801      -437.2001583121 -5.42E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   175 OT DIIS     0.50E-02    4.7     0.00001748      -437.2001583168 -4.65E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   176 OT DIIS     0.50E-02    4.8     0.00001688      -437.2001583219 -5.09E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   177 OT DIIS     0.50E-02    4.6     0.00001549      -437.2001583259 -3.98E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   178 OT DIIS     0.50E-02    4.7     0.00001543      -437.2001583280 -2.14E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   179 OT DIIS     0.50E-02    4.8     0.00001488      -437.2001583304 -2.42E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   180 OT DIIS     0.50E-02    4.7     0.00001607      -437.2001583321 -1.72E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   181 OT DIIS     0.50E-02    4.7     0.00001403      -437.2001583338 -1.67E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   182 OT DIIS     0.50E-02    4.8     0.00001442      -437.2001583349 -1.13E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   183 OT DIIS     0.50E-02    4.6     0.00001343      -437.2001583363 -1.31E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   184 OT DIIS     0.50E-02    4.7     0.00001267      -437.2001583380 -1.69E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   185 OT DIIS     0.50E-02    4.8     0.00001312      -437.2001583400 -2.09E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   186 OT DIIS     0.50E-02    4.6     0.00001314      -437.2001583417 -1.66E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   187 OT DIIS     0.50E-02    4.7     0.00001275      -437.2001583436 -1.95E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   188 OT DIIS     0.50E-02    4.7     0.00001229      -437.2001583451 -1.49E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   189 OT DIIS     0.50E-02    4.1     0.00001176      -437.2001583476 -2.49E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   190 OT DIIS     0.50E-02    4.1     0.00001199      -437.2001583499 -2.31E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   191 OT DIIS     0.50E-02    4.1     0.00001161      -437.2001583514 -1.42E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   192 OT DIIS     0.50E-02    4.1     0.00001092      -437.2001583531 -1.70E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   193 OT DIIS     0.50E-02    4.1     0.00001087      -437.2001583559 -2.81E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   194 OT DIIS     0.50E-02    4.1     0.00001101      -437.2001583584 -2.55E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   195 OT DIIS     0.50E-02    4.1     0.00001078      -437.2001583603 -1.85E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   196 OT DIIS     0.50E-02    4.1     0.00001070      -437.2001583624 -2.14E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   197 OT DIIS     0.50E-02    4.1     0.00001057      -437.2001583654 -3.02E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   198 OT DIIS     0.50E-02    4.1     0.00001018      -437.2001583685 -3.11E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   199 OT DIIS     0.50E-02    4.1     0.00001018      -437.2001583716 -3.02E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   200 OT DIIS     0.50E-02    4.1     0.00001009      -437.2001583742 -2.66E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   201 OT DIIS     0.50E-02    4.1     0.00001063      -437.2001583772 -3.02E-09
+
+ *** WARNING in qs_scf_output.F:448 :: The MO information is only  ***
+ *** calculated after SCF convergence is achieved when the orbital ***
+ *** transformation (OT) method is used                            ***
+
+   202 OT DIIS     0.50E-02    4.1     0.00000994      -437.2001583804 -3.14E-09
+
+  *** SCF run converged in   202 steps ***
+
+
+  Electronic density on regular grids:        -14.1678873458        9.8321126542
+  Core density on regular grids:               24.0000000000       -0.0000000000
+  Hard and soft densities (Lebedev):          -77.5399216484      -67.7078090298
+  Total Rho_soft + Rho1_hard - Rho1_soft      -23.9999999644
+  Total charge density (r-space):               0.0000000356
+  Total Rho_soft + Rho0_soft (g-space):        -0.0000000389
+
+  Overlap energy of the core charge distribution:               0.00000275557514
+  Self energy of the core charge distribution:               -203.87718666563003
+  Core Hamiltonian energy:                                   -234.55698457872626
+  Hartree energy:                                              55.31016500954163
+  Exchange-correlation energy:                                 -6.38349671906134
+
+  GAPW| Exc from hard and soft atomic rho1:                   -25.17512260438249
+  GAPW| local Eh = 1 center integrals:                        -22.51753557769980
+
+  Total energy:                                              -437.20015838038307
+
+ MO| ALPHA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -88.127091           -2398.060099               1.000000
+ MO|      2              -9.912269            -269.726566               1.000000
+ MO|      3              -7.720927            -210.097112               1.000000
+ MO|      4              -5.748945            -156.436752               1.000000
+ MO|      5              -5.739701            -156.185209               1.000000
+ MO|      6              -5.735479            -156.070311               1.000000
+ MO|      7              -0.750371             -20.418624               1.000000
+ MO|      8              -0.559665             -15.229257               1.000000
+ MO|      9              -0.423582             -11.526259               1.000000
+ MO|     10              -0.374645             -10.194610               1.000000
+ MO|     11              -0.307706              -8.373096               1.000000
+ MO|     12              -0.262150              -7.133469               1.000000
+ MO|     13              -0.143467              -3.903936               1.000000
+ MO| Sum:                                                              13.000000
+ MO| E(Fermi):           -0.143467 a.u.         -3.903936 eV
+
+ OT| Eigensolver reached convergence in 99 iterations
+
+ MO| BETA EIGENVALUES AND OCCUPATION NUMBERS
+ MO|
+ MO|  Index      Eigenvalue [a.u.]        Eigenvalue [eV]             Occupation
+ MO|      1             -88.122013           -2397.921927               1.000000
+ MO|      2              -9.902447            -269.459289               1.000000
+ MO|      3              -7.715493            -209.949240               1.000000
+ MO|      4              -5.736420            -156.095921               1.000000
+ MO|      5              -5.736181            -156.089410               1.000000
+ MO|      6              -5.729610            -155.910627               1.000000
+ MO|      7              -0.720360             -19.601984               1.000000
+ MO|      8              -0.526152             -14.317323               1.000000
+ MO|      9              -0.402048             -10.940274               1.000000
+ MO|     10              -0.352088              -9.580807               1.000000
+ MO|     11              -0.270314              -7.355623               1.000000
+ MO|     12              -0.201602              -5.485872               0.000000
+ MO|     13              -0.091257              -2.483227               0.000000
+ MO| Sum:                                                              11.000000
+ MO| E(Fermi):           -0.270314 a.u.         -7.355623 eV
+ MO| Band gap:            0.068712 a.u.          1.869752 eV
+
+
+  Integrated spin density:                                          1.9999998883
+  Integrated absolute spin density:                                 2.0000000631
+  Ideal and single determinant S**2 :                    2.000000       2.000000
+
+ !-----------------------------------------------------------------------------!
+                     Mulliken Population Analysis
+
+ #  Atom  Element  Kind  Atomic population (alpha,beta) Net charge  Spin moment
+       1     C        1         3.882380     3.200263    -1.082644     0.682117
+       2     S        2         8.407065     7.213398     0.379537     1.193667
+       3     H        3         0.355277     0.293169     0.351553     0.062108
+       4     H        3         0.355277     0.293169     0.351553     0.062108
+ # Total charge and spin       13.000000    11.000000     0.000000     2.000000
+
+ !-----------------------------------------------------------------------------!
+
+ !-----------------------------------------------------------------------------!
+                           Hirshfeld Charges
+
+  #Atom  Element  Kind  Ref Charge     Population       Spin moment  Net charge
+      1       C      1       6.000    3.641   2.946            0.695     -0.587
+      2       S      2      16.000    8.830   7.595            1.235     -0.425
+      3       H      3       1.000    0.259   0.228            0.031      0.513
+      4       H      3       1.000    0.259   0.228            0.031      0.513
+
+  Total Charge                                                            0.014
+ !-----------------------------------------------------------------------------!
+
+ ENERGY| Total FORCE_EVAL ( QS ) energy [hartree]           -437.200158380383073
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                DBCSR STATISTICS                             -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ COUNTER                                    TOTAL       BLAS       SMM       ACC
+ flops    11 x     2 x    11                 1452       0.0%    100.0%      0.0%     
+ flops     2 x     2 x     2                 7824       0.0%    100.0%      0.0%     
+ flops    11 x     2 x    80                10560       0.0%    100.0%      0.0%     
+ flops    11 x     2 x    46                12144       0.0%    100.0%      0.0%     
+ flops    46 x     2 x    11                12144       0.0%    100.0%      0.0%     
+ flops    80 x    11 x    11                19360       0.0%    100.0%      0.0%     
+ flops    84 x    11 x    11                20328       0.0%    100.0%      0.0%     
+ flops   164 x     2 x    11                21648       0.0%    100.0%      0.0%     
+ flops    46 x    11 x    11                22264       0.0%    100.0%      0.0%     
+ flops    80 x    13 x    13                27040       0.0%    100.0%      0.0%     
+ flops    84 x    13 x    13                28392       0.0%    100.0%      0.0%     
+ flops    13 x     2 x    13                33800       0.0%    100.0%      0.0%     
+ flops    11 x    11 x    80                77440       0.0%    100.0%      0.0%     
+ flops    11 x    11 x    46                89056       0.0%    100.0%      0.0%     
+ flops     2 x     2 x    80               125440       0.0%    100.0%      0.0%     
+ flops     2 x     2 x    46               144256       0.0%    100.0%      0.0%     
+ flops    13 x     2 x    80               208000       0.0%    100.0%      0.0%     
+ flops    46 x     2 x     2               219328       0.0%    100.0%      0.0%     
+ flops    13 x     2 x    46               239200       0.0%    100.0%      0.0%     
+ flops    46 x     2 x    13               239200       0.0%    100.0%      0.0%     
+ flops   164 x     2 x     2               390976       0.0%    100.0%      0.0%     
+ flops   164 x     2 x    13               426400       0.0%    100.0%      0.0%     
+ flops   164 x     2 x    80              2624000       0.0%    100.0%      0.0%     
+ flops   164 x     2 x    46              3017600       0.0%    100.0%      0.0%     
+ flops    80 x     2 x    80              5171200       0.0%    100.0%      0.0%     
+ flops    84 x     2 x    80              5429760       0.0%    100.0%      0.0%     
+ flops    80 x     2 x    84              5429760       0.0%    100.0%      0.0%     
+ flops    84 x     2 x    84              5701248       0.0%    100.0%      0.0%     
+ flops    80 x     2 x    46              5946880       0.0%    100.0%      0.0%     
+ flops    84 x     2 x    46              6244224       0.0%    100.0%      0.0%     
+ flops    46 x     2 x    84              6244224       0.0%    100.0%      0.0%     
+ flops    46 x     2 x    80              7418880       0.0%    100.0%      0.0%     
+ flops    46 x     2 x    46              8531712       0.0%    100.0%      0.0%     
+ flops    46 x    80 x    11             16515840       0.0%    100.0%      0.0%     
+ flops    80 x    46 x    11             16515840       0.0%    100.0%      0.0%     
+ flops    46 x    84 x    11             17341632       0.0%    100.0%      0.0%     
+ flops    84 x    46 x    11             17341632       0.0%    100.0%      0.0%     
+ flops    13 x    13 x    13             25669748       0.0%    100.0%      0.0%     
+ flops    13 x    13 x    80             27418560       0.0%    100.0%      0.0%     
+ flops    46 x    46 x    11             28489824       0.0%    100.0%      0.0%     
+ flops    80 x    80 x    11             28723200       0.0%    100.0%      0.0%     
+ flops    80 x    11 x    80             29427200       0.0%    100.0%      0.0%     
+ flops    84 x    80 x    11             30159360       0.0%    100.0%      0.0%     
+ flops    84 x    11 x    80             30898560       0.0%    100.0%      0.0%     
+ flops    80 x    11 x    84             30898560       0.0%    100.0%      0.0%     
+ flops    13 x    13 x    46             31531344       0.0%    100.0%      0.0%     
+ flops    84 x    84 x    11             31667328       0.0%    100.0%      0.0%     
+ flops    84 x    11 x    84             32443488       0.0%    100.0%      0.0%     
+ flops    80 x    11 x    46             33841280       0.0%    100.0%      0.0%     
+ flops    46 x    11 x    80             33841280       0.0%    100.0%      0.0%     
+ flops    84 x    11 x    46             35533344       0.0%    100.0%      0.0%     
+ flops    46 x    11 x    84             35533344       0.0%    100.0%      0.0%     
+ flops    46 x    13 x    13             37688352       0.0%    100.0%      0.0%     
+ flops    46 x    11 x    46             38917472       0.0%    100.0%      0.0%     
+ flops   164 x    13 x    13             67128152       0.0%    100.0%      0.0%     
+ flops   164 x    13 x    80             70270720       0.0%    100.0%      0.0%     
+ flops   164 x    13 x    46             80811328       0.0%    100.0%      0.0%     
+ flops    46 x    80 x    13             96828160       0.0%    100.0%      0.0%     
+ flops    80 x    46 x    13             96828160       0.0%    100.0%      0.0%     
+ flops    46 x    84 x    13            101669568       0.0%    100.0%      0.0%     
+ flops    84 x    46 x    13            101669568       0.0%    100.0%      0.0%     
+ flops    46 x    46 x    13            167028576       0.0%    100.0%      0.0%     
+ flops    80 x    80 x    13            168396800       0.0%    100.0%      0.0%     
+ flops    84 x    80 x    13            176816640       0.0%    100.0%      0.0%     
+ flops    84 x    84 x    13            185657472       0.0%    100.0%      0.0%     
+ flops    80 x    13 x    80            202508800       0.0%    100.0%      0.0%     
+ flops    84 x    13 x    80            212634240       0.0%    100.0%      0.0%     
+ flops    80 x    13 x    84            212634240       0.0%    100.0%      0.0%     
+ flops    84 x    13 x    84            223265952       0.0%    100.0%      0.0%     
+ flops    80 x    13 x    46            232885120       0.0%    100.0%      0.0%     
+ flops    84 x    13 x    46            244529376       0.0%    100.0%      0.0%     
+ flops    46 x    13 x    84            244529376       0.0%    100.0%      0.0%     
+ flops    46 x    13 x    80            272305280       0.0%    100.0%      0.0%     
+ flops    46 x    13 x    46            313151072       0.0%    100.0%      0.0%     
+ flops inhomo. stacks                   148708224     100.0%      0.0%      0.0%
+ flops total                         4.294790E+09       3.5%     96.5%      0.0%
+ flops max/rank                      2.188874E+09       4.8%     95.2%      0.0%
+ matmuls inhomo. stacks                      2035     100.0%      0.0%      0.0%
+ matmuls total                              57426       3.5%     96.5%      0.0%
+ number of processed stacks                 57426       3.5%     96.5%      0.0%
+ average stack size                                     1.0       1.0       0.0
+ marketing flops                     5.031935E+09
+ -------------------------------------------------------------------------------
+ # multiplications                          12330
+ max memory usage/rank               2.067161E+09
+ # max total images/rank                        2
+ # max 3D layers                                1
+ # MPI messages exchanged                 5129280
+ MPI messages size (bytes):
+  total size                         7.978884E+09
+  min size                           0.000000E+00
+  max size                         110.208000E+03
+  average size                       1.555556E+03
+ MPI breakdown and total messages size (bytes):
+             size <=      128             4761901                   185664
+       128 < size <=     8192              156145                468579176
+      8192 < size <=    32768              158482               3080971520
+     32768 < size <=   131072               52752               4429479936
+    131072 < size <=  4194304                   0                        0
+   4194304 < size <= 16777216                   0                        0
+  16777216 < size                               0                        0
+ -------------------------------------------------------------------------------
+
+ *** WARNING in dbcsr_mm.F:301 :: Using a non-square number of MPI ranks ***
+ *** might lead to poor performance. Used ranks: 32 Suggested: 36 64     ***
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                      DBCSR MESSAGE PASSING PERFORMANCE                      -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Bcast               75                     12.
+ MP_Allreduce        58546                      8.
+ MP_Alltoall         42720                   2099.
+ MP_ISend           374836                   2542.
+ MP_IRecv           369862                   1893.
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                GRID STATISTICS                              -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ LP    KERNEL             BACKEND                              COUNT     PERCENT
+ 3     collocate ortho    CPU                                 145680      10.90%
+ 3     integrate ortho    CPU                                 145440      10.89%
+ 2     collocate ortho    CPU                                 129898       9.72%
+ 2     integrate ortho    CPU                                 129684       9.71%
+ 4     collocate ortho    CPU                                 122614       9.18%
+ 4     integrate ortho    CPU                                 122412       9.16%
+ 1     collocate ortho    CPU                                  86194       6.45%
+ 1     integrate ortho    CPU                                  86052       6.44%
+ 5     collocate ortho    CPU                                  82552       6.18%
+ 5     integrate ortho    CPU                                  82416       6.17%
+ 6     collocate ortho    CPU                                  44918       3.36%
+ 6     integrate ortho    CPU                                  44844       3.36%
+ 0     collocate ortho    CPU                                  29136       2.18%
+ 0     integrate ortho    CPU                                  29088       2.18%
+ 7     collocate ortho    CPU                                  21852       1.64%
+ 7     integrate ortho    CPU                                  21816       1.63%
+ 8     collocate ortho    CPU                                   4856       0.36%
+ 8     integrate ortho    CPU                                   4848       0.36%
+ 2     collocate general  CPU                                    808       0.06%
+ 2     integrate general  CPU                                    808       0.06%
+ 0     integrate general  CPU                                      8       0.00%
+ 0     collocate general  CPU                                      4       0.00%
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                          OFFLOAD MEMPOOL STATISTICS                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ Memory consumption                Number of allocations  Used [MiB]  Size [MiB]
+ Host                                                  7          28          29
+ -------------------------------------------------------------------------------
+
+ MEMORY| Estimated peak process memory [MiB]                                 552
+
+ -------------------------------------------------------------------------------
+ ----                             MULTIGRID INFO                            ----
+ -------------------------------------------------------------------------------
+ count for grid        1:        1708754          cutoff [a.u.]          200.00
+ count for grid        2:         189495          cutoff [a.u.]           66.67
+ count for grid        3:         112959          cutoff [a.u.]           22.22
+ count for grid        4:          39959          cutoff [a.u.]            7.41
+ total gridlevel count  :        2051167
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                         MESSAGE PASSING PERFORMANCE                         -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+
+ ROUTINE             CALLS      AVE VOLUME [Bytes]
+ MP_Group             1823
+ MP_Bcast            12289                  55998.
+ MP_Allreduce        27114                  60044.
+ MP_Sync               101
+ MP_Alltoall         22253                8359948.
+ MP_SendRecv         75268                  43136.
+ MP_ISendRecv        75144                  43136.
+ MP_Wait            303300
+ MP_comm_split          97
+ MP_ISend           204694                 208772.
+ MP_IRecv           204694                 208771.
+ -------------------------------------------------------------------------------
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                           R E F E R E N C E S                               -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ 
+ CP2K version 2026.2 (Development Version), the CP2K developers group (2026).
+ CP2K is freely available from https://www.cp2k.org/ .
+ 
+ M. Iannuzzi, J. Wilhelm, F. Stein, A. Bussy, H. Elgabarty, D. Golze, A. Hehn, 
+ M. Graml, S. Marek, B. Sertcan Gökmen, C. Schran, H. Forbert, R. Z. 
+ Khaliullin, A. Kozhevnikov, M. Taillefumier, R. Meli, V. V. Rybkin, M. Brehm, 
+ R. Schade, O. Schütt, J. V. Pototschnig, H. Mirhosseini, A. Knüpfer, D. Marx, 
+ M. Krack, J. Hutter, T. D. Kühne.
+ J. Phys. Chem. B 130, 1237-1310 (2026).
+ The CP2K Program Package Made Simple.
+ https://doi.org/10.1021/acs.jpcb.5c05851
+
+ T. D. Kühne, M. Iannuzzi, M. Del Ben, V. V. Rybkin, P. Seewald, F. Stein, T. 
+ Laino, R. Z. Khaliullin, O. Schütt, F. Schiffmann, D. Golze, J. Wilhelm, S. 
+ Chulkov, M. H. Bani-Hashemian, V. Weber, U. Borstnik, M. Taillefumier, A. S. 
+ Jakobovits, A. Lazzaro, H. Pabst, T. Müller, R. Schade, M. Guidon, S. 
+ Andermatt, N. Holmberg, G. K. Schenter, A. Hehn, A. Bussy, F. Belleflamme, G. 
+ Tabacchi, A. Glöß, M. Lass, I. Bethune, C. J. Mundy, C. Plessl, M. Watkins, 
+ J. VandeVondele, M. Krack, J. Hutter.
+ J. Chem. Phys. 152, 194103 (2020).
+ CP2K: An electronic structure and molecular dynamics software package - 
+ Quickstep: Efficient and accurate electronic structure calculations.
+ https://doi.org/10.1063/5.0007045
+
+ O. Schuett, P. Messmer, J. Hutter, J. VandeVondele.
+ Electronic Structure Calculations on Graphics Processing Units, 173-190 (2016).
+ GPU-Accelerated Sparse Matrix-Matrix Multiplication for Linear Scaling Density 
+ Functional Theory.
+ https://doi.org/10.1002/9781118670712.ch8
+
+ A. Heinecke, G. Henry, M. Hutchinson, H. Pabst.
+ Proceedings of Intl. Supercomputing Conference, 981-991 (2016).
+ LIBXSMM: Accelerating Small Matrix Multiplications by Runtime Code Generation.
+ https://doi.org/10.1109/SC.2016.83
+
+ U. Borstnik, J. VandeVondele, V. Weber, J. Hutter.
+ Parallel Comput. 40, 47-58 (2014).
+ Sparse matrix multiplication: The distributed block-compressed sparse row 
+ library.
+ https://doi.org/10.1016/j.parco.2014.03.012
+
+ M. Frigo, S. G. Johnson.
+ Proc. IEEE 93, 216-231 (2005).
+ The design and implementation of FFTW3.
+ https://doi.org/10.1109/JPROC.2004.840301
+
+ J. VandeVondele, J. Hutter.
+ J. Chem. Phys. 118, 4365-4369 (2003).
+ An efficient orbital transformation method for electronic structure 
+ calculations.
+ https://doi.org/10.1063/1.1543154
+
+ M. Krack, M. Parrinello.
+ Phys. Chem. Chem. Phys. 2, 2105-2112 (2000).
+ All-electron ab-initio molecular dynamics.
+ https://doi.org/10.1039/b001167n
+
+ G. Lippert, J. Hutter, M. Parrinello.
+ Theor. Chem. Acc. 103, 124-140 (1999).
+ The Gaussian and augmented-plane-wave density functional method for ab initio 
+ molecular dynamics simulations.
+ https://doi.org/10.1007/s002140050523
+
+ G. J. Martyna, M. E. Tuckerman.
+ J. Chem. Phys. 110, 2810-2821 (1999).
+ A reciprocal space based method for treating long range interactions in ab 
+ initio and force-field-based calculations in clusters.
+ https://doi.org/10.1063/1.477923
+
+ J. P. Perdew, K. Burke, M. Ernzerhof.
+ Phys. Rev. Lett. 77, 3865-3868 (1996).
+ Generalized gradient approximation made simple.
+ https://doi.org/10.1103/PhysRevLett.77.3865
+
+
+ -------------------------------------------------------------------------------
+ -                                                                             -
+ -                                T I M I N G                                  -
+ -                                                                             -
+ -------------------------------------------------------------------------------
+ SUBROUTINE                       CALLS  ASD         SELF TIME        TOTAL TIME
+                                MAXIMUM       AVERAGE  MAXIMUM  AVERAGE  MAXIMUM
+ CP2K                                 1  1.0    0.060    0.064  939.634  939.655
+ qs_energies                          1  2.0    0.000    0.000  938.630  938.652
+ scf_env_do_scf                       1  3.0    0.000    0.000  937.290  937.312
+ scf_env_do_scf_inner_loop          202  4.0    0.005    0.009  932.698  932.719
+ qs_ks_update_qs_env                203  5.0    0.002    0.002  877.480  877.502
+ rebuild_ks_matrix                  202  6.0    0.001    0.001  877.451  877.475
+ qs_ks_build_kohn_sham_matrix       202  7.0    0.080    0.085  877.451  877.474
+ low_spin_roks                      202  8.0    0.082    0.748  579.843  579.862
+ fft_wrap_pw1pw2                  19807 11.0    0.575    0.687  397.758  433.818
+ fft_wrap_pw1pw2_200              12528 12.3   19.591   21.022  385.097  422.256
+ xc_vxc_pw_create                   606  9.0    6.458    9.585  392.442  392.783
+ fft3d_ps                         19807 13.0  196.038  202.823  310.232  351.751
+ xc_pw_derive                      7272 11.0    0.158    0.181  275.676  308.655
+ xc_pw_divergence                  1212 10.0    0.075    0.087  188.253  219.557
+ xc_rho_set_and_dset_create         606 10.0    8.008   10.428  189.996  203.697
+ calculate_rho_elec                1214  8.0    0.520    0.534  153.685  154.180
+ mp_sum_d                          6770  9.3  141.636  148.256  141.636  148.256
+ calculate_vxc_atom                 606  8.7    0.773    5.696  142.272  143.911
+ density_rs2pw                     1214  9.0    0.094    0.113  135.699  142.785
+ integrate_v_rspace                1212  9.0    0.043    0.055  131.545  140.827
+ qs_vxc_create                      202  8.0    0.007    0.009  134.207  134.547
+ potential_pw2rs                   1212 10.0    0.109    0.118  112.336  121.967
+ mp_alltoall_z22v                 19807 15.0   75.578  121.932   75.578  121.932
+ yz_to_x                           9907 13.9   18.594   20.114   68.725  108.129
+ gaVxcgb_GC                        1212  9.7    3.491   91.828    3.491   91.828
+ calculate_rho_atom                1818  9.0   15.392   80.338   15.394   80.371
+ transfer_pw2rs                    5052 10.9    0.069    0.086   72.488   75.680
+ mp_waitany                      204694 12.4   57.775   73.200   57.775   73.200
+ transfer_rs2pw                    5059 10.0    0.111    0.142   57.970   64.882
+ transfer_pw2rs_200                1416 11.7   24.760   26.119   52.723   55.104
+ xc_functional_eval                3030 10.9    0.016    0.027   42.984   54.597
+ pbe_lsd_eval                      3030 11.9   42.967   54.575   42.967   54.575
+ qs_rho_update_rho_low              203  5.0    0.003    0.004   53.240   53.242
+ prepare_gapw_den                   202  8.0    0.009    0.012   50.192   50.430
+ transfer_rs2pw_200                1417 11.0   15.076   18.846   43.480   50.126
+ x_to_yz                           9900 14.2   19.257   21.154   44.705   49.750
+ sum_up_and_integrate               202  8.0    0.007    0.009   44.095   47.118
+ pw_derive                         7878 11.8   39.502   41.827   39.502   41.827
+ grid_collocate_task_list          1214  9.0   16.943   41.136   16.943   41.136
+ grid_integrate_task_list          1212 10.0    6.074   37.126    6.074   37.126
+ mp_alltoall_d11v                 10168 11.4   13.291   34.743   13.291   34.743
+ rs_gather_matrices                1212 10.0    0.021    0.099   13.086   34.341
+ pw_gather_p                       9907 12.9   21.715   25.621   21.715   25.621
+ pw_axpy                          14958 10.2   20.653   23.150   21.173   23.660
+ pw_scatter_p                      9900 13.2   21.195   22.993   21.195   22.993
+ pw_copy                          12121 11.1   21.024   22.440   21.024   22.440
+ calculate_rho0_atom                606  9.0   20.206   21.992   20.206   21.992
+ integrate_vhg0_rspace              202  8.0    2.416    3.371   15.769   19.024
+ -------------------------------------------------------------------------------
+
+ The number of warnings for this run is : 206
+ 
+ -------------------------------------------------------------------------------
+  **** **** ******  **  PROGRAM ENDED AT                 2026-11-08 17:33:11.020
+ ***** ** ***  *** **   PROGRAM RAN ON                                    cro024
+ **    ****   ******    PROGRAM RAN BY                                  trushi79
+ ***** **    ** ** **   PROGRAM PROCESS ID                               1161937
+  **** **  *******  **  PROGRAM STOPPED IN /data/home2/trushi79/calcdir/cp2k-del
+                                           tascf/calculations/aug-cc-pVQZ/QUEST1
+                                           /roks/pbe/Thioformaldehyde
